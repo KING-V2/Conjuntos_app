@@ -5,93 +5,91 @@
         <h1 class="card-header">Lista casas</h1>
         <div class="card-body">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-xs-12">
-                            <div class="tab-content">
-                                @foreach($casas as $casa)
-                                    <div class="card text-center mb-3">
-                                        <div class="card-header border-bottom">
-                                            <h5 class="card-title">{{ $casa->nombre }}</h5>
-                                            <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                                                <li class="nav-item">
-                                                    <button
-                                                        type="button"
-                                                        class="nav-link active"
-                                                        role="tab"
-                                                        data-bs-toggle="tab"
-                                                        data-bs-target="#navs-tab-propietario-{{$casa->id}}"
-                                                        aria-controls="navs-tab-propietario-{{$casa->id}}"
-                                                        aria-selected="false">
-                                                        Propietario
-                                                    </button>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <button
-                                                        type="button"
-                                                        class="nav-link"
-                                                        role="tab"
-                                                        data-bs-toggle="tab"
-                                                        data-bs-target="#navs-tab-arrendatario-{{$casa->id}}"
-                                                        aria-controls="navs-tab-arrendatario-{{$casa->id}}"
-                                                        aria-selected="true">
-                                                        Arrendatario
-                                                    </button>
-                                                </li>
-                                            </ul>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-xs-12">
+                        <div class="tab-content">
+                            @foreach($casas as $casa)
+                                <div class="card text-center mb-3">
+                                    <div class="card-header border-bottom">
+                                        <h5 class="card-title">{{ $casa->nombre }}</h5>
+                                        <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link active"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#navs-tab-propietario-{{$casa->id}}"
+                                                    aria-controls="navs-tab-propietario-{{$casa->id}}"
+                                                    aria-selected="false">
+                                                    Propietario
+                                                </button>
+                                            </li>
+                                            <li class="nav-item">
+                                                <button
+                                                    type="button"
+                                                    class="nav-link"
+                                                    role="tab"
+                                                    data-bs-toggle="tab"
+                                                    data-bs-target="#navs-tab-arrendatario-{{$casa->id}}"
+                                                    aria-controls="navs-tab-arrendatario-{{$casa->id}}"
+                                                    aria-selected="true">
+                                                    Arrendatario
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade" id="navs-tab-arrendatario-{{$casa->id}}" role="tabpanel">
+                                            @if( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Arrendatario') )
+                                                @foreach( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Arrendatario') as $residente )
+                                                    <h5 class="card-title">{{ $residente->usuario->name }}</h5>
+                                                    @if ( $residente->estado == 'Activo' )
+                                                        <p class="card-text" style="color: green;">Estado: {{ $residente->estado }}</p>
+                                                    @else
+                                                        <p class="card-text" style="color: red;">Estado: {{ $residente->estado }}</p>
+                                                    @endif
+                                                    <hr>
+                                                @endforeach
+                                            @else
+                                                <h3>Sin Arrendatarios</h3>
+                                            @endif
+                                            <button 
+                                                class="btn btn-primary" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#modalResidente" 
+                                                data-conjunto_id="{{ $conjunto->id }}"
+                                                data-casa_id="{{ $casa->id }}"
+                                                data-tipo_residente="Arrendatario">
+                                                Agregar Arrendatario
+                                            </button>
                                         </div>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade" id="navs-tab-arrendatario-{{$casa->id}}" role="tabpanel">
-                                                @if( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Arrendatario') )
-                                                    @foreach( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Arrendatario') as $residente )
-                                                        <h5 class="card-title">{{ $residente->usuario->name }}</h5>
-                                                        @if ( $residente->estado == 'Activo' )
-                                                            <p class="card-text" style="color: green;">Estado: {{ $residente->estado }}</p>
-                                                        @else
-                                                            <p class="card-text" style="color: red;">Estado: {{ $residente->estado }}</p>
-                                                        @endif
-                                                        <hr>
-                                                    @endforeach
-                                                @else
-                                                    <h3>Sin Arrendatarios</h3>
-                                                @endif
-                                                <button 
-                                                    class="btn btn-primary" 
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#modalResidente" 
-                                                    data-conjunto_id="{{ $conjunto->id }}"
-                                                    data-casa_id="{{ $casa->id }}"
-                                                    data-tipo_residente="Arrendatario">
-                                                    Agregar Arrendatario
-                                                </button>
-                                            </div>
-                                            <div class="tab-pane fade show active" id="navs-tab-propietario-{{$casa->id}}" role="tabpanel">
-                                                @if( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Propietario') )
-                                                    @foreach( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Propietario') as $residente )
-                                                        <h5 class="card-title">{{ $residente->usuario->name }}</h5>
-                                                        @if ( $residente->estado == 'Activo' )
-                                                            <p class="card-text" style="color: green;">Estado: {{ $residente->estado }}</p>
-                                                        @else
-                                                            <p class="card-text" style="color: red;">Estado: {{ $residente->estado }}</p>
-                                                        @endif
-                                                        <hr>
-                                                    @endforeach
-                                                @else
-                                                    <h3>Sin Propietario</h3>
-                                                @endif
-                                                <button 
-                                                    class="btn btn-primary" 
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#modalResidente" 
-                                                    data-conjunto_id="{{ $conjunto->id }}"
-                                                    data-casa_id="{{ $casa->id }}"
-                                                    data-tipo_residente="Propietario">
-                                                    Agregar Propietario
-                                                </button>
-                                            </div>
+                                        <div class="tab-pane fade show active" id="navs-tab-propietario-{{$casa->id}}" role="tabpanel">
+                                            @if( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Propietario') )
+                                                @foreach( $residentes->where('casa_id' , $casa->id )->where('tipo_residente' , 'Propietario') as $residente )
+                                                    <h5 class="card-title">{{ $residente->usuario->name }}</h5>
+                                                    @if ( $residente->estado == 'Activo' )
+                                                        <p class="card-text" style="color: green;">Estado: {{ $residente->estado }}</p>
+                                                    @else
+                                                        <p class="card-text" style="color: red;">Estado: {{ $residente->estado }}</p>
+                                                    @endif
+                                                    <hr>
+                                                @endforeach
+                                            @else
+                                                <h3>Sin Propietario</h3>
+                                            @endif
+                                            <button 
+                                                class="btn btn-primary" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#modalResidente" 
+                                                data-conjunto_id="{{ $conjunto->id }}"
+                                                data-casa_id="{{ $casa->id }}"
+                                                data-tipo_residente="Propietario">
+                                                Agregar Propietario
+                                            </button>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
