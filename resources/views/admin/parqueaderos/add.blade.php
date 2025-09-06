@@ -60,8 +60,8 @@
                                         <td>{{ $parqueadero->residente?->bloque?->nombre ?? 'Sin bloque' }}</td>
                                         <td>{{ $parqueadero->residente?->apartamento?->nombre ?? 'Sin apartamento' }}</td>
                                         <td>
-                                            <a href="{{ url('parqueaderos_edit',[ 'id' =>  $parqueadero->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">edit</i></a>
-                                            <!-- <a href="{{ url('parqueaderos_delete',[ 'id' =>  $parqueadero->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este parqueadero?');"><i class="material-icons-outlined">delete</i></a> -->
+                                            <a href="{{ url('parqueaderos_edit',[ 'id' =>  $parqueadero->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
+                                            <!-- <a href="{{ url('parqueaderos_delete',[ 'id' =>  $parqueadero->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este parqueadero?');"><i class="material-icons-outlined">borrar</i></a> -->
                                         </td>
                                     </tr>
                                 @endforeach

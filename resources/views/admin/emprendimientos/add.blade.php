@@ -131,8 +131,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info mb-2" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger mb-2" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info mb-2" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger mb-2" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="material-icons-outlined">visibility</i></a>
                                                     </td>
                                                 </tr>
@@ -173,8 +173,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -215,8 +215,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -257,8 +257,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -299,8 +299,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -341,8 +341,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -383,8 +383,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -425,8 +425,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -467,8 +467,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -509,8 +509,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -551,8 +551,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>
@@ -593,8 +593,8 @@
                                                         <a href="https://wa.me/57{{ $emprendimiento->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">edit</i></a>
-                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">delete</i></a>
+                                                        <a href="{{ url('emprendimiento_edit',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-info" alt="editar"><i class="material-icons-outlined">editar</i></a>
+                                                        <a href="{{ url('emprendimiento_delete',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-danger" alt="eliminar" onclick="return confirm('¿Estás seguro de que deseas eliminar este emprendimiento?');" ><i class="material-icons-outlined">borrar</i></a>
                                                         <a href="{{ url('galeria_emprendimiento',[ 'id' =>  $emprendimiento->id ]) }}" class="btn btn-success" alt="galeria"><i class="fa fa-image"></i></a>
                                                     </td>
                                                 </tr>

@@ -53,8 +53,8 @@
                                         <td>{{ $tarifas->estado }}</td>
                                         <td>{{ $tarifas->valor }}</td>
                                         <td>
-                                            <a href="{{ url('tarifas_conjunto_edit',[ 'id' =>  $tarifas->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Editar tarifas"  class="btn btn-info"><i class="material-icons-outlined">edit</i></a>
-                                            <a href="{{ url('tarifas_conjunto_delete',[ 'id' =>  $tarifas->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Eliminar Visitante" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');"><i class="material-icons-outlined">delete</i></a>
+                                            <a href="{{ url('tarifas_conjunto_edit',[ 'id' =>  $tarifas->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Editar tarifas"  class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
+                                            <a href="{{ url('tarifas_conjunto_delete',[ 'id' =>  $tarifas->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Eliminar Visitante" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');"><i class="material-icons-outlined">borrar</i></a>
                                         </td>
                                     </tr>
                                 @endforeach

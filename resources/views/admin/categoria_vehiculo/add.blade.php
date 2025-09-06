@@ -51,11 +51,11 @@
                                     <td>{{ $categoria_vehiculo->limite }}</td>
                                     <td>{{ $categoria_vehiculo->valor }}</td>
                                     <td>
-                                        <a href="{{ url('categoria_vehiculo_edit', $categoria_vehiculo->id) }}" class="btn btn-warning"> <i class="material-icons-outlined">edit</i> </a>
+                                        <a href="{{ url('categoria_vehiculo_edit', $categoria_vehiculo->id) }}" class="btn btn-warning"> <i class="material-icons-outlined">editar</i> </a>
                                         <form action="{{ url('categoria_vehiculo_delete', []) }}" method="POST" style="display:inline;">
                                             @csrf
                                             <input class="form-control" type="hidden" id="categoria_vehiculo_id" name="categoria_vehiculo_id" placeholder="categoria_vehiculo_id" value="{{$categoria_vehiculo->id}}"/>
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?')"><i class="material-icons-outlined">delete</i></button>
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar esta categoría?')"><i class="material-icons-outlined">borrar</i></button>
                                         </form>
                                     </td>
                                 </tr>

@@ -97,8 +97,8 @@
                                                                 @if($trasteo['estado'] == 'Aprobado')
                                                                     <i class="fa fa-check" style="font-size:22px; color:green;"></i>
                                                                 @else
-                                                                    <a href="{{ url('trasteos_edit', ['id' => $trasteo['id']]) }}" class="btn btn-info mb-2"><i class="material-icons-outlined">edit</i></a>
-                                                                    <!-- <a href="{{ url('trasteos_delete', ['id' => $trasteo['id']]) }}" class="btn btn-danger"><i class="material-icons-outlined">delete</i></a> -->
+                                                                    <a href="{{ url('trasteos_edit', ['id' => $trasteo['id']]) }}" class="btn btn-info mb-2"><i class="material-icons-outlined">editar</i></a>
+                                                                    <!-- <a href="{{ url('trasteos_delete', ['id' => $trasteo['id']]) }}" class="btn btn-danger"><i class="material-icons-outlined">borrar</i></a> -->
                                                                 @endif
                                                             </td>
                                                         </tr>

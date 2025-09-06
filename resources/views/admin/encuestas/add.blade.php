@@ -99,9 +99,9 @@
                                                     <td>{{ $encuesta->tipo_residente }}</td>
                                                     <td>{{ $encuesta->opciones }}</td>
                                                     <td>
-                                                        <div class="col-md-12"><a href="{{ url('encuestas_edit',[ 'id' =>  $encuesta->id ]) }}" class="btn btn-info form-control mb-2"><i class="material-icons-outlined">edit</i></a></div>
-                                                        <!-- <div class="col-md-12"><a href="{{ url('encuestas_delete',[ 'id' =>  $encuesta->id ]) }}" class="btn btn-danger form-control mb-2" onclick="return confirm('¿Estás seguro de que deseas eliminar esta encuesta?');"><i class="material-icons-outlined">delete</i></a></div> -->
-                                                        <div class="col-md-12"><a class="btn btn-success form-control" data-bs-toggle="modal" data-bs-target="#resultadoModal" onclick="mostrarEstadisticas({{ $encuesta->id }});"><i class="material-icons-outlined">visibility</i></a></div>
+                                                        <div class="col-md-12"><a href="{{ url('encuestas_edit',[ 'id' =>  $encuesta->id ]) }}" class="btn btn-info form-control mb-2"><i class="material-icons-outlined">editar</i></a></div>
+                                                        <!-- <div class="col-md-12"><a href="{{ url('encuestas_delete',[ 'id' =>  $encuesta->id ]) }}" class="btn btn-danger form-control mb-2" onclick="return confirm('¿Estás seguro de que deseas eliminar esta encuesta?');"><i class="material-icons-outlined">borrar</i></a></div> -->
+                                                        <div class="col-md-12"><a class="btn btn-success form-control" data-bs-toggle="modal" data-bs-target="#resultadoModal" onclick="mostrarEstadisticas({{ $encuesta->id }});"><i class="material-icons-outlined">Ver</i></a></div>
                                                     </td>
                                                 </tr>
                                             @endforeach

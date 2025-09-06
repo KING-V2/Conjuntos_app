@@ -48,7 +48,7 @@
                                                     <img src="{{ asset('storage/clasificado_galeria').'/'.$clasificado->imagen }}" alt="" width="50%">
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este interior?');"><i class="material-icons-outlined">delete</i></a>
+                                                    <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este interior?');"><i class="material-icons-outlined">borrar</i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

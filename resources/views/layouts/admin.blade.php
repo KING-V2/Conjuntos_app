@@ -110,14 +110,6 @@
                                     </a>
                                 </li>
                                 @endcan
-                                @can('citofonia')
-                                <li class="menu-item">
-                                    <a href="{{ url('citofonia')}}" class="menu-link">
-                                        <i class="menu-icon tf-icons bx bx-phone"></i>
-                                        <div data-i18n="casas">Citofonia</div>
-                                    </a>
-                                </li>
-                                @endcan
                                 @can('usuarios')
                                 <li class="menu-item">
                                     <a href="{{ url('users')}}" class="menu-link">
@@ -139,6 +131,24 @@
                                     <a href="{{ url('parqueaderos')}}" class="menu-link">
                                         <i class="menu-icon tf-icons bx bx-car"></i>
                                         <div data-i18n="Parqueaderos">Parqueaderos</div>
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        <li class="menu-item">
+                            @can('modulo citofonia')
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons fa fa-phone"></i>
+                                <div data-i18n="Citofonia">Citofonia</div>
+                            </a>
+                            @endcan
+                            <ul class="menu-sub">
+                                @can('citofonia')
+                                <li class="menu-item">
+                                    <a href="{{ url('citofonia')}}" class="menu-link">
+                                        <i class="menu-icon tf-icons bx bx-phone"></i>
+                                        <div data-i18n="casas">Citofonia</div>
                                     </a>
                                 </li>
                                 @endcan
@@ -453,7 +463,7 @@
                                                 <form method="POST" action="{{ route('logout') }}">
                                                     @csrf
                                                     <button type="submit" class="nav-link btn btn-link" style="cursor: pointer;">
-                                                        Logout
+                                                        Cerrar sesión
                                                     </button>
                                                 </form>
                                             </li>

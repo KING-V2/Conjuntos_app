@@ -83,8 +83,8 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <a href="{{ url('users_edit',['id' => $user->user_id])}}" class="btn btn-info"><i class="material-icons-outlined">edit</i></a>
-                                            <a href="{{ url('users_delete',['id' => $user->user_id])}}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');"><i class="material-icons-outlined">delete</i></a>
+                                            <a href="{{ url('users_edit',['id' => $user->user_id])}}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
+                                            <a href="{{ url('users_delete',['id' => $user->user_id])}}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');"><i class="material-icons-outlined">borrar</i></a>
                                         </div>
                                     </li>
                                 @endforeach

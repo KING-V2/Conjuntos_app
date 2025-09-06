@@ -87,12 +87,13 @@
 
         <script src="{{ asset('assets/vendor/js/menu.js')}}"></script>
 
-        <script src="{{ asset('assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js') }}"></script>
-        <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+        <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js')}}"></script>
+        <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js')}}"></script>
+        <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js')}}"></script>
 
         <script src="{{ asset('assets/js/main.js')}}"></script>
 
-        <script src="{{ asset('assets/js/dashboards-analytics.js')}}"></script>
+        <script src="{{ asset('assets/js/pages-auth.js')}}"></script>
         @yield('javascripts')
     </body>
 </html>

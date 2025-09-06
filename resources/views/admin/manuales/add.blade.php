@@ -35,8 +35,8 @@
                                             <a href="{{ asset('storage/manual').'/'.$manual->archivo }}" alt="" width="40%">{{$manual->archivo}}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ url('manuales_edit',[ 'id' =>  $manual->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">edit</i></a>
-                                            <a href="{{ url('manuales_delete',[ 'id' =>  $manual->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este manual?');"><i class="material-icons-outlined">delete</i></a>
+                                            <a href="{{ url('manuales_edit',[ 'id' =>  $manual->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
+                                            <a href="{{ url('manuales_delete',[ 'id' =>  $manual->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este manual?');"><i class="material-icons-outlined">borrar</i></a>
                                         </td>
                                     </tr>
                                 @endforeach

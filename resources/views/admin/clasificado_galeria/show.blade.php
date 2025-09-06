@@ -39,8 +39,8 @@
                                         <img src="{{ asset('storage/clasificado_galeria').'/'.$clasificado->imagen }}" alt="" width="50%">
                                     </td>
                                     <td>
-                                        <!-- <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">edit</i></a> -->
-                                        <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger"><i class="material-icons-outlined">delete</i></a>
+                                        <!-- <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a> -->
+                                        <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger"><i class="material-icons-outlined">borrar</i></a>
                                     </td>
                                 </tr>
                             @endforeach

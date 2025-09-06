@@ -65,8 +65,8 @@
                                                             <img src="{{ asset('storage/empleados').'/'.$empleado->foto }}" alt="" width="40%">
                                                         </td>
                                                         <td>
-                                                            <a href="{{ url('empleados_edit',[ 'id' =>  $empleado->id ]) }}" class="btn btn-info mb-2"><i class="material-icons-outlined">edit</i></a>
-                                                            <a href="{{ url('empleados_delete',[ 'id' =>  $empleado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este empleado?');"><i class="material-icons-outlined">delete</i></a>
+                                                            <a href="{{ url('empleados_edit',[ 'id' =>  $empleado->id ]) }}" class="btn btn-info mb-2"><i class="material-icons-outlined">editar</i></a>
+                                                            <a href="{{ url('empleados_delete',[ 'id' =>  $empleado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este empleado?');"><i class="material-icons-outlined">borrar</i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
