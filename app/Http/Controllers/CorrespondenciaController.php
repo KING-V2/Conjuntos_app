@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCorrespondenciaRequest;
 use App\Http\Requests\UpdateCorrespondenciaRequest;
 use App\Models\Correspondencia\Correspondencia;
-use App\Models\Administracion\Bloque;
+use App\Models\Administracion\Casas;
 use App\Models\Administracion\Residente;
+use App\Models\Administracion\Conjunto;
 use Illuminate\Http\Request;
 
 
@@ -18,11 +19,9 @@ class CorrespondenciaController extends Controller
     public function index()
     {
         $correspondencia = Correspondencia::all();
-        $bloques = Bloque::all();
         return view('admin.correspondencia.add',
             [
                 'correspondencias' => $correspondencia,
-                'bloques' => $bloques,
             ]
         );
     }
@@ -300,6 +299,35 @@ class CorrespondenciaController extends Controller
             return response()->json( $th->getMessage() , 500, $header, JSON_UNESCAPED_UNICODE);
         }
     }
+
+    public function correspondenciallenar($cantidad)
+    {
+        for ($i=1; $i < $cantidad; $i++) { 
+            $correspondencia = new Correspondencia();
+            $correspondencia->casa_id = $i;
+            $correspondencia->luz = 0;
+            $correspondencia->agua = 0;
+            $correspondencia->gas = 0;
+            $correspondencia->mensajes = 0;
+            $correspondencia->paquetes = 0;
+            $correspondencia->save();
+        }
+        
+    }
+    
+    public function casasllenar($cantidad)
+    {
+        for ($i=1; $i < $cantidad; $i++) { 
+            $casa = new Casas();
+            $casa->id        = $i;
+            $casa->nombre        = 'Casa '.$i;
+            $casa->codigo        = '0000';
+            $casa->conjunto_id   = Conjunto::first()->id;       
+            $casa->save();
+        }
+        
+    }
+    
 
 
 }
