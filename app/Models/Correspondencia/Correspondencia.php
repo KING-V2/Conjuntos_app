@@ -4,8 +4,7 @@ namespace App\Models\Correspondencia;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Administracion\Apartamento;
-use App\Models\Administracion\Bloque;
+use App\Models\Administracion\Casas;
 
 class Correspondencia extends Model
 {
@@ -32,13 +31,8 @@ class Correspondencia extends Model
         'paquetes'
     ];
 
-    public function apartamento()
+    public function casa()
     {
-        return $this->belongsTo(Apartamento::class);
-    }
-    
-    public function bloque()
-    {
-        return $this->belongsTo(Bloque::class);
+        return $this->belongsTo(Casas::class);
     }
 }

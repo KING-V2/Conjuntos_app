@@ -284,7 +284,7 @@ class CorrespondenciaController extends Controller
         $header = ['Content-Type' => 'application/json','charset' => 'utf-8'];
         $correspondencias = [];
         try {    
-                $corresp = Correspondencia::where('apartamento_id', $id )->first();
+                $corresp = Correspondencia::where('casa_id', $id )->first();
                 $correspondencias = [
                     'id' => $corresp->id,
                     'apartamento' => $corresp->apartamento->nombre,

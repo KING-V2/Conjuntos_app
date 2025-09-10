@@ -32,8 +32,7 @@
                         <thead>
                             <tr>
                                 <th> Id </th>
-                                <th> bloque </th>
-                                <th> apartamento </th>
+                                <th> casa </th>
                                 <th> luz </th>
                                 <th> agua </th>
                                 <th> gas </th>
@@ -46,46 +45,44 @@
                             @foreach( $correspondencias as $correspondencia )
                                 <tr style="text-align: center;">
                                     <td> {{ $correspondencia->id }}</td>
-                                    <td> {{ $correspondencia->bloque->nombre }}</td>
-                                    <td> {{ $correspondencia->apartamento->nombre }}</td>
+                                    <td> {{ $correspondencia->casa->nombre }}</td>
                                     <!-- <td style="width: 120px;" > {{ $correspondencia->luz }} <br> <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'luz')"></i> | <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'luz')"></i> </td> -->
                                     <td style="width: 120px;">
                                         <span id="valor-{{$correspondencia->id}}-luz">{{ $correspondencia->luz }}</span> 
                                         <br>
-                                        <i style="color: green; font-size: 20px;" class="material-icons-outlined" onClick="sumarElemento({{$correspondencia->id}}, 'luz')">add_circle</i> | 
-                                        <i style="color: red; font-size: 20px;" class="material-icons-outlined" onClick="restarElemento({{$correspondencia->id}}, 'luz')">remove_circle</i>
+                                        <i style="color: green; font-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento({{$correspondencia->id}}, 'luz')"></i> | 
+                                        <i style="color: red; font-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento({{$correspondencia->id}}, 'luz')"></i>
                                     </td>
                                     <td style="width: 120px;"> 
                                         <span id="valor-{{$correspondencia->id}}-agua">{{ $correspondencia->agua }}</span>
                                         <br> 
-                                        <i style="color: green; fonts-size: 20px;" class="material-icons-outlined" onClick="sumarElemento( {{$correspondencia->id}} , 'agua')">add_circle</i> | 
-                                        <i style="color: red; fonts-size: 20px;" class="material-icons-outlined" onClick="restarElemento( {{$correspondencia->id}} , 'agua')">remove_circle</i> 
+                                        <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'agua')"></i> | 
+                                        <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'agua')"></i> 
                                     </td>
                                     <td style="width: 120px;"> 
                                         <span id="valor-{{$correspondencia->id}}-gas">{{ $correspondencia->gas }}</span>
                                         <br> 
-                                        <i style="color: green; fonts-size: 20px;" class="material-icons-outlined" onClick="sumarElemento( {{$correspondencia->id}} , 'gas')">add_circle</i> | 
-                                        <i style="color: red; fonts-size: 20px;" class="material-icons-outlined" onClick="restarElemento( {{$correspondencia->id}} , 'gas')">remove_circle</i> 
+                                        <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'gas')"></i> | 
+                                        <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'gas')"></i> 
                                     </td>
                                     <td style="width: 120px;"> 
                                         <span id="valor-{{$correspondencia->id}}-mensajes">{{ $correspondencia->mensajes }}</span>
                                         <br> 
-                                        <i style="color: green; fonts-size: 20px;" class="material-icons-outlined" onClick="sumarElemento( {{$correspondencia->id}} , 'mensajes')">add_circle</i> | 
-                                        <i style="color: red; fonts-size: 20px;" class="material-icons-outlined" onClick="restarElemento( {{$correspondencia->id}} , 'mensajes')">remove_circle</i> 
+                                        <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'mensajes')"></i> | 
+                                        <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'mensajes')"></i> 
                                     </td>
                                     <td style="width: 120px;"> 
                                         <span id="valor-{{$correspondencia->id}}-paquetes">{{ $correspondencia->paquetes }}</span>
                                         <br> 
-                                        <i style="color: green; fonts-size: 20px;" class="material-icons-outlined" onClick="sumarElemento( {{$correspondencia->id}} , 'paquetes')">add_circle</i> | 
-                                        <i style="color: red; fonts-size: 20px;" class="material-icons-outlined" onClick="restarElemento( {{$correspondencia->id}} , 'paquetes')">remove_circle</i> 
+                                        <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'paquetes')"></i> | 
+                                        <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'paquetes')"></i> 
                                     </td>
-                                    <td> <i style="color: red; fonts-size: 25px;" class="material-icons-outlined" onClick="reiniciarElemento( {{$correspondencia->id}} )">delete</i> </td>
+                                    <td> <i style="color: red; fonts-size: 25px;" class="fa-solid fa-circle-minus" onClick="reiniciarElemento( {{$correspondencia->id}} )"> </i> </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
-                
             </div>
         </div>
     </div>
