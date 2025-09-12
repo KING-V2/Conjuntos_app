@@ -7,14 +7,6 @@ use App\Http\Requests\UpdateInformacionConjuntoRequest;
 use Illuminate\Http\Request;
 use App\Models\Administracion\Conjunto;
 use App\Models\Administracion\InformacionConjunto;
-use App\Models\Administracion\Bloque;
-use Illuminate\Support\Facades\Session;
-use App\Models\Administracion\Apartamento;
-use App\Models\Correspondencia\Correspondencia;
-use App\Models\User;
-use Illuminate\Support\Facades\Storage;
-
-
 
 class InformacionConjuntoController extends Controller {
     public function index() {
@@ -29,55 +21,57 @@ class InformacionConjuntoController extends Controller {
     public function store(StoreInformacionConjuntoRequest $request) {    
         try {
             InformacionConjunto::create([
-                'conjunto_id' => Conjunto::first()->id,
-                'dias' => $request->input('dias'),
-                'horas' => $request->input('horas'),
-                'telefonos' => $request->input('telefonos')
+                'conjunto_id'     => Conjunto::first()->id,
+                'dias'            => $request->input('dias'),
+                'texto_horas'     => $request->input('texto_horas'),
+                'texto_adicional' => $request->input('texto_adicional')
             ]);
             return redirect()->route('informacion_conjunto.index')->with('success', 'Información registrada con éxito.');
-        }catch ( \Exception $exception){
-            session()->flash('flash_error_message', $exception->getMessage() );
+        }catch (\Exception $exception){
+            session()->flash('flash_error_message', $exception->getMessage());
         }
         return back()->withInput();
     }
 
-    public function edit(InformacionConjunto $informacionConjunto, $id) {
+    public function edit($id) {
         try {
             $informacionConjunto = InformacionConjunto::findOrFail($id);
             return view('admin.informacion_conjunto.edit', compact('informacionConjunto'));
-        }catch ( \Exception $exception){
-            session()->flash('flash_error_message', $exception->getMessage() );
+        }catch (\Exception $exception){
+            session()->flash('flash_error_message', $exception->getMessage());
         }
         return back()->withInput();
     }
 
-    public function update(UpdateInformacionConjuntoRequest $request, InformacionConjunto $informacionConjunto) {
+    public function update(UpdateInformacionConjuntoRequest $request, $id) {
         try {
-            // Encontrar la información del conjunto asociada
-            $informacionConjunto = InformacionConjunto::first();
-    
-            // Actualizar los valores
-            $informacionConjunto->update($request->all());    
+            $informacionConjunto = InformacionConjunto::findOrFail($id);
+
+            $informacionConjunto->update([
+                'dias'            => $request->input('dias'),
+                'texto_horas'     => $request->input('texto_horas'),
+                'texto_adicional' => $request->input('texto_adicional')
+            ]);
+
             session()->flash('flash_success_message', 'Información actualizada con éxito.');
             return redirect()->route('informacion_conjunto.index');
-    
+
         } catch (\Exception $exception) {
             session()->flash('flash_error_message', $exception->getMessage());
             return back()->withInput();
         }
     }
 
-    public function destroy(InformacionConjunto $informacionConjunto, $id) {
+    public function destroy($id) {
         try {
-            $info = InformacionConjunto::find($id);
+            $info = InformacionConjunto::findOrFail($id);
             $info->delete();
             session()->flash('flash_success_message', 'Información eliminada con éxito.');
             return redirect()->route('informacion_conjunto.index');
-        }catch ( \Exception $exception){
-            session()->flash('flash_error_message', $exception->getMessage() );
+        }catch (\Exception $exception){
+            session()->flash('flash_error_message', $exception->getMessage());
         }
         return back()->withInput();
-        
     }
 
     public function informacion_conjunto() {
@@ -85,12 +79,12 @@ class InformacionConjuntoController extends Controller {
         $info_conjunto_obj  = InformacionConjunto::first();
 
         $info_conjunto = [
-            'dias' => $info_conjunto_obj->dias,
-            'horas' => $info_conjunto_obj->horas,
-            'direccion' => $conjunto->direccion,
-            'nombre' => $conjunto->nombre,
-            'correo' => $conjunto->administrador ? $conjunto->administrador->email : 'N/A',
-            'telefonos' => $info_conjunto_obj->telefonos
+            'dias'            => $info_conjunto_obj->dias,
+            'texto_horas'     => $info_conjunto_obj->texto_horas,
+            'texto_adicional' => $info_conjunto_obj->texto_adicional,
+            'direccion'       => $conjunto->direccion,
+            'nombre'          => $conjunto->nombre,
+            'correo'          => $conjunto->administrador ? $conjunto->administrador->email : 'N/A',
         ];
 
         return response()->json([

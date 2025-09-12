@@ -22,9 +22,9 @@ class UpdateInformacionConjuntoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dias' => 'required|array',
-            'horas' => 'required|array',
-            'telefonos' => 'required|string|max:255',
+           'dias' => 'required|array',
+            'texto_horas' => 'required',
+            'texto_adicional' => 'required|string|max:255'
         ];
     }
 }

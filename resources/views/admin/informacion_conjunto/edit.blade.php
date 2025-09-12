@@ -7,11 +7,17 @@
             <h2 class="mb-0">Editar Información</h2>
         </div>
         <div class="card-body">
-            <form method="post" action="{{ url('informacion_conjunto_update',[]) }}">
+            <form method="post" action="{{ url('informacion_conjunto_update', [$informacionConjunto->id]) }}">
                 @csrf
-                @if (isset($informacionConjunto))
-                    @method('PUT')
-                @endif
+                @method('PUT')
+
+                @php
+                    $diasSeleccionados = is_array($informacionConjunto->dias) 
+                        ? $informacionConjunto->dias 
+                        : json_decode($informacionConjunto->dias, true);
+                    $diasSeleccionados = $diasSeleccionados ?? [];
+                @endphp
+
                 <!-- Días de atención -->
                 <div class="form-group">
                     <label class="form-label">Días de atención</label>
@@ -20,32 +26,24 @@
                             <div class="col-md-4">
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" name="dias[]" value="{{ $dia }}" 
-                                        {{ in_array($dia, $informacionConjunto->dias) ? 'checked' : '' }}>
+                                        {{ in_array($dia, $diasSeleccionados) ? 'checked' : '' }}>
                                     <label class="form-check-label">{{ $dia }}</label>
                                 </div>
                             </div>
                         @endforeach
                     </div>
                 </div>
-                <!-- Horas de atención -->
+
+                <!-- Texto de Horas -->
                 <div class="form-group mt-3">
-                    <label class="form-label">Horas de atención</label>
-                    <div class="row">
-                        @foreach (range(0, 23) as $hora)
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="horas[]" value="{{ $hora }}:00" 
-                                        {{ in_array("$hora:00", $informacionConjunto->horas) ? 'checked' : '' }}>
-                                    <label class="form-check-label">{{ $hora }}:00</label>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    <label class="form-label">Texto de Horas</label>
+                    <textarea name="texto_horas" class="form-control" rows="2" placeholder="Ej: Atención de 8:00 a.m. a 5:00 p.m.">{{ old('texto_horas', $informacionConjunto->texto_horas ?? '') }}</textarea>
                 </div>
-                <!-- Teléfonos de contacto -->
+
+                <!-- Texto Adicional -->
                 <div class="form-group mt-3">
-                    <label class="form-label">Teléfonos de contacto</label>
-                    <input type="text" name="telefonos" class="form-control" value="{{ old('telefonos', $informacionConjunto->telefonos ?? '') }}" placeholder="Ingrese los teléfonos de contacto">
+                    <label class="form-label">Texto Adicional</label>
+                    <textarea name="texto_adicional" class="form-control" rows="3" placeholder="Ej: Cerrado en festivos">{{ old('texto_adicional', $informacionConjunto->texto_adicional ?? '') }}</textarea>
                 </div>
 
                 <!-- Botones -->

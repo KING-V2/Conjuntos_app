@@ -5,9 +5,7 @@
     <div class="card">
         <h1 class="card-header">Información del Conjunto</h1>
         <div class="card-body">
-            @if( $informaciones->isEmpty() )
-                <a href="{{ route('informacion_conjunto.create') }}" class="btn btn-primary">Agregar Información</a>
-            @endif
+            <a href="{{ route('informacion_conjunto.create') }}" class="btn btn-primary">Agregar Información</a>
             <table class="table">
                 <thead>
                     <tr>
@@ -21,11 +19,11 @@
                     @foreach ($informaciones as $info)
                         <tr>
                             <td>{{ implode(', ', $info->dias) }}</td>
-                            <td>{{ implode(', ', $info->horas) }}</td>
-                            <td>{{ $info->telefonos }}</td>
+                            <td>{{ $info->texto_horas }}</td>
+                            <td>{{ $info->texto_adicional }}</td>
                             <td>
-                                <a href="{{ route('informacion_conjunto.edit', $info->id) }}" class="btn btn-warning"><i class="material-icons-outlined">editar</i></a>
-                                <a href="{{ url('informacion_conjunto_delete',[ 'id' =>  $info->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta informacion?');"><i class="material-icons-outlined">borrar</i></a>
+                                <a href="{{ route('informacion_conjunto.edit', $info->id) }}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                <a href="{{ url('informacion_conjunto_delete',[ 'id' =>  $info->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta informacion?');"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach

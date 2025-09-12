@@ -14,12 +14,8 @@
                 @endif
 
                 @php
-                    // Asegurar que los valores sean siempre arrays válidos
                     $diasSeleccionados = isset($informacionConjunto) ? json_decode($informacionConjunto->dias, true) : [];
-                    $horasSeleccionadas = isset($informacionConjunto) ? json_decode($informacionConjunto->horas, true) : [];
-
                     $diasSeleccionados = is_array($diasSeleccionados) ? $diasSeleccionados : [];
-                    $horasSeleccionadas = is_array($horasSeleccionadas) ? $horasSeleccionadas : [];
                 @endphp
 
                 <!-- Días de atención -->
@@ -38,26 +34,16 @@
                     </div>
                 </div>
 
-                <!-- Horas de atención -->
+                <!-- Texto de Horas -->
                 <div class="form-group mb-3">
-                    <label class="form-label">Horas de atención</label>
-                    <div class="row">
-                        @foreach (range(0, 23) as $hora)
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="horas[]" value="{{ $hora }}:00" 
-                                        {{ in_array("$hora:00", $horasSeleccionadas) ? 'checked' : '' }}>
-                                    <label class="form-check-label">{{ $hora }}:00</label>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    <label class="form-label">Texto de Horas</label>
+                    <textarea name="texto_horas" class="form-control" rows="2" placeholder="Ej: Atención de 8:00 a.m. a 5:00 p.m.">{{ old('texto_horas', $informacionConjunto->texto_horas ?? '') }}</textarea>
                 </div>
 
-                <!-- Teléfonos de contacto -->
+                <!-- Texto Adicional -->
                 <div class="form-group mb-3">
-                    <label class="form-label">Teléfonos de contacto</label>
-                    <input type="text" name="telefonos" class="form-control" value="{{ old('telefonos', $informacionConjunto->telefonos ?? '') }}" placeholder="Ingrese los teléfonos de contacto">
+                    <label class="form-label">Texto Adicional</label>
+                    <textarea name="texto_adicional" class="form-control" rows="3" placeholder="Ej: Cerrado en festivos">{{ old('texto_adicional', $informacionConjunto->texto_adicional ?? '') }}</textarea>
                 </div>
 
                 <!-- Botones -->

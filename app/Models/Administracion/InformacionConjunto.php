@@ -14,12 +14,11 @@ class InformacionConjunto extends Model
     protected $fillable = [
         'conjunto_id',
         'dias',
-        'horas',
-        'telefonos'
+        'texto_horas',
+        'texto_adicional'
     ];
 
     protected $casts = [
-        'dias' => 'array',
-        'horas' => 'array',
+        'dias' => 'array'
     ];
 }

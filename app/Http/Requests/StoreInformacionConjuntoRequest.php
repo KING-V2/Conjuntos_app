@@ -23,8 +23,8 @@ class StoreInformacionConjuntoRequest extends FormRequest
     {
         return [
             'dias' => 'required|array',
-            'horas' => 'required|array',
-            'telefonos' => 'required|string|max:255',
+            'texto_horas' => 'required',
+            'texto_adicional' => 'required|string|max:255',
         ];
     }
 }
