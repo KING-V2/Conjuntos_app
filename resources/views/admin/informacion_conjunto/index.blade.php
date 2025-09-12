@@ -18,7 +18,7 @@
                 <tbody>
                     @foreach ($informaciones as $info)
                         <tr>
-                            <td>{{ implode(', ', $info->dias) }}</td>
+                            <td>{{ $info->dias }}</td>
                             <td>{{ $info->texto_horas }}</td>
                             <td>{{ $info->texto_adicional }}</td>
                             <td>

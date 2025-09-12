@@ -22,7 +22,7 @@ class StoreInformacionConjuntoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dias' => 'required|array',
+            'dias' => 'required',
             'texto_horas' => 'required',
             'texto_adicional' => 'required|string|max:255',
         ];

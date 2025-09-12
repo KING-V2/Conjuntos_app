@@ -11,27 +11,10 @@
                 @csrf
                 @method('PUT')
 
-                @php
-                    $diasSeleccionados = is_array($informacionConjunto->dias) 
-                        ? $informacionConjunto->dias 
-                        : json_decode($informacionConjunto->dias, true);
-                    $diasSeleccionados = $diasSeleccionados ?? [];
-                @endphp
-
                 <!-- Días de atención -->
                 <div class="form-group">
                     <label class="form-label">Días de atención</label>
-                    <div class="row">
-                        @foreach (['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] as $dia)
-                            <div class="col-md-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="dias[]" value="{{ $dia }}" 
-                                        {{ in_array($dia, $diasSeleccionados) ? 'checked' : '' }}>
-                                    <label class="form-check-label">{{ $dia }}</label>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                    <textarea name="dias" class="form-control" rows="2" placeholder="Ej: Lunes a Viernes, Sábados medio día">{{ old('dias', $informacionConjunto->dias ?? '') }}</textarea>
                 </div>
 
                 <!-- Texto de Horas -->

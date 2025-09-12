@@ -17,8 +17,4 @@ class InformacionConjunto extends Model
         'texto_horas',
         'texto_adicional'
     ];
-
-    protected $casts = [
-        'dias' => 'array'
-    ];
 }

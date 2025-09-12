@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInformacionConjuntoRequest;
 use App\Http\Requests\UpdateInformacionConjuntoRequest;
-use Illuminate\Http\Request;
 use App\Models\Administracion\Conjunto;
 use App\Models\Administracion\InformacionConjunto;
 
