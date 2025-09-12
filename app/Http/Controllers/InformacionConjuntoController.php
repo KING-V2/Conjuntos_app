@@ -73,21 +73,27 @@ class InformacionConjuntoController extends Controller {
         return back()->withInput();
     }
 
-    public function informacion_conjunto() {
-        $conjunto           = Conjunto::first();
-        $info_conjunto_obj  = InformacionConjunto::first();
+    public function informacion_conjunto()
+    {
+        $conjunto = Conjunto::with('administrador')->first();
+        $horarios = InformacionConjunto::all()->map(function ($info) {
+            return [
+                'dias'            => $info->dias,
+                'texto_horas'     => $info->texto_horas,
+                'texto_adicional' => $info->texto_adicional,
+            ];
+        });
 
-        $info_conjunto = [
-            'dias'            => $info_conjunto_obj->dias,
-            'texto_horas'     => $info_conjunto_obj->texto_horas,
-            'texto_adicional' => $info_conjunto_obj->texto_adicional,
-            'direccion'       => $conjunto->direccion,
-            'nombre'          => $conjunto->nombre,
-            'correo'          => $conjunto->administrador ? $conjunto->administrador->email : 'N/A',
-        ];
+        $info_conjunto = $conjunto ? [
+            'direccion' => $conjunto->direccion,
+            'nombre'    => $conjunto->nombre,
+            'correo'    => $conjunto->administrador?->email ?? 'N/A',
+        ] : [];
 
         return response()->json([
-            'info_conjunto' => $info_conjunto
+            'info_conjunto'    => $info_conjunto,
+            'horarios_conjunto'=> $horarios,
         ]);
     }
+
 }

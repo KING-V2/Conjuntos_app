@@ -41,8 +41,8 @@
                                             <img src="{{ asset('storage/galeria_conjunto').'/'.$galeria->imagen }}" alt="imagen" width="200px;">
                                         </td>
                                         <td>
-                                            <a href="{{ url('galeria_conjunto_edit',[ 'id' =>  $galeria->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                            <a href="{{ url('galeria_conjunto_delete',[ 'id' =>  $galeria->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este elemento?');"><i class="material-icons-outlined">borrar</i></a>
+                                            <a href="{{ url('galeria_conjunto_edit',[ 'id' =>  $galeria->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ url('galeria_conjunto_delete',[ 'id' =>  $galeria->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este elemento?');"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
