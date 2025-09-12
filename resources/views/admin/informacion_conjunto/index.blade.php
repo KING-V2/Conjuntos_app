@@ -11,7 +11,7 @@
                     <tr>
                         <th>Días</th>
                         <th>Horas</th>
-                        <th>Teléfonos</th>
+                        <th>Descripcion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
