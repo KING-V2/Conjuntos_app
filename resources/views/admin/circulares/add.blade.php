@@ -84,8 +84,8 @@
                                                             {{ $circular->updated_at }}
                                                         </td>
                                                         <td>
-                                                            <a href="{{ url('circulares_edit',[ 'id' =>  $circular->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                                            <a href="{{ url('circulares_delete',[ 'id' =>  $circular->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta circular?');"><i class="material-icons-outlined">borrar</i></a>
+                                                            <a href="{{ url('circulares_edit',[ 'id' =>  $circular->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                            <a href="{{ url('circulares_delete',[ 'id' =>  $circular->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta circular?');"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
