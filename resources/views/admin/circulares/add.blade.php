@@ -37,64 +37,62 @@
             </form>
             <hr>
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card text-center mb-3">
-                        <div class="card-header border-bottom">
-                            <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                                @foreach($meses as $mes)
-                                    <li class="nav-item">
-                                        <button type="button" class="nav-link {{ $loop->index == 0 ? 'active' : ''}}" role="tab" data-bs-toggle="tab" data-bs-target="#navs-tab-{{strtolower($mes)}}" aria-controls="navs-tab-{{strtolower($mes)}}" aria-selected="true">{{$mes}}</button>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <div class="tab-content">
-                            @foreach($meses as $mes_actual)
-                                <div class="tab-pane fade {{ $loop->index == 0 ? 'show active' : '' }}" id="navs-tab-{{ strtolower($mes_actual)}}" role="tabpanel">
-                                    <div class="card-datatable table-responsive pt-0">
-                                        <table class="table table-bordered" style="overflow-x: auto;">
-                                            <thead>
-                                                <tr>
-                                                    <th> Id </th>
-                                                    <th> Mes </th>
-                                                    <th> Titulo </th>
-                                                    <th> Archivo </th>
-                                                    <th> Descripcion </th>
-                                                    <th> Publicacion</th>
-                                                    <th> Actualizacion</th>
-                                                    <th> Opciones </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach( $circulares->where('mes', $mes_actual ) as $circular )
-                                                    <tr>
-                                                        <td>{{ $circular->id }}</td>
-                                                        <td>{{ $circular->mes }}</td>
-                                                        <td>{{ $circular->titulo }}</td>
-                                                        <td>
-                                                            <a href="{{ asset('storage/circulares').'/'.$circular->archivo }}" alt="" width="40%">{{$circular->archivo}}</a>
-                                                        </td>
-                                                        <td>
-                                                            <p>{{$circular->descripcion }}</p>
-                                                        </td>
-                                                        <td>
-                                                            {{ $circular->created_at }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $circular->updated_at }}
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ url('circulares_edit',[ 'id' =>  $circular->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                                                            <a href="{{ url('circulares_delete',[ 'id' =>  $circular->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta circular?');"><i class="fa fa-trash"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                <div class="card text-center mb-3">
+                    <div class="card-header border-bottom">
+                        <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                            @foreach($meses as $mes)
+                                <li class="nav-item">
+                                    <button type="button" class="nav-link {{ $loop->index == 0 ? 'active' : ''}}" role="tab" data-bs-toggle="tab" data-bs-target="#navs-tab-{{strtolower($mes)}}" aria-controls="navs-tab-{{strtolower($mes)}}" aria-selected="true">{{$mes}}</button>
+                                </li>
                             @endforeach
-                        </div>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        @foreach($meses as $mes_actual)
+                            <div class="tab-pane fade {{ $loop->index == 0 ? 'show active' : '' }}" id="navs-tab-{{ strtolower($mes_actual)}}" role="tabpanel">
+                                <div class="card-datatable table-responsive pt-0">
+                                    <table class="table table-bordered" style="overflow-x: auto;">
+                                        <thead>
+                                            <tr>
+                                                <th> Id </th>
+                                                <th> Mes </th>
+                                                <th> Titulo </th>
+                                                <th> Archivo </th>
+                                                <th> Descripcion </th>
+                                                <th> Publicacion</th>
+                                                <th> Actualizacion</th>
+                                                <th> Opciones </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach( $circulares->where('mes', $mes_actual ) as $circular )
+                                                <tr>
+                                                    <td>{{ $circular->id }}</td>
+                                                    <td>{{ $circular->mes }}</td>
+                                                    <td>{{ $circular->titulo }}</td>
+                                                    <td>
+                                                        <a href="{{ asset('storage/circulares').'/'.$circular->archivo }}" alt="" width="40%">{{$circular->archivo}}</a>
+                                                    </td>
+                                                    <td>
+                                                        <p>{{$circular->descripcion }}</p>
+                                                    </td>
+                                                    <td>
+                                                        {{ $circular->created_at }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $circular->updated_at }}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ url('circulares_edit',[ 'id' =>  $circular->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                        <a href="{{ url('circulares_delete',[ 'id' =>  $circular->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta circular?');"><i class="fa fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
