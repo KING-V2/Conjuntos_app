@@ -272,9 +272,8 @@ class ResidenteController extends Controller
         try {
             $lista_residentes = Residente::with(['usuario', 'casas','parqueadero'])->where('usuario_id',$id)->get();
             
-            $conjunto = Conjunto::first();
-
             $residentes = $lista_residentes->map(function ($residente) {
+                $conjunto = Conjunto::first();
                 return [
                     'residente' => $residente->usuario->name ?? '',
                     'email' => $residente->usuario->email,
