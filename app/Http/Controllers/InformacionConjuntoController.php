@@ -42,7 +42,7 @@ class InformacionConjuntoController extends Controller {
         return back()->withInput();
     }
 
-    public function update(UpdateInformacionConjuntoRequest $request, $id) {
+    public function update(UpdateInformacionConjuntoRequest $request) {
         try {
             $informacionConjunto = InformacionConjunto::findOrFail($request->input('informacion_conjunto_id'));
 
