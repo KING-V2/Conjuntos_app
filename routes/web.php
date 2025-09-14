@@ -174,7 +174,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/informacion_conjunto_create', [InformacionConjuntoController::class, 'create'])->name('informacion_conjunto.create');
     Route::post('/informacion_conjunto_store', [InformacionConjuntoController::class, 'store'])->name('informacion_conjunto.store');
     Route::get('/informacion_conjunto/{id}/edit', [InformacionConjuntoController::class, 'edit'])->name('informacion_conjunto.edit');
-    Route::put('/informacion_conjunto_update', [InformacionConjuntoController::class, 'update'])->name('informacion_conjunto.update');
+    Route::post('/informacion_conjunto_update', [InformacionConjuntoController::class, 'update'])->name('informacion_conjunto.update');
     Route::get('/informacion_conjunto_delete/{id}', [InformacionConjuntoController::class, 'destroy'])->name('informacion_conjunto.destroy');
 
 
