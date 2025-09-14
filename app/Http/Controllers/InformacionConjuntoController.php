@@ -44,7 +44,7 @@ class InformacionConjuntoController extends Controller {
 
     public function update(UpdateInformacionConjuntoRequest $request, $id) {
         try {
-            $informacionConjunto = InformacionConjunto::findOrFail($id);
+            $informacionConjunto = InformacionConjunto::findOrFail($request->input('informacion_conjunto_id'));
 
             $informacionConjunto->update([
                 'dias'            => $request->input('dias'),

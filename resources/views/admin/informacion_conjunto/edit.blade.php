@@ -7,9 +7,9 @@
             <h2 class="mb-0">Editar Información</h2>
         </div>
         <div class="card-body">
-            <form method="post" action="{{ url('informacion_conjunto_update', [$informacionConjunto->id]) }}">
-                @csrf
-                @method('PUT')
+            <form method="post" action="{{ url('informacion_conjunto_update', []) }}">
+                <input class="form-control" type="hidden" id="informacion_conjunto_id" name="informacion_conjunto_id" value="{{$informacionConjunto->id}}" />
+                {{ csrf_field() }}
 
                 <!-- Días de atención -->
                 <div class="form-group">
