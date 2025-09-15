@@ -131,9 +131,26 @@ class ManualController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Manual $manual)
+    public function destroy($id)
     {
-        //
+        if ($id > 0) {
+            try {
+                $manual = Manual::find( $id );
+                if( $manual->delete() ){
+                    session()->flash('flash_success_message', 'eliminado correctamente');
+                }
+                else
+                {
+                    session()->flash('flash_error_message', 'Ocurrió un error eliminando el registro');
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
+                session()->flash('flash_error_message', $th->getMessage());
+            }
+        }else{
+            session()->flash('flash_error_message', 'No existe');
+        }
+        return redirect('manuales');
     }
 
     public function getManual()
