@@ -40,8 +40,7 @@ class TrasteosController extends Controller
         $trasteosPorMes[$mesNombre][] = [
             'id' => $value->id,
             'solicitante' => $value->usuario->name,
-            'apartamento' => $residente->apartamento->nombre ?? 'N/A',
-            'bloque' => $residente->bloque->nombre ?? 'N/A',
+            'casa' => $residente->casas->nombre ?? 'N/A',
             'mes' => $mesNombre,
             'fecha' => $value->fecha,
             'hora' => $value->hora,

@@ -4,7 +4,7 @@
     <div class="card">
         <h5 class="card-header">Solicitud Trasteo Administración</h5>
         <div class="card-body">
-        <form method="post" action="{{ url('cargar_trasteos',[]) }}">
+            <form method="post" action="{{ url('cargar_trasteos',[]) }}">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
@@ -69,8 +69,7 @@
                                                     <tr>
                                                         <th>Id</th>
                                                         <th>Solicitante</th>
-                                                        <th>Bloque</th>
-                                                        <th>Apartamento</th>
+                                                        <th>Casa</th>
                                                         <th>Fecha</th>
                                                         <th>Hora</th>
                                                         <th>Descripción</th>
@@ -85,8 +84,7 @@
                                                         <tr>
                                                             <td>{{ $trasteo['id'] }}</td>
                                                             <td>{{ $trasteo['solicitante'] }}</td>
-                                                            <td>{{ $trasteo['bloque'] }}</td>
-                                                            <td>{{ $trasteo['apartamento'] }}</td>
+                                                            <td>{{ $trasteo['casa'] }}</td>
                                                             <td>{{ $trasteo['fecha'] }}</td>
                                                             <td>{{ $trasteo['hora'] }}</td>
                                                             <td>{{ $trasteo['descripcion'] }}</td>
@@ -97,8 +95,7 @@
                                                                 @if($trasteo['estado'] == 'Aprobado')
                                                                     <i class="fa fa-check" style="font-size:22px; color:green;"></i>
                                                                 @else
-                                                                    <a href="{{ url('trasteos_edit', ['id' => $trasteo['id']]) }}" class="btn btn-info mb-2"><i class="material-icons-outlined">editar</i></a>
-                                                                    <!-- <a href="{{ url('trasteos_delete', ['id' => $trasteo['id']]) }}" class="btn btn-danger"><i class="material-icons-outlined">borrar</i></a> -->
+                                                                    <a href="{{ url('trasteos_edit', ['id' => $trasteo['id']]) }}" class="btn btn-info mb-2"><i class="fa fa-pencil"></i></a>
                                                                 @endif
                                                             </td>
                                                         </tr>
