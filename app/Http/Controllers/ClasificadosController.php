@@ -6,7 +6,7 @@ use App\Http\Requests\StoreClasificadosRequest;
 use App\Http\Requests\UpdateClasificadosRequest;
 use App\Models\Emprendimientos\Clasificados;
 use App\Models\Emprendimientos\ClasificadoGaleria;
-use App\Models\Administracion\Bloque;
+use App\Models\Administracion\Casas;
 use App\Models\Administracion\Apartamento;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,11 +21,11 @@ class ClasificadosController extends Controller
     {
         try {
             $clasificados = Clasificados::all();
-            $bloques = Bloque::all();
+            $casas = Casas::all();
             return view('admin.clasificados.add',
                 [
                     'clasificados' => $clasificados,
-                    'bloques' => $bloques,
+                    'casas' => $casas,
                 ]
             );
         }catch ( \Exception $exception){
@@ -49,7 +49,7 @@ class ClasificadosController extends Controller
     {
         try {
             $clasificados = new Clasificados();
-            $clasificados->apartamento_id   = $request->input('apartamento_id');
+            $clasificados->casa_id   = $request->input('casa_id');
             $clasificados->estado           = $request->input('estado');
             $clasificados->descripcion      = $request->input('descripcion');
             $clasificados->adicional        = $request->input('adicional');
@@ -84,11 +84,11 @@ class ClasificadosController extends Controller
     {
         try{
             $clasificado = Clasificados::findOrFail( $id );
-            $apartamentos = Apartamento::all();
+            $casas = Casas::all();
             return view('admin.clasificados.edit',
                 [
                     'clasificado' => $clasificado,
-                    'apartamentos' => $apartamentos
+                    'casas' => $casas
                 ]
             );
 
@@ -105,7 +105,7 @@ class ClasificadosController extends Controller
     {
         try {
             $clasificados = Clasificados::findOrFail( $request->input('clasificado_id') );
-            $clasificados->apartamento_id   = $request->input('apartamento_id');
+            $clasificados->casa_id   = $request->input('casa_id');
             $clasificados->estado           = $request->input('estado');
             $clasificados->descripcion      = $request->input('descripcion');      
             $clasificados->adicional        = $request->input('adicional');
@@ -159,7 +159,7 @@ class ClasificadosController extends Controller
             [
                 'id' => $value->id,
                 'apartamento' => $value->apartamento->nombre,
-                'bloque' => $value->apartamento->bloque->nombre,
+                'casa' => $value->casa->nombre,
                 'estado' => $value->estado,
                 'descripcion' => $value->descripcion,
                 'adicional' => $value->adicional,
