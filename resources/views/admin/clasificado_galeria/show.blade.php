@@ -34,7 +34,7 @@
                             @foreach( $galeria as $clasificado )
                                 <tr>
                                     <td>{{ $clasificado->id }}</td>
-                                    <td>{{ $clasificado->clasificado->aparcasatamento->nombre }}</td>
+                                    <td>{{ $clasificado->clasificado->casa->nombre }}</td>
                                     <td>
                                         <img src="{{ asset('storage/clasificado_galeria').'/'.$clasificado->imagen }}" alt="" width="50%">
                                     </td>

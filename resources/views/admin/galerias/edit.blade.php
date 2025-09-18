@@ -5,8 +5,8 @@
         <h5 class="card-header">Edicion Galeria</h5>
         <div class="card-body">
             <form method="post" action="{{ url('galeria_conjunto_update',[]) }}" enctype="multipart/form-data">
-            <input class="form-control" type="hidden" id="id_galeria" name="id_galeria" value="{{$galeria->id}}" />
                 {{ csrf_field() }}
+                <input class="form-control" type="hidden" id="id_galeria" name="id_galeria" value="{{$galeria->id}}" />
                 <div class="row">
                     <div class="col-sm-12 col-md-4">
                         <label for="form" class="form-label">descripcion</label>

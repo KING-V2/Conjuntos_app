@@ -22,16 +22,13 @@
                     </div>
                 </div>
                 <br>
-                <button class="btn btn-success">Cargar</button>
+                <button class="btn btn-success">Actualizar</button>
             </form>
             <hr>
             <div class="mb-12">
-                <a href="{{ url('apartamentos')}}" class="btn btn-danger">Cancelar</a>
+                <a href="{{ url('actividades')}}" class="btn btn-danger">Cancelar</a>
             </div>
         </div>
     </div>
 </div>
-@endsection
-@section('javascripts')
-    <script src="{{ asset('assets/js/audios/audios.js') }}"></script>
 @endsection

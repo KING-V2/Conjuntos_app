@@ -68,8 +68,8 @@
                                                         <p>{{$actividad->updated_at ?? '-' }}</p>
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('actividades_edit',[ 'id' =>  $actividad->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                                        <a href="{{ url('actividades_delete',[ 'id' =>  $actividad->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta actividad?');"><i class="material-icons-outlined">borrar</i></a>
+                                                        <a href="{{ url('actividades_edit',[ 'id' =>  $actividad->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                        <a href="{{ url('actividades_delete',[ 'id' =>  $actividad->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta actividad?');"><i class="fa fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

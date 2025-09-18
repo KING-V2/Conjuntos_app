@@ -7,8 +7,7 @@
         data-theme="theme-default"
         data-assets-path="{{asset('assets')}}/"
         data-path="{{url('/')}}"
-        data-template="vertical-menu-template-no-customizer"
->
+        data-template="vertical-menu-template-no-customizer">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
@@ -131,6 +130,14 @@
                                     <a href="{{ url('parqueaderos')}}" class="menu-link">
                                         <i class="menu-icon tf-icons bx bx-car"></i>
                                         <div data-i18n="Parqueaderos">Parqueaderos</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('actividades')
+                                <li class="menu-item">
+                                    <a href="{{ url('actividades')}}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-check"></i>
+                                        <div data-i18n="actividades">Actividades</div>
                                     </a>
                                 </li>
                                 @endcan
