@@ -8,11 +8,11 @@
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <label for="form" class="form-label">Apartamento Clasificado</label>
+                        <label for="form" class="form-label">Casa Clasificado</label>
                         <select class="form-control" name="clasificado_id" id="clasificado_id">
                             <option value="">-- Seleccione --</option>
                             @foreach( $clasificados as $clasificado )
-                                <option value="{{$clasificado->id }}">{{$clasificado->apartamento->nombre }}</option>
+                                <option value="{{$clasificado->id }}">{{$clasificado->casa->nombre }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -43,12 +43,12 @@
                                         @foreach( $galeria as $clasificado )
                                             <tr>
                                                 <td>{{ $clasificado->id }}</td>
-                                                <td>{{ $clasificado->clasificado->apartamento->nombre }}</td>
+                                                <td>{{ $clasificado->clasificado->casa->nombre }}</td>
                                                 <td>
                                                     <img src="{{ asset('storage/clasificado_galeria').'/'.$clasificado->imagen }}" alt="" width="50%">
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este interior?');"><i class="material-icons-outlined">borrar</i></a>
+                                                    <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este interior?');"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach

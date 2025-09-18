@@ -25,7 +25,7 @@ class StoreClasificadosRequest extends FormRequest
             'estado' => 'required',
             'foto' => 'required',
             'descripcion' => 'required',
-            'apartamento_id' => 'required'
+            'casa_id' => 'required'
         ];
     }
 }

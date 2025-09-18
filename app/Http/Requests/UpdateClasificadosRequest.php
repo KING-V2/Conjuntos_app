@@ -25,7 +25,7 @@ class UpdateClasificadosRequest extends FormRequest
             'clasificado_id' => 'required',
             'estado' => 'required',
             'descripcion' => 'required',
-            'apartamento_id' => 'required',
+            'casa_id' => 'required',
         ];
     }
 }

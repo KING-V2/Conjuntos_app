@@ -84,9 +84,9 @@
                                                             <img src="{{ asset('storage/clasificados').'/'.$clasificado->foto }}" alt="" width="400px;">
                                                         </td>
                                                         <td>
-                                                            <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                                            <a href="{{ url('clasificados_borrar',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este clasificado?');"><i class="material-icons-outlined">borrar</i></a>
-                                                            <a href="{{ url('galeria_de_clasificado',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-success"><i class="material-icons-outlined">visibility</i></a>
+                                                            <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                            <a href="{{ url('clasificados_borrar',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este clasificado?');"><i class="fa fa-trash"></i></a>
+                                                            <a href="{{ url('galeria_de_clasificado',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -124,8 +124,8 @@
                                                         <img src="{{ asset('storage/clasificados').'/'.$clasificado->foto }}" alt="" width="400px;">
                                                     </td>
                                                     <td>
-                                                        <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                                        <a href="{{ url('clasificados_borrar',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger"><i class="material-icons-outlined">borrar</i></a>
+                                                        <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                        <a href="{{ url('clasificados_borrar',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                         <a href="{{ url('galeria_de_clasificado',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                                     </td>
                                                 </tr>

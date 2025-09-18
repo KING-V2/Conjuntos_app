@@ -4,7 +4,7 @@ namespace App\Models\Emprendimientos;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Administracion\Apartamento;
+use App\Models\Administracion\Casas;
 
 class Clasificados extends Model
 {
@@ -23,15 +23,15 @@ class Clasificados extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'apartamento_id',
+        'casa_id',
         'descripcion',
         'foto',
         'estado',
         'adicional'
     ];
 
-    public function apartamento()
+    public function casa()
     {
-        return $this->belongsTo(Apartamento::class);
+        return $this->belongsTo(Casas::class);
     }
 }
