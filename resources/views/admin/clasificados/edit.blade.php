@@ -9,11 +9,11 @@
                 <input class="form-control" type="hidden" id="clasificado_id" name="clasificado_id" value="{{ $clasificado->id }}"/>
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">Apartamento</label>
-                        <select class="form-control" name="apartamento_id" id="apartamento_id">
+                        <label for="form" class="form-label">Casas</label>
+                        <select class="form-control" name="casa_id" id="casa_id">
                             <option value="">-- Seleccione --</option>
-                            @foreach( $apartamentos as $apartamento )
-                                <option value="{{$apartamento->id }}" {{ $clasificado->apartamento->id == $apartamento->id ? 'selected' : '' }}>{{$apartamento->nombre}}</option>
+                            @foreach( $casas as $casa )
+                                <option value="{{$casa->id }}" {{ $clasificado->casa->id == $casa->id ? 'selected' : '' }}>{{$casa->nombre}}</option>
                             @endforeach
                         </select>
                     </div>
