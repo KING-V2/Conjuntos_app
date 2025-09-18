@@ -34,13 +34,13 @@
                             @foreach( $galeria as $clasificado )
                                 <tr>
                                     <td>{{ $clasificado->id }}</td>
-                                    <td>{{ $clasificado->clasificado->apartamento->nombre }}</td>
+                                    <td>{{ $clasificado->clasificado->aparcasatamento->nombre }}</td>
                                     <td>
                                         <img src="{{ asset('storage/clasificado_galeria').'/'.$clasificado->imagen }}" alt="" width="50%">
                                     </td>
                                     <td>
                                         <!-- <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a> -->
-                                        <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger"><i class="material-icons-outlined">borrar</i></a>
+                                        <a href="{{ url('clasificado_galeria_delete',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
