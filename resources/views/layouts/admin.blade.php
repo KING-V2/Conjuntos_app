@@ -133,14 +133,6 @@
                                     </a>
                                 </li>
                                 @endcan
-                                @can('actividades')
-                                <li class="menu-item">
-                                    <a href="{{ url('actividades')}}" class="menu-link">
-                                        <i class="menu-icon tf-icons fa fa-check"></i>
-                                        <div data-i18n="actividades">Actividades</div>
-                                    </a>
-                                </li>
-                                @endcan
                             </ul>
                         </li>
                         <li class="menu-item">
@@ -156,6 +148,24 @@
                                     <a href="{{ url('citofonia')}}" class="menu-link">
                                         <i class="menu-icon tf-icons bx bx-phone"></i>
                                         <div data-i18n="casas">Citofonia</div>
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        <li class="menu-item">
+                            @can('modulo actividades')
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons fa fa-check"></i>
+                                <div data-i18n="actividades">Actividades</div>
+                            </a>
+                            @endcan
+                            <ul class="menu-sub">
+                                @can('actividades')
+                                <li class="menu-item">
+                                    <a href="{{ url('actividades')}}" class="menu-link">
+                                        <i class="menu-icon tf-icons bx bx-check"></i>
+                                        <div data-i18n="casas">actividades</div>
                                     </a>
                                 </li>
                                 @endcan
