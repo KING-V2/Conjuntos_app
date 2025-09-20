@@ -109,4 +109,4 @@ Route::get('/getBloquesApi', [App\Http\Controllers\BloqueController::class, 'get
 
 //apis actividades
 Route::get('/getActividades/{mes}', [App\Http\Controllers\ActividadesController::class, 'getActividades']);
-Route::post('/saveActividades', [App\Http\Controllers\ActividadesController::class, 'saveActividade']);
+Route::post('/saveActividades', [App\Http\Controllers\ActividadesController::class, 'saveActividades']);

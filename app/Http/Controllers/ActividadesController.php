@@ -112,7 +112,7 @@ class ActividadesController extends Controller
         return response()->json($actividades);
     }
 
-    public function saveActividade(Request $request)
+    public function saveActividades(Request $request)
     {
         Carbon::setLocale('es');
         $mes = Carbon::now()->translatedFormat('F');
