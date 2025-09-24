@@ -98,6 +98,7 @@ function reiniciarElemento(id)
                 document.getElementById(`valor-${id}-agua`).innerText = 0;
                 document.getElementById(`valor-${id}-gas`).innerText = 0;
                 document.getElementById(`valor-${id}-mensajes`).innerText = 0;
+                document.getElementById(`valor-${id}-domiciliario`).innerText = 0;
                 document.getElementById(`valor-${id}-paquetes`).innerText = 0;
 
                 alert(response.message);

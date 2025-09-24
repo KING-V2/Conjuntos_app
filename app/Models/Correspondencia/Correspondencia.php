@@ -28,6 +28,7 @@ class Correspondencia extends Model
         'agua',
         'gas',
         'mensajes',
+        'domiciliario',
         'paquetes'
     ];
 

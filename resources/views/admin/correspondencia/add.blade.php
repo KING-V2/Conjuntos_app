@@ -31,22 +31,20 @@
                     <table class="table table-bordered" style="overflow-x: auto; font-size: 18px;">
                         <thead>
                             <tr>
-                                <th> Id </th>
                                 <th> casa </th>
                                 <th> luz </th>
                                 <th> agua </th>
                                 <th> gas </th>
                                 <th> mensajes </th>
+                                <th> domiciliario </th>
                                 <th> paquetes </th>
-                                <th> Reiniciar </th>
+                                <th> vaciar </th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach( $correspondencias as $correspondencia )
                                 <tr style="text-align: center;">
-                                    <td> {{ $correspondencia->id }}</td>
                                     <td> {{ $correspondencia->casa->nombre }}</td>
-                                    <!-- <td style="width: 120px;" > {{ $correspondencia->luz }} <br> <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'luz')"></i> | <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'luz')"></i> </td> -->
                                     <td style="width: 120px;">
                                         <span id="valor-{{$correspondencia->id}}-luz">{{ $correspondencia->luz }}</span> 
                                         <br>
@@ -70,6 +68,12 @@
                                         <br> 
                                         <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'mensajes')"></i> | 
                                         <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'mensajes')"></i> 
+                                    </td>
+                                    <td style="width: 120px;"> 
+                                        <span id="valor-{{$correspondencia->id}}-domiciliario">{{ $correspondencia->domiciliario }}</span>
+                                        <br> 
+                                        <i style="color: green; fonts-size: 20px;" class="fa-solid fa-circle-plus" onClick="sumarElemento( {{$correspondencia->id}} , 'domiciliario')"></i> | 
+                                        <i style="color: red; fonts-size: 20px;" class="fa-solid fa-circle-minus" onClick="restarElemento( {{$correspondencia->id}} , 'domiciliario')"></i> 
                                     </td>
                                     <td style="width: 120px;"> 
                                         <span id="valor-{{$correspondencia->id}}-paquetes">{{ $correspondencia->paquetes }}</span>

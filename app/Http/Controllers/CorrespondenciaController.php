@@ -106,6 +106,12 @@ class CorrespondenciaController extends Controller
                     $json = json_encode( $request->all() );
                     log_evento('Correspondencia Sumar mensajes', $json);
                     break;
+                case 'domiciliario':
+                    $correspondencia->domiciliario = $correspondencia->domiciliario +1;
+                    $correspondencia->save();
+                    $json = json_encode( $request->all() );
+                    log_evento('Correspondencia Sumar domiciliario', $json);
+                    break;
                 case 'paquetes':
                     $correspondencia->paquetes = $correspondencia->paquetes +1;
                     $correspondencia->save();
@@ -157,6 +163,12 @@ class CorrespondenciaController extends Controller
                     $json = json_encode( $request->all() );
                     log_evento('Correspondencia Restar mensajes', $json);
                     break;
+                case 'domiciliario':
+                    $correspondencia->domiciliario > 0 ? ($correspondencia->domiciliario = $correspondencia->domiciliario -1) : $correspondencia->domiciliario = 0;
+                    $correspondencia->save();
+                    $json = json_encode( $request->all() );
+                    log_evento('Correspondencia Restar domiciliario', $json);
+                    break;
                 case 'paquetes':
                     $correspondencia->paquetes > 0 ? ($correspondencia->paquetes = $correspondencia->paquetes -1) : $correspondencia->paquetes = 0;
                     $correspondencia->save();
@@ -184,6 +196,7 @@ class CorrespondenciaController extends Controller
             $correspondencia->agua = 0;
             $correspondencia->gas = 0;
             $correspondencia->mensajes = 0;
+            $correspondencia->domiciliario = 0;
             $correspondencia->paquetes = 0;
             $correspondencia->save();
             return response()->json(['status' => $status, 'message' => 'Correspondencia Reiniciada'], 200, $header, JSON_UNESCAPED_UNICODE);
@@ -208,6 +221,7 @@ class CorrespondenciaController extends Controller
                     'gas' => $corresp->gas,
                     'luz' => $corresp->luz,
                     'mensajes' => $corresp->mensajes,
+                    'domiciliario' => $corresp->domiciliario,
                     'paquetes' => $corresp->paquetes
                 ] ;
             }
@@ -291,6 +305,7 @@ class CorrespondenciaController extends Controller
                     'gas' => $corresp->gas,
                     'luz' => $corresp->luz,
                     'mensajes' => $corresp->mensajes,
+                    'domiciliario' => $corresp->domiciliario,
                     'paquetes' => $corresp->paquetes
                 ];
 
@@ -309,6 +324,7 @@ class CorrespondenciaController extends Controller
             $correspondencia->agua = 0;
             $correspondencia->gas = 0;
             $correspondencia->mensajes = 0;
+            $correspondencia->domiciliario = 0;
             $correspondencia->paquetes = 0;
             $correspondencia->save();
         }
