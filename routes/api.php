@@ -58,7 +58,7 @@ Route::get('/getZonasComunes', [App\Http\Controllers\ZonaComunController::class,
 Route::post('/sumarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'sumarElemento'])->name('sumarElemento');
 Route::post('/restarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'restarElemento'])->name('restarElemento');
 Route::post('/reiniciarCorrespondencia', [App\Http\Controllers\CorrespondenciaController::class, 'reiniciarCorrespondencia'])->name('reiniciarCorrespondencia');
-Route::get('/correspondenciaApartamento/{id}', [App\Http\Controllers\CorrespondenciaController::class, 'correspondenciaApartamento'])->name('correspondenciaApartamento');
+Route::get('/correspondenciaCasa/{id}', [App\Http\Controllers\CorrespondenciaController::class, 'correspondenciaCasa'])->name('correspondenciaCasa');
 
 
 

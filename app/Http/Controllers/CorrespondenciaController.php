@@ -292,22 +292,34 @@ class CorrespondenciaController extends Controller
 
     }
 
-    public function correspondenciaApartamento($id)
+    public function correspondenciaCasa($id_residente)
     {
         $header = ['Content-Type' => 'application/json','charset' => 'utf-8'];
         $correspondencias = [];
         try {    
-                $corresp = Correspondencia::where('casa_id', $id )->first();
-                $correspondencias = [
-                    'id' => $corresp->id,
-                    'apartamento' => $corresp->apartamento->nombre,
-                    'agua' => $corresp->agua,
-                    'gas' => $corresp->gas,
-                    'luz' => $corresp->luz,
-                    'mensajes' => $corresp->mensajes,
-                    'domiciliario' => $corresp->domiciliario,
-                    'paquetes' => $corresp->paquetes
-                ];
+                $id = Residente::where('usuario_id', $id_residente )->first();
+                if ( $id != null ) {
+                    $corresp = Correspondencia::where('casa_id', $id->casa_id)->first();
+                    $correspondencias = [
+                        'casa' => $corresp->casa->nombre,
+                        'agua' => $corresp->agua,
+                        'gas' => $corresp->gas,
+                        'luz' => $corresp->luz,
+                        'mensajes' => $corresp->mensajes,
+                        'domiciliario' => $corresp->domiciliario,
+                        'paquetes' => $corresp->paquetes
+                    ];
+                }else{
+                    $correspondencias = [
+                        'casa' => 0,
+                        'agua' => 0,
+                        'gas' => 0,
+                        'luz' => 0,
+                        'mensajes' => 0,
+                        'domiciliario' => 0,
+                        'paquetes' => 0
+                    ];
+                }
 
             return response()->json( $correspondencias, 200, $header, JSON_UNESCAPED_UNICODE);
         } catch (\Throwable $th) {
