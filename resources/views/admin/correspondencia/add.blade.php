@@ -14,23 +14,23 @@
         <h5 class="card-header">Listado Correspondencia</h5>
         <hr>
         <div class="card-body">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-3">
-                        <button class="ml-3 btn btn-danger" onclick="recepcionServiciosConjuntos('Luz');">Servicios de Luz</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="ml-3 btn btn-info" onclick="recepcionServiciosConjuntos('Agua');">Servicios de Agua</button>
-                    </div>
-                    <div class="col-md-3">
-                        <button class="ml-3 btn btn-success" onclick="recepcionServiciosConjuntos('Gas');">Servicios de Gas</button>
-                    </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <button class="ml-3 btn btn-danger" onclick="recepcionServiciosConjuntos('Luz');">Servicios de Luz</button>
                 </div>
-                <br>
+                <div class="col-md-3">
+                    <button class="ml-3 btn btn-info" onclick="recepcionServiciosConjuntos('Agua');">Servicios de Agua</button>
+                </div>
+                <div class="col-md-3">
+                    <button class="ml-3 btn btn-success" onclick="recepcionServiciosConjuntos('Gas');">Servicios de Gas</button>
+                </div>
+            </div>
+            <div class="col-md-12">
                 <div class="card-datatable table-responsive pt-0">
                     <table class="table table-bordered" style="overflow-x: auto; font-size: 18px;">
                         <thead>
                             <tr>
+                                <th> id </th>
                                 <th> casa </th>
                                 <th> luz </th>
                                 <th> agua </th>
@@ -44,6 +44,7 @@
                         <tbody>
                             @foreach( $correspondencias as $correspondencia )
                                 <tr style="text-align: center;">
+                                    <td> {{ $correspondencia->id }}</td>
                                     <td> {{ $correspondencia->casa->nombre }}</td>
                                     <td style="width: 120px;">
                                         <span id="valor-{{$correspondencia->id}}-luz">{{ $correspondencia->luz }}</span> 
@@ -95,17 +96,20 @@
 @section('javascripts')
     <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> 
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script> 
     <script src="{{ asset('assets/js/correspondencia/correspondencia.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('.table').DataTable({
                 "responsive": true,
                 "autoWidth": false,
+                "searching": true, // 🔎 habilita la caja de búsqueda
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
-                }
+                },
+                "pageLength": 25, // Opcional: cantidad de filas por página
+                "lengthMenu": [5, 10, 25, 50, 100] // Opcional: selector de cantidad
             });
         });
         
