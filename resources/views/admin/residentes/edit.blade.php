@@ -33,52 +33,7 @@
                         </select>
                     </div>
                 </div>
-                <br>
                 <hr>
-                <br>
-                <h3>Información adicional</h3>
-                <div class="row">
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">Parqueadero</label>
-                        <select class="form-control" name="parqueadero_id" id="parqueadero_id">
-                            <option value="">-- Seleccione --</option>
-                            @foreach($parqueaderos as $parqueadero)
-                                <option value="{{ $parqueadero->id }}" 
-                                    {{ isset($residente->parqueadero) && $residente->parqueadero->id == $parqueadero->id ? 'selected' : '' }}>
-                                    {{ $parqueadero->nombre }} - {{ $parqueadero->estado }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label"># Carros </label>
-                        <input class="form-control" type="number" id="no_carros" name="no_carros" placeholder="no_carros" value="{{ $residente->no_carros}}"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label"># motos </label>
-                        <input class="form-control" type="number" id="no_motos" name="no_motos" placeholder="no_motos" value="{{ $residente->no_motos}}"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label"># mascotas </label>
-                        <input class="form-control" type="number" id="no_mascotas" name="no_mascotas" placeholder="no_mascotas" value="{{ $residente->no_mascotas}}"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label"># perros </label>
-                        <input class="form-control" type="number" id="no_perros" name="no_perros" placeholder="no_perros" value="{{ $residente->no_perros}}"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label"># gatos </label>
-                        <input class="form-control" type="number" id="no_gatos" name="no_gatos" placeholder="no_gatos" value="{{ $residente->no_gatos}}"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label"># adultos </label>
-                        <input class="form-control" type="number" id="no_adultos" name="no_adultos" placeholder="no_adultos" value="{{ $residente->no_adultos}}"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label"># niños </label>
-                        <input class="form-control" type="number" id="no_ninos" name="no_ninos" placeholder="no_ninos" value="{{ $residente->no_ninos}}"/>
-                    </div>
-                </div>
                 <br>
                 <button class="btn btn-success">Actualizar</button>
             </form>

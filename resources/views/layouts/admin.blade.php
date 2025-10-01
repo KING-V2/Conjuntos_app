@@ -125,14 +125,6 @@
                                     </a>
                                 </li>
                                 @endcan
-                                @can('parqueaderos')
-                                <li class="menu-item">
-                                    <a href="{{ url('parqueaderos')}}" class="menu-link">
-                                        <i class="menu-icon tf-icons bx bx-car"></i>
-                                        <div data-i18n="Parqueaderos">Parqueaderos</div>
-                                    </a>
-                                </li>
-                                @endcan
                             </ul>
                         </li>
                         <li class="menu-item">
@@ -339,27 +331,27 @@
                             </a>
                             @endcan
                             <ul class="menu-sub">
-                                @can('categoria vehiculo')
+                                @can('parqueaderos')
                                 <li class="menu-item">
-                                    <a href="{{ url('categoria_vehiculo')}}" class="menu-link">
-                                        <i class="menu-icon tf-icons fa fa-car"></i>
-                                        <div data-i18n="Categoria Vehiculo">Categoria Vehiculo</div>
+                                    <a href="{{ url('parqueaderos')}}" class="menu-link">
+                                        <i class="menu-icon tf-icons bx bx-car"></i>
+                                        <div data-i18n="Parqueaderos">Parqueaderos</div>
                                     </a>
                                 </li>
                                 @endcan
-                                @can('parqueadero visitantes')
+                                @can('registro vehiculos')
                                 <li class="menu-item">
-                                    <a href="{{ url('parqueadero_visitante')}}" class="menu-link">
+                                    <a href="{{ url('vehiculos')}}" class="menu-link">
                                         <i class="menu-icon tf-icons fa fa-car-side"></i>
-                                        <div data-i18n="Parqueadero Visitantes">Parqueadero Visitantes</div>
+                                        <div data-i18n="Registro Vehiculos">Registro Vehiculos</div>
                                     </a>
                                 </li>
                                 @endcan
-                                @can('tarifas conjunto')
+                                @can('registro parqueaderos')
                                 <li class="menu-item">
-                                    <a href="{{ url('tarifas_conjunto')}}" class="menu-link">
-                                        <i class="menu-icon tf-icons fa fa-money-bill"></i>
-                                        <div data-i18n="Tarifas Conjunto">Tarifas Conjunto</div>
+                                    <a href="{{ url('registro_parqueaderos')}}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-check"></i>
+                                        <div data-i18n="Registro Parqueaderos">Registro Parqueaderos</div>
                                     </a>
                                 </li>
                                 @endcan

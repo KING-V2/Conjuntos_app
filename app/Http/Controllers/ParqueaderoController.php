@@ -6,6 +6,7 @@ use App\Http\Requests\StoreParqueaderoRequest;
 use App\Http\Requests\UpdateParqueaderoRequest;
 use App\Models\Administracion\Parqueadero;
 use App\Models\Administracion\Residente;
+use App\Models\Vehiculo;
 use App\Models\User;
 
 
@@ -16,13 +17,14 @@ class ParqueaderoController extends Controller
      */
     public function index()
     {
-        // $parqueaderos = Parqueadero::all();
-        $parqueaderos = Parqueadero::with(['residente.bloque', 'residente.apartamento'])->get();
-        $residente = Residente::all();
+        $parqueaderos = Parqueadero::all();
+        $residentes = Residente::all();
+        $vehiculos = Vehiculo::all();
         return view('admin.parqueaderos.add',
             [
                 'parqueaderos' => $parqueaderos,
-                'usuarios' => $residente
+                'residentes' => $residentes,
+                'vehiculos' => $vehiculos
             ]
         );
     }
@@ -43,8 +45,6 @@ class ParqueaderoController extends Controller
         try {
             $parqueadero   = new Parqueadero();
             $parqueadero->nombre           = $request->input('nombre');
-            $parqueadero->usuario_id        = $request->input('usuario_id');
-            $parqueadero->estado              = $request->input('estado');
             $parqueadero->save();
             session()->flash('flash_success_message', 'adicionado correctamente');
         }catch ( \Exception $exception){
@@ -67,11 +67,9 @@ class ParqueaderoController extends Controller
     public function edit(Parqueadero $parqueadero, $id)
     {
         $parqueaderos = Parqueadero::find($id);
-        $propietarios = User::all();
         return view('admin.parqueaderos.edit',
             [
-                'parqueaderos' => $parqueaderos,
-                'usuarios' => $propietarios
+                'parqueaderos' => $parqueaderos
             ]
         );
     }
@@ -84,8 +82,6 @@ class ParqueaderoController extends Controller
         try {
             $parqueadero                = Parqueadero::findOrFail($request->input('parqueadero_id'));
             $parqueadero->nombre        = $request->input('nombre');
-            $parqueadero->usuario_id    = $request->input('usuario_id');
-            $parqueadero->estado        = $request->input('estado');
             $parqueadero->save();
             session()->flash('flash_success_message', 'actualizado correctamente');
         }catch ( \Exception $exception){
@@ -116,8 +112,6 @@ class ParqueaderoController extends Controller
             foreach ($parqueaderos as $value) {
                 $parqueadero[] = [
                     'parqueadero' => $value->nombre ?? 'No disponible',
-                    'estado' => $value->estado ?? 'No disponible',
-                    'usuario' => $value->usuario->name ?? 'No disponible',
                 ];
             }
 

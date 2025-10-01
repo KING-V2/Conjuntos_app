@@ -39,13 +39,8 @@ use App\Http\Controllers\CategoriaVehiculoController;
 use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\CasasController;
 
-use App\Http\Controllers\ConfiguracionesParqueaderoController;
-use App\Http\Controllers\TiposVehiculosController;
-use App\Http\Controllers\TarifasVehiculosController;
-use App\Http\Controllers\BandasHorariasController;
 use App\Http\Controllers\RegistroParqueaderoController;
-use App\Http\Controllers\ReglasUmbralController;
-use App\Http\Controllers\TarifasParqueaderoVisitantesController;
+use App\Http\Controllers\VehiculoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -226,6 +221,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/parqueaderos_edit/{id}', [ParqueaderoController::class, 'edit']);
     Route::post('/parqueaderos_update', [ParqueaderoController::class, 'update']);
     Route::get('/parqueaderos_delete/{id}', [ParqueaderoController::class, 'destroy']);
+
+    //registro_parqueaderos
+    Route::get('/registro_parqueaderos', [RegistroParqueaderoController::class, 'index']);
+    Route::post('/cargar_registro_parqueaderos', [RegistroParqueaderoController::class, 'store']);
+    Route::get('/registro_parqueaderos_edit/{id}', [RegistroParqueaderoController::class, 'edit']);
+    Route::post('/registro_parqueaderos_update', [RegistroParqueaderoController::class, 'update']);
+    Route::get('/registro_parqueaderos_delete/{id}', [RegistroParqueaderoController::class, 'destroy']);
+    
+    //vehiculos
+    Route::get('/vehiculos', [VehiculoController::class, 'index']);
+    Route::post('/cargar_vehiculos', [VehiculoController::class, 'store']);
+    Route::get('/vehiculos_edit/{id}', [VehiculoController::class, 'edit']);
+    Route::post('/vehiculos_update', [VehiculoController::class, 'update']);
+    Route::get('/vehiculos_delete/{id}', [VehiculoController::class, 'destroy']);
 
 
     //zonas_comunes
