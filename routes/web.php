@@ -40,11 +40,12 @@ use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\CasasController;
 
 use App\Http\Controllers\ConfiguracionesParqueaderoController;
-use App\Http\Controllers\TipoVehiculoController;
-use App\Http\Controllers\TarifaVehiculoController;
-use App\Http\Controllers\BandaHorarioController;
-use App\Http\Controllers\RegistroParqueoController;
-use App\Http\Controllers\ReglaUmbralController;
+use App\Http\Controllers\TiposVehiculosController;
+use App\Http\Controllers\TarifasVehiculosController;
+use App\Http\Controllers\BandasHorariasController;
+use App\Http\Controllers\RegistroParqueaderoController;
+use App\Http\Controllers\ReglasUmbralController;
+use App\Http\Controllers\TarifasParqueaderoVisitantesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -345,31 +346,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/correspondenciallenar/{cantidad}', [CorrespondenciaController::class, 'correspondenciallenar']);
     Route::get('/casasllenar/{cantidad}', [CorrespondenciaController::class, 'casasllenar']);
 
-    
-    // Route::get('/tarifas_parqueadero_visitantes', [TarifasParqueaderoVisitantesController::class, 'index']);
-    // Route::post('/cargar_tarifas_parqueadero_visitantes', [TarifasParqueaderoVisitantesController::class, 'store']);
-    // Route::get('/tarifas_parqueadero_visitantes_edit/{id}', [TarifasParqueaderoVisitantesController::class, 'edit']);
-    // Route::post('/tarifas_parqueadero_visitantes_update', [TarifasParqueaderoVisitantesController::class, 'update']);
-    // Route::post('/tarifas_parqueadero_visitantes_delete/{id}', [TarifasParqueaderoVisitantesController::class, 'destroy']);
-
-    
-    // // Configuración general del parqueadero
-    // Route::resource('configuraciones-parqueadero', ConfiguracionesParqueaderoController::class);
-
-    // // Tipos de vehículos (carros, motos, bicicletas, etc.)
-    // Route::resource('tipos-vehiculos', TipoVehiculoController::class);
-
-    // // Tarifas por tipo de vehículo y banda horaria
-    // Route::resource('tarifas-vehiculos', TarifaVehiculoController::class);
-
-    // // Bandas horarias (día, noche, etc.)
-    // Route::resource('bandas-horarias', BandaHorarioController::class);
-
-    // // Registros de parqueo (entradas y salidas)
-    // Route::resource('registros-parqueo', RegistroParqueoController::class);
-
-    // // Reglas de umbral (tarifa fija después de X minutos)
-    // Route::resource('reglas-umbral', ReglaUmbralController::class);
 
 });
 
