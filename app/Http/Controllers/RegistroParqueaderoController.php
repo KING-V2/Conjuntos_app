@@ -18,8 +18,8 @@ class RegistroParqueaderoController extends Controller
     {
         $registro = RegistroParqueadero::all();
         $vehiculos = Vehiculo::all();
-        $parqueaderos = Parqueadero::all();
-        $residentes = Residente::all();
+        $parqueaderos = Parqueadero::orderBy('nombre', 'asc')->get();
+        $residentes = Residente::orderBy('casa_id', 'asc')->get();
         return view('admin.registro_parqueaderos.add',
             [
                 'registros' => $registro,

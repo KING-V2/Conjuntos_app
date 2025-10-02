@@ -200,14 +200,6 @@ class ResidenteController extends Controller
             $residente->usuario_id     = $request->input('modal_usuario_id');
             $residente->estado         = $request->input('modal_estado');
             $residente->tipo_residente = $request->input('modal_tipo_residente');
-            $residente->parqueadero_id = null;
-            $residente->no_carros      = 0;
-            $residente->no_motos       = 0;
-            $residente->no_mascotas    = 0;
-            $residente->no_perros      = 0;
-            $residente->no_gatos       = 0;
-            $residente->no_adultos    = 0;
-            $residente->no_ninos      = 0;
             $residente->save();
 
             return response()->json(['message' => 'Residente Registrado'], 200, $header, JSON_UNESCAPED_UNICODE);
@@ -273,14 +265,6 @@ class ResidenteController extends Controller
                     'tipo_residente' => $residente->tipo_residente,
                     'conjunto' => $conjunto->nombre,
                     'casa' => $residente->casas->nombre ?? 'No Disponible',
-                    'parqueadero' =>$residente->parqueadero->nombre ?? 'No Disponible',
-                    'carros'    =>$residente->no_carros,
-                    'motos'     =>$residente->no_motos,
-                    'mascotas'  =>$residente->no_mascotas,
-                    'perros'    =>$residente->no_perros,
-                    'gatos'     =>$residente->no_gatos,
-                    'adultos'   =>$residente->no_adultos,
-                    'ninos'     =>$residente->no_ninos,
                 ];
             });
             
