@@ -12,7 +12,7 @@
                         <select class="form-control" name="residente_id" id="residente_id">
                             <option value="">-- Seleccione --</option>
                             @foreach( $residentes as $residente )
-                                <option value="{{$residente->usuario->id }}">{{$residente->usuario->name}} / {{ $residente->casas->nombre ?? '-'}}</option>
+                                <option value="{{$residente->usuario->id }}">{{ $residente->casas->nombre ?? '-'}}</option>
                             @endforeach
                         </select>
                     </div>
