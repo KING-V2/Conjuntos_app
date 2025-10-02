@@ -7,6 +7,7 @@ use App\Models\Administracion\Casas;
 use App\Models\Administracion\Conjunto;
 use App\Models\Administracion\Residente;
 use App\Models\Parqueadero;
+use App\Models\RegistroParqueadero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -82,7 +83,7 @@ class ResidenteController extends Controller
             $residente  = Residente::findOrFail( $id );
             $conjuntos  = Conjunto::all();
             $casas = Casas::all();
-            $parqueaderos = Parqueadero::all();
+            $registro_parqueaderos = RegistroParqueadero::where('parqueadero_id', $residente->casas->id)->get();
             $usuarios = User::findOrFail($residente->usuario->id);
             
             return view('admin.residentes.edit',
@@ -90,7 +91,7 @@ class ResidenteController extends Controller
                     'residente' => $residente,
                     'conjuntos' => $conjuntos,
                     'casas' => $casas,
-                    'parqueaderos' => $parqueaderos
+                    'registro_parqueaderos' => $registro_parqueaderos
                 ]
             );
 

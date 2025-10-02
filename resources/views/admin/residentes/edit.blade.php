@@ -34,6 +34,35 @@
                     </div>
                 </div>
                 <hr>
+                <h3>Parqueaderos</h3>
+                <div class="col-md-12">
+                    <div class="card-datatable table-responsive pt-0">
+                        <table class="table table-bordered" style="overflow-x: auto;">
+                            <thead>
+                                <tr>
+                                    <th> Id </th>
+                                    <th> casa </th>
+                                    <th> residente </th>
+                                    <th> vehiculo </th>
+                                    <th> tipo vehiculo </th>
+                                    <th> parqueadero </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach( $registro_parqueaderos as $registro )
+                                    <tr>
+                                        <td>{{ $registro->id }}</td>
+                                        <td>{{ $registro->residente->casas->nombre ?? '-' }}</td>
+                                        <td>{{ $registro->residente->usuario->name ?? '-' }}</td>
+                                        <td>{{ $registro->vehiculo->placa ?? '-' }}</td>
+                                        <td>{{ $registro->vehiculo->tipo_vehiculo ?? '-' }}</td>
+                                        <td>{{ $registro->parqueadero->nombre ?? '-' }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                 <br>
                 <button class="btn btn-success">Actualizar</button>
             </form>
