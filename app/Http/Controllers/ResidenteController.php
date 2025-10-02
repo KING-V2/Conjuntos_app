@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Administracion\Casas;
 use App\Models\Administracion\Conjunto;
 use App\Models\Administracion\Residente;
-use App\Models\Parqueaderos\Parqueadero;
+use App\Models\Parqueadero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -82,7 +82,7 @@ class ResidenteController extends Controller
             $residente  = Residente::findOrFail( $id );
             $conjuntos  = Conjunto::all();
             $casas = Casas::all();
-            $parqueaderos = DB::table('parqueaderos')->whereIn('estado',['Disponible','Asignado'])->get();
+            $parqueaderos = Parqueadero::all();
             $usuarios = User::findOrFail($residente->usuario->id);
             
             return view('admin.residentes.edit',
@@ -120,13 +120,6 @@ class ResidenteController extends Controller
                 $parqueadero->save();
             }
             
-            $residente->no_carros        = $request->input('no_carros');
-            $residente->no_motos         = $request->input('no_motos');
-            $residente->no_mascotas      = $request->input('no_mascotas');
-            $residente->no_perros        = $request->input('no_perros');
-            $residente->no_gatos         = $request->input('no_gatos');
-            $residente->no_adultos       = $request->input('no_adultos');
-            $residente->no_ninos         = $request->input('no_ninos');
             $residente->save();
 
             session()->flash('flash_success_message', 'actualizado correctamente');
