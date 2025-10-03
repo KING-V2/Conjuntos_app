@@ -7,16 +7,7 @@
             <form method="post" action="{{ url('cargar_registro_parqueaderos',[]) }}">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">Residente</label>
-                        <select class="form-control" name="residente_id" id="residente_id">
-                            <option value="">-- Seleccione --</option>
-                            @foreach( $residentes as $residente )
-                                <option value="{{$residente->usuario->id }}">{{ $residente->usuario->name ?? '-'}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-4">
                         <label for="form" class="form-label">Casas</label>
                         <select class="form-control" name="casa_id" id="casa_id">
                             <option value="">-- Seleccione --</option>
@@ -25,7 +16,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-4">
                         <label for="form" class="form-label">Parqueadero</label>
                         <select class="form-control" name="parqueadero_id" id="parqueadero_id">
                             <option value="">-- Seleccione --</option>
@@ -34,7 +25,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-4">
                         <label for="form" class="form-label">Vehiculo</label>
                         <select class="form-control" name="vehiculo_id" id="vehiculo_id">
                             <option value="">-- Seleccione --</option>

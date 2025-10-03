@@ -21,15 +21,13 @@ class RegistroParqueaderoController extends Controller
         $vehiculos = Vehiculo::all();
         $casas = Casas::all();
         $parqueaderos = Parqueadero::orderBy('nombre', 'asc')->get();
-        $residentes = Residente::orderBy('casa_id', 'asc')->get();
-
+        
         return view('admin.registro_parqueaderos.add',
             [
                 'registros' => $registros,
                 'vehiculos' => $vehiculos,
                 'casas' => $casas,
                 'parqueaderos' => $parqueaderos,
-                'residentes' => $residentes
             ]
         );
     }
@@ -49,7 +47,6 @@ class RegistroParqueaderoController extends Controller
     {
          try {
             $registro   = new RegistroParqueadero();
-            $registro->residente_id = $request->input('residente_id');
             $registro->vehiculo_id           = $request->input('vehiculo_id');
             $registro->parqueadero_id           = $request->input('parqueadero_id');
             $registro->casa_id           = $request->input('casa_id');
@@ -84,8 +81,7 @@ class RegistroParqueaderoController extends Controller
                 'registro' => $registro,
                 'casas' => $casas,
                 'vehiculos' => $vehiculos,
-                'parqueaderos' => $parqueaderos,
-                'residentes' => $residentes
+                'parqueaderos' => $parqueaderos
             ]
         );
     }
@@ -97,7 +93,6 @@ class RegistroParqueaderoController extends Controller
     {
         try {
             $registro                = RegistroParqueadero::findOrFail($request->input('registro_parqueadero_id'));
-            $registro->residente_id = $request->input('residente_id');
             $registro->vehiculo_id           = $request->input('vehiculo_id');
             $registro->parqueadero_id           = $request->input('parqueadero_id');
             $registro->casa_id           = $request->input('casa_id');

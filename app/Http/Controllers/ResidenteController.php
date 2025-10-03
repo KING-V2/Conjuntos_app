@@ -23,7 +23,6 @@ class ResidenteController extends Controller
     public function index()
     {
         $residentes = Residente::all();
-        // dd($residentes[0]->casa->nombre);
         $casas  = Casas::all();
         $usuarios   = User::all();
         
