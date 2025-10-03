@@ -42,7 +42,6 @@
                                 <tr>
                                     <th> Id </th>
                                     <th> casa </th>
-                                    <th> residente </th>
                                     <th> vehiculo </th>
                                     <th> tipo vehiculo </th>
                                     <th> parqueadero </th>
@@ -52,8 +51,7 @@
                                 @foreach( $registro_parqueaderos as $registro )
                                     <tr>
                                         <td>{{ $registro->id }}</td>
-                                        <td>{{ $registro->residente->casas->nombre ?? '-' }}</td>
-                                        <td>{{ $registro->residente->usuario->name ?? '-' }}</td>
+                                        <td>{{ $registro->casas->nombre ?? '-' }}</td>
                                         <td>{{ $registro->vehiculo->placa ?? '-' }}</td>
                                         <td>{{ $registro->vehiculo->tipo_vehiculo ?? '-' }}</td>
                                         <td>{{ $registro->parqueadero->nombre ?? '-' }}</td>

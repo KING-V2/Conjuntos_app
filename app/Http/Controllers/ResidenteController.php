@@ -82,7 +82,7 @@ class ResidenteController extends Controller
             $residente  = Residente::findOrFail( $id );
             $conjuntos  = Conjunto::all();
             $casas = Casas::all();
-            $registro_parqueaderos = RegistroParqueadero::where('parqueadero_id', $residente->casas->id)->get();
+            $registro_parqueaderos = RegistroParqueadero::where('casa_id', $residente->casas->id)->get();
             $usuarios = User::findOrFail($residente->usuario->id);
             
             return view('admin.residentes.edit',

@@ -47,7 +47,6 @@
                                 <tr>
                                     <th> Id </th>
                                     <th> casa </th>
-                                    <th> residente </th>
                                     <th> vehiculo </th>
                                     <th> tipo vehiculo </th>
                                     <th> parqueadero </th>
@@ -59,7 +58,6 @@
                                     <tr>
                                         <td>{{ $registro->id }}</td>
                                         <td>{{ $registro->casas->nombre ?? 'Libre' }}</td>
-                                        <td>{{ $registro->residente->usuario->name ?? 'Libre' }}</td>
                                         <td>{{ $registro->vehiculo->placa ?? 'Sin vehiculo' }}</td>
                                         <td>{{ $registro->vehiculo->tipo_vehiculo ?? 'Sin tipo' }}</td>
                                         <td>{{ $registro->parqueadero->nombre ?? 'Sin parqueadero' }}</td>
