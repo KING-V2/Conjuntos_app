@@ -8,6 +8,7 @@ use App\Models\RegistroParqueadero;
 use App\Models\Vehiculo;
 use App\Models\Parqueadero;
 use App\Models\Administracion\Residente;
+use App\Models\Administracion\Casas;
 
 class RegistroParqueaderoController extends Controller
 {
@@ -16,14 +17,17 @@ class RegistroParqueaderoController extends Controller
      */
     public function index()
     {
-        $registro = RegistroParqueadero::all();
+        $registros = RegistroParqueadero::all();
         $vehiculos = Vehiculo::all();
+        $casas = Casas::all();
         $parqueaderos = Parqueadero::orderBy('nombre', 'asc')->get();
         $residentes = Residente::orderBy('casa_id', 'asc')->get();
+
         return view('admin.registro_parqueaderos.add',
             [
-                'registros' => $registro,
+                'registros' => $registros,
                 'vehiculos' => $vehiculos,
+                'casas' => $casas,
                 'parqueaderos' => $parqueaderos,
                 'residentes' => $residentes
             ]
@@ -48,6 +52,7 @@ class RegistroParqueaderoController extends Controller
             $registro->residente_id = $request->input('residente_id');
             $registro->vehiculo_id           = $request->input('vehiculo_id');
             $registro->parqueadero_id           = $request->input('parqueadero_id');
+            $registro->casa_id           = $request->input('casa_id');
             $registro->save();
             session()->flash('flash_success_message', 'registro exitoso');
         }catch ( \Exception $exception){
@@ -71,11 +76,13 @@ class RegistroParqueaderoController extends Controller
     {
         $registro = RegistroParqueadero::findOrfail($id);
         $vehiculos = Vehiculo::all();
+        $casas = Casas::all();
         $parqueaderos = Parqueadero::all();
         $residentes = Residente::all();
         return view('admin.registro_parqueaderos.edit',
             [
                 'registro' => $registro,
+                'casas' => $casas,
                 'vehiculos' => $vehiculos,
                 'parqueaderos' => $parqueaderos,
                 'residentes' => $residentes
@@ -93,6 +100,7 @@ class RegistroParqueaderoController extends Controller
             $registro->residente_id = $request->input('residente_id');
             $registro->vehiculo_id           = $request->input('vehiculo_id');
             $registro->parqueadero_id           = $request->input('parqueadero_id');
+            $registro->casa_id           = $request->input('casa_id');
             $registro->save();
             session()->flash('flash_success_message', 'actualizado correctamente');
         }catch ( \Exception $exception){

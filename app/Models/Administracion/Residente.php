@@ -30,15 +30,7 @@ class Residente extends Model
         'casa_id',
         'usuario_id',
         'estado',
-        'tipo_residente',
-        'parqueadero_id',
-        'no_carros',
-        'no_motos',
-        'no_mascotas',
-        'no_perros',
-        'no_gatos',
-        'no_adultos',
-        'no_ninos'
+        'tipo_residente'
     ];
 
     public function conjunto()

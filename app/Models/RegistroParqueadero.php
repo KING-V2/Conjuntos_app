@@ -27,4 +27,8 @@ class RegistroParqueadero extends Model
     {
         return $this->belongsTo(Parqueadero::class, 'parqueadero_id');
     }
+    public function casas()
+    {
+        return $this->belongsTo(Administracion\Casas::class, 'casa_id');
+    }
 }

@@ -8,7 +8,7 @@
                 {{ csrf_field() }}
                 <input class="form-control" type="hidden" id="registro_parqueadero_id" name="registro_parqueadero_id" placeholder="registro_parqueadero_id" value="{{$registro->id}}"/>
                 <div class="row">
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Residente</label>
                         <select class="form-control" name="residente_id" id="residente_id">
                             <option value="">-- Seleccione --</option>
@@ -17,7 +17,16 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-3">
+                        <label for="form" class="form-label">Casas</label>
+                        <select class="form-control" name="casa_id" id="casa_id">
+                            <option value="">-- Seleccione --</option>
+                            @foreach( $casas as $casa )
+                                <option value="{{$casa->id }}" {{ $casa->id == $registro->casa_id ? 'selected' : '' }}>{{$casa->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Parqueadero</label>
                         <select class="form-control" name="parqueadero_id" id="parqueadero_id">
                             <option value="">-- Seleccione --</option>
@@ -26,7 +35,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-4">
+                    <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Vehiculo</label>
                         <select class="form-control" name="vehiculo_id" id="vehiculo_id">
                             <option value="">-- Seleccione --</option>
