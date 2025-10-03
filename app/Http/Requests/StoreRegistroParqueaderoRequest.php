@@ -22,7 +22,7 @@ class StoreRegistroParqueaderoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'residente_id' => 'required',
+            'casa_id' => 'required',
             'vehiculo_id' => 'required',
             'parqueadero_id' => 'required'
         ];
