@@ -11,7 +11,7 @@ class RegistroParqueadero extends Model
 
     protected $fillable = [
         'vehiculo_id',
-        'parqueadero_id'
+        'parqueadero_id',
         'casa_id'
     ];
 
