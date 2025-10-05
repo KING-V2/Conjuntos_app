@@ -253,31 +253,52 @@ class ResidenteController extends Controller
     }
 
     public function informacion_residente($id)
-    {
-        try {
-            $lista_residentes = Residente::with(['usuario', 'casas','parqueadero'])->where('usuario_id',$id)->get();
-            
-            $residentes = $lista_residentes->map(function ($residente) {
-                $conjunto = Conjunto::first();
-                return [
-                    'residente' => $residente->usuario->name ?? '',
-                    'email' => $residente->usuario->email,
-                    'tipo_residente' => $residente->tipo_residente,
-                    'conjunto' => $conjunto->nombre,
-                    'casa' => $residente->casas->nombre ?? 'No Disponible',
-                ];
-            });
-            
-            return response()->json($residentes, 200, [
-                'Content-Type' => 'application/json',
-                'charset' => 'utf-8',
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json(['error' => $th->getMessage()], 500, [
-                'Content-Type' => 'application/json',
-                'charset' => 'utf-8',
-            ]);
-        }
+{
+    try {
+        $conjunto = Conjunto::first();
+
+        // Obtener residente (único)
+        $residente = Residente::with(['usuario', 'casas'])
+            ->where('usuario_id', $id)
+            ->firstOrFail();
+
+        // Obtener ID de casa
+        $casa_id = $residente->casas->id ?? $residente->casas->first()->id ?? null;
+
+        // Obtener parqueaderos de esa casa
+        $parqueaderos = RegistroParqueadero::with(['vehiculo', 'parqueadero'])
+            ->where('casa_id', $casa_id)
+            ->get();
+
+        // Estructura del residente
+        $info_residente = [
+            'residente' => $residente->usuario->name ?? '',
+            'email' => $residente->usuario->email ?? '',
+            'tipo_residente' => $residente->tipo_residente ?? '',
+            'conjunto' => $conjunto->nombre ?? 'No definido',
+            'casa' => $residente->casas->nombre ?? 'No disponible',
+        ];
+
+        // Estructura de parqueaderos
+        $info_parqueaderos = $parqueaderos->map(function ($parqueadero) {
+            return [
+                'parqueadero' => $parqueadero->parqueadero->nombre ?? '',
+                'vehiculo' => $parqueadero->vehiculo->placa ?? '',
+            ];
+        });
+
+        return response()->json([
+            'residente' => $info_residente,
+            'parqueaderos' => $info_parqueaderos,
+        ], 200);
+    } catch (\Throwable $th) {
+        return response()->json([
+            'error' => true,
+            'mensaje' => $th->getMessage(),
+        ], 500);
     }
+}
+
+
 
 }
