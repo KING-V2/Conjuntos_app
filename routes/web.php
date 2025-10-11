@@ -266,6 +266,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/correspondencia_delete/{id}', [CorrespondenciaController::class, 'destroy']);
 
     Route::post('/recepcionServiciosConjuntos', [CorrespondenciaController::class, 'recepcionServiciosConjuntos']);
+    Route::get('/correspondencia/listar', [CorrespondenciaController::class, 'listar'])->name('correspondencia.listar');
     
 
     //botones para el aumento o disminucion de un item de la correspondencia

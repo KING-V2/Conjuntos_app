@@ -9,6 +9,7 @@ use App\Models\Administracion\Casas;
 use App\Models\Administracion\Residente;
 use App\Models\Administracion\Conjunto;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class CorrespondenciaController extends Controller
@@ -18,12 +19,7 @@ class CorrespondenciaController extends Controller
      */
     public function index()
     {
-        $correspondencia = Correspondencia::all();
-        return view('admin.correspondencia.add',
-            [
-                'correspondencias' => $correspondencia,
-            ]
-        );
+        return view('admin.correspondencia.add');
     }
 
     /**
@@ -356,6 +352,85 @@ class CorrespondenciaController extends Controller
         
     }
     
+
+    public function listar(Request $request)
+    {
+         if ($request->ajax()) {
+
+            $query = Correspondencia::with(['casa'])->select('correspondencias.*');
+
+            return DataTables::eloquent($query)
+
+                ->addColumn('casa', fn($row) => $row->casa ? $row->casa->nombre : '')
+                ->addColumn('luz', function ($row) {
+                    return '
+                        <span id="valor-'.$row->id.'-luz">'.$row->luz.'</span><br>
+                        <i style="color:green;font-size:20px;" class="fa-solid fa-circle-plus" onclick="sumarElemento('.$row->id.', \'luz\')"></i> |
+                        <i style="color:red;font-size:20px;" class="fa-solid fa-circle-minus" onclick="restarElemento('.$row->id.', \'luz\')"></i>
+                    ';
+                })
+                ->addColumn('agua', function ($row) {
+                    return '
+                        <span id="valor-'.$row->id.'-agua">'.$row->agua.'</span><br>
+                        <i style="color:green;font-size:20px;" class="fa-solid fa-circle-plus" onclick="sumarElemento('.$row->id.', \'agua\')"></i> |
+                        <i style="color:red;font-size:20px;" class="fa-solid fa-circle-minus" onclick="restarElemento('.$row->id.', \'agua\')"></i>
+                    ';
+                })
+                ->addColumn('gas', function ($row) {
+                    return '
+                        <span id="valor-'.$row->id.'-gas">'.$row->gas.'</span><br>
+                        <i style="color:green;font-size:20px;" class="fa-solid fa-circle-plus" onclick="sumarElemento('.$row->id.', \'gas\')"></i> |
+                        <i style="color:red;font-size:20px;" class="fa-solid fa-circle-minus" onclick="restarElemento('.$row->id.', \'gas\')"></i>
+                    ';
+                })
+                ->addColumn('mensajes', function ($row) {
+                    return '
+                        <span id="valor-'.$row->id.'-mensajes">'.$row->mensajes.'</span><br>
+                        <i style="color:green;font-size:20px;" class="fa-solid fa-circle-plus" onclick="sumarElemento('.$row->id.', \'mensajes\')"></i> |
+                        <i style="color:red;font-size:20px;" class="fa-solid fa-circle-minus" onclick="restarElemento('.$row->id.', \'mensajes\')"></i>
+                    ';
+                })
+                ->addColumn('paquetes', function ($row) {
+                    return '
+                        <span id="valor-'.$row->id.'-paquetes">'.$row->paquetes.'</span><br>
+                        <i style="color:green;font-size:20px;" class="fa-solid fa-circle-plus" onclick="sumarElemento('.$row->id.', \'paquetes\')"></i> |
+                        <i style="color:red;font-size:20px;" class="fa-solid fa-circle-minus" onclick="restarElemento('.$row->id.', \'paquetes\')"></i>
+                    ';
+                })
+                ->addColumn('domiciliario', function ($row) {
+                    return '
+                        <span id="valor-'.$row->id.'-domiciliario">'.$row->domiciliario.'</span><br>
+                        <i style="color:green;font-size:20px;" class="fa-solid fa-circle-plus" onclick="sumarElemento('.$row->id.', \'domiciliario\')"></i> |
+                        <i style="color:red;font-size:20px;" class="fa-solid fa-circle-minus" onclick="restarElemento('.$row->id.', \'domiciliario\')"></i>
+                    ';
+                })
+                ->addColumn('reiniciar', function ($row) {
+                    return '
+                        <i style="color:red;font-size:25px;" class="fa-solid fa-trash" onclick="reiniciarElemento('.$row->id.')"></i>
+                    ';
+                })
+
+                ->filter(function ($query) use ($request) {
+                    if ($search = $request->get('search')['value']) {
+                        $query->where(function ($q) use ($search) {
+                            $q->where('correspondencias.id', 'LIKE', "%{$search}%")
+                              ->orWhereHas('casa', fn($sub) => $sub->where('nombre', 'LIKE', "%{$search}%"))
+                              ->orWhere('luz', 'LIKE', "%{$search}%")
+                              ->orWhere('agua', 'LIKE', "%{$search}%")
+                              ->orWhere('gas', 'LIKE', "%{$search}%")
+                              ->orWhere('mensajes', 'LIKE', "%{$search}%")
+                              ->orWhere('paquetes', 'LIKE', "%{$search}%")
+                              ->orWhere('domiciliario', 'LIKE', "%{$search}%");
+                        });
+                    }
+                })
+
+                ->rawColumns(['luz', 'agua', 'gas', 'mensajes', 'paquetes', 'domiciliario', 'reiniciar'])
+                ->make(true);
+        }
+
+        abort(404);
+    }
 
 
 }
