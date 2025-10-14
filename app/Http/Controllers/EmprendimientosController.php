@@ -42,7 +42,6 @@ class EmprendimientosController extends Controller
                 $files_json [] = [
                     'id'            => $value->id,
                     'titulo'        => $value->titulo,
-                    'mes'           => $value->mes,
                     'imagen'        => $value->imagen,
                     'whatsapp'      => $value->whatsapp,
                     'instagram'     => $value->instagram
@@ -58,9 +57,9 @@ class EmprendimientosController extends Controller
     public function store(StoreEmprendimientosRequest $request)
     {
         $titulo         = $request->input('titulo');
-        $mes            = $request->input('mes');
         $imagen         = $request->file('imagen');
         $instagram      = $request->input('instagram');
+        $mes      = '-';
         $whatsapp       = $request->input('whatsapp');
 
         $fecha      = date('Ymdhis').rand(0,9);
@@ -69,10 +68,10 @@ class EmprendimientosController extends Controller
         try {
             $archivo = new Emprendimientos();
             $archivo->titulo        = $titulo;
-            $archivo->mes           = $mes;
             $archivo->whatsapp      = $whatsapp;
             $archivo->instagram     = $instagram;
             $archivo->imagen        = $file_name;
+            $archivo->mes        = $mes;
             
             Storage::disk('storage_files')->put($file_name , file_get_contents($imagen) );
             
@@ -80,8 +79,8 @@ class EmprendimientosController extends Controller
                 $archivo->save();
                 session()->flash('flash_success_message', 'adicionado correctamente');
             }catch ( \Exception $exception){
-                // session()->flash('flash_error_message', $exception->getMessage() );
-                session()->flash('flash_error_message', 'Error de guardado' );
+                session()->flash('flash_error_message', $exception->getMessage() );
+                // session()->flash('flash_error_message', 'Error de guardado' );
             }
         }catch ( \Exception $exception){
             // session()->flash('flash_error_message', $exception->getMessage() );
@@ -117,9 +116,9 @@ class EmprendimientosController extends Controller
     {
 
         $titulo         = $request->input('titulo');
-        $mes            = $request->input('mes');
         $instagram      = $request->input('instagram');
         $whatsapp       = $request->input('whatsapp');
+        $mes       = '-';
         $imagen         = $request->file('imagen');
         $id             = $request->input('id_emprendimiento');
         
@@ -134,7 +133,7 @@ class EmprendimientosController extends Controller
             }
 
             $archivo->titulo        = $titulo;
-            $archivo->mes           = $mes;
+            $archivo->mes        = $mes;
             $archivo->whatsapp      = $whatsapp;
             $archivo->instagram     = $instagram;
             

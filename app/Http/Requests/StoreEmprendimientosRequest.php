@@ -24,7 +24,6 @@ class StoreEmprendimientosRequest extends FormRequest
         return [
             'titulo' => 'required',
             'imagen' => 'required',
-            'mes' => 'required',
             'whatsapp' => 'required',
             'instagram' => 'required'
         ];

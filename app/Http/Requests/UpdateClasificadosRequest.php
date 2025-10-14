@@ -24,6 +24,7 @@ class UpdateClasificadosRequest extends FormRequest
         return [
             'clasificado_id' => 'required',
             'estado' => 'required',
+            'whatsapp' => 'required',
             'descripcion' => 'required',
             'casa_id' => 'required',
         ];

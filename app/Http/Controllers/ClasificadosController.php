@@ -53,6 +53,7 @@ class ClasificadosController extends Controller
             $clasificados->estado           = $request->input('estado');
             $clasificados->descripcion      = $request->input('descripcion');
             $clasificados->adicional        = $request->input('adicional');
+            $clasificados->whatsapp        = $request->input('whatsapp');
             $fecha                          = date('Ymdhis');
             $clasificados->foto             = 'foto_'.$fecha.'.'.$request->file('foto')->getClientOriginalExtension();
             Storage::disk('storage_clasificados')->put('foto_'.$fecha.'.'.$request->file('foto')->getClientOriginalExtension() , file_get_contents($request->file('foto')) );
@@ -109,6 +110,7 @@ class ClasificadosController extends Controller
             $clasificados->estado           = $request->input('estado');
             $clasificados->descripcion      = $request->input('descripcion');      
             $clasificados->adicional        = $request->input('adicional');
+            $clasificados->whatsapp        = $request->input('whatsapp');
             
             if( !empty( $request->file('foto') ) ){
                 $fecha              = date('Ymdhis');

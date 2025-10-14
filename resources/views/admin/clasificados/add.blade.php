@@ -29,6 +29,10 @@
                         <input class="form-control" type="file" id="foto" name="foto" accept=".jpg, .jpeg, .png"/>
                     </div>
                     <div class="col-sm-12 col-md-3">
+                        <label for="form" class="form-label">Whatsapp</label>
+                        <input class="form-control" type="text" id="whatsapp" name="whatsapp" placeholder="whatsapp"/>
+                    </div>
+                    <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Información Adicional</label>
                         <input class="form-control" type="text" id="adicional" name="adicional" placeholder="Información adicional" value=""/>
                     </div>
@@ -67,6 +71,7 @@
                                                     <th> estado </th>
                                                     <th> conjunto </th>
                                                     <th> casa </th>
+                                                    <th> whatsapp </th>
                                                     <th> descripcion </th>
                                                     <th> foto </th>
                                                     <th> Opciones </th>
@@ -79,6 +84,9 @@
                                                         <td>{{ $clasificado->estado }}</td>
                                                         <td>{{ $clasificado->casa->conjunto->nombre }}</td>
                                                         <td>{{ $clasificado->casa->nombre }}</td>
+                                                        <td>
+                                                            <a href="https://wa.me/57{{ $clasificado->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
+                                                        </td>
                                                         <td>{{ Str::limit($clasificado->descripcion, 50) }}</td>
                                                         <td>
                                                             <img src="{{ asset('storage/clasificados').'/'.$clasificado->foto }}" alt="" width="400px;">
@@ -86,7 +94,6 @@
                                                         <td>
                                                             <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
                                                             <a href="{{ url('clasificados_borrar',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este clasificado?');"><i class="fa fa-trash"></i></a>
-                                                            <a href="{{ url('galeria_de_clasificado',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -119,6 +126,9 @@
                                                     <td>{{ $clasificado->estado }}</td>
                                                     <td>{{ $clasificado->casa->conjunto->nombre }}</td>
                                                     <td>{{ $clasificado->casa->nombre }}</td>
+                                                    <td>
+                                                        <a href="https://wa.me/57{{ $clasificado->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
+                                                    </td>
                                                     <td>{{ Str::limit($clasificado->descripcion, 50) }}</td>
                                                     <td>
                                                         <img src="{{ asset('storage/clasificados').'/'.$clasificado->foto }}" alt="" width="400px;">
@@ -126,7 +136,6 @@
                                                     <td>
                                                         <a href="{{ url('clasificados_edit',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
                                                         <a href="{{ url('clasificados_borrar',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                                        <a href="{{ url('galeria_de_clasificado',[ 'id' =>  $clasificado->id ]) }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                                     </td>
                                                 </tr>
                                             @endforeach

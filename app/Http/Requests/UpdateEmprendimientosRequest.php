@@ -24,7 +24,6 @@ class UpdateEmprendimientosRequest extends FormRequest
         return [
             'id_emprendimiento' => 'required',
             'titulo'            => 'required',
-            'mes'               => 'required',
             'whatsapp'          => 'required',
             'instagram'         => 'required'
         ];

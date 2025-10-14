@@ -35,6 +35,12 @@
                         <input class="form-control" type="text" id="adicional" name="adicional" placeholder="Informacion adicional" value="{{ $clasificado->adicional }}"/>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-sm-12 col-md-3">
+                        <label for="form" class="form-label">Whatsapp</label>
+                        <input class="form-control" type="text" id="whatsapp" name="whatsapp" value="{{$clasificado->whatsapp}}" />
+                    </div>
+                </div>
                 <br>
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
