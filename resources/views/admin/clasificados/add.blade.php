@@ -114,6 +114,7 @@
                                                 <th> estado </th>
                                                 <th> conjunto </th>
                                                 <th> casa </th>
+                                                <th> whatsapp </th>
                                                 <th> descripcion </th>
                                                 <th> foto </th>
                                                 <th> Opciones </th>
