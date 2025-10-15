@@ -177,27 +177,8 @@ class EmprendimientosController extends Controller
     public function getEmprendimientos()
     {
         date_default_timezone_set('America/Bogota');
-        $fechaActual = new \DateTime();
-        $nombreMes = $fechaActual->format('F');
-        $meses = [
-            'January' => 'Enero',
-            'February' => 'Febrero',
-            'March' => 'Marzo',
-            'April' => 'Abril',
-            'May' => 'Mayo',
-            'June' => 'Junio',
-            'July' => 'Julio',
-            'August' => 'Agosto',
-            'September' => 'Septiembre',
-            'October' => 'Octubre',
-            'November' => 'Noviembre',
-            'December' => 'Diciembre'
-        ];
-
-        // Obtener el nombre del mes en español
-        $nombreMesEnEspanol = $meses[$nombreMes];
         $header = ['Content-Type' => 'application/json','charset' => 'utf-8'];
-        $emprendimientos = Emprendimientos::where('mes',$nombreMesEnEspanol)->get();
+        $emprendimientos = Emprendimientos::all();
         return response()->json($emprendimientos, 200, $header, JSON_UNESCAPED_UNICODE);
     }
 }
