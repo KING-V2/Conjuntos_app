@@ -28,7 +28,7 @@ class RespuestaForoController extends Controller
                 'id'                    => $value->id,
                 'mes'                   => $value->mes,
                 'titulo'                => $value->foro->titulo,
-                'descripcion'           => $value->foro->descripcion,
+                'descripcion'           => $value->descripcion,
                 'descripcion_admin'     => $value->descripcion_admin,
                 'fecha_respuesta_admin' => ($value->updated_at ? $value->updated_at->format('Y-m-d') : 'Pendiente'),
                 'usuario'               => $value->usuario->name,
