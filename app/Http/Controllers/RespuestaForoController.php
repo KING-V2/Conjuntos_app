@@ -32,8 +32,7 @@ class RespuestaForoController extends Controller
                 'descripcion_admin'     => $value->descripcion_admin,
                 'fecha_respuesta_admin' => ($value->updated_at ? $value->updated_at->format('Y-m-d') : 'Pendiente'),
                 'usuario'               => $value->usuario->name,
-                'bloque'                => $residente ? $residente->bloque->nombre : 'No Asignado',
-                'apartamento'           => $residente ? $residente->apartamento->nombre : 'No Asignado',
+                'casa'                  => $residente ? $residente->casas->nombre : 'No Asignado',
                 'tipo_residente'        => $residente ? $residente->tipo_residente : 'No Asignado'
             ];
             

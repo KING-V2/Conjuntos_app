@@ -30,8 +30,7 @@
                                                 <th>Respuesta admin</th>
                                                 <th>Fecha Respuesta admin</th>
                                                 <th>Usuario</th>
-                                                <th>Bloque</th>
-                                                <th>Apartamento</th>
+                                                <th>Casa</th>
                                                 <th>Tipo Residente</th>
                                                 <th>Opciones</th>
                                             </tr>
@@ -50,9 +49,8 @@
                                                         <td>{{ $respuesta_foro['descripcion'] }}</td>
                                                         <td>{{ $respuesta_foro['descripcion_admin'] }}</td>
                                                         <td>{{ $respuesta_foro['fecha_respuesta_admin'] }}</td>
-                                                        <td>{{ $respuesta_foro['usuario'] }}</td>
-                                                        <td>{{ $respuesta_foro['bloque'] }}</td>
-                                                        <td>{{ $respuesta_foro['apartamento'] }}</td>
+                                                        <td>{{ $respuesta_foro['usuario'] ?? 'Sin Usuario' }}</td>
+                                                        <td>{{ $respuesta_foro['casa'] }}</td>
                                                         <td>{{ $respuesta_foro['tipo_residente'] }}</td>
                                                         <td>
                                                             @if($respuesta_foro['descripcion_admin'] != '')
