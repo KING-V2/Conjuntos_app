@@ -26,7 +26,7 @@ class UpdateClasificadosRequest extends FormRequest
             'estado' => 'required',
             'whatsapp' => 'required',
             'descripcion' => 'required',
-            'casa_id' => 'required',
+            'casa' => 'required',
         ];
     }
 }

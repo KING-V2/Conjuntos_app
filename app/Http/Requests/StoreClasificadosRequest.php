@@ -26,7 +26,7 @@ class StoreClasificadosRequest extends FormRequest
             'foto' => 'required',
             'descripcion' => 'required',
             'whatsapp' => 'required',
-            'casa_id' => 'required'
+            'casa' => 'required'
         ];
     }
 }

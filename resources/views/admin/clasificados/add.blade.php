@@ -9,12 +9,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">casa</label>
-                        <select class="form-control" name="casa_id" id="casa_id">
-                            <option value="">-- Seleccione --</option>
-                            @foreach( $casas as $casa )
-                                <option value="{{$casa->id }}">{{$casa->nombre}}</option>
-                            @endforeach
-                        </select>
+                        <input class="form-control" type="text" id="casa" name="casa" placeholder="casa"/>
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Estado</label>
@@ -31,10 +26,6 @@
                     <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Whatsapp</label>
                         <input class="form-control" type="text" id="whatsapp" name="whatsapp" placeholder="whatsapp"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">Información Adicional</label>
-                        <input class="form-control" type="text" id="adicional" name="adicional" placeholder="Información adicional" value=""/>
                     </div>
                 </div>
                 <br>
@@ -69,7 +60,6 @@
                                                 <tr>
                                                     <th> Id </th>
                                                     <th> estado </th>
-                                                    <th> conjunto </th>
                                                     <th> casa </th>
                                                     <th> whatsapp </th>
                                                     <th> descripcion </th>
@@ -82,8 +72,7 @@
                                                     <tr>
                                                         <td>{{ $clasificado->id }}</td>
                                                         <td>{{ $clasificado->estado }}</td>
-                                                        <td>{{ $clasificado->casa->conjunto->nombre }}</td>
-                                                        <td>{{ $clasificado->casa->nombre }}</td>
+                                                        <td>{{ $clasificado->casa }}</td>
                                                         <td>
                                                             <a href="https://wa.me/57{{ $clasificado->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                         </td>
@@ -112,7 +101,6 @@
                                             <tr>
                                                 <th> Id </th>
                                                 <th> estado </th>
-                                                <th> conjunto </th>
                                                 <th> casa </th>
                                                 <th> whatsapp </th>
                                                 <th> descripcion </th>
@@ -125,8 +113,7 @@
                                                 <tr>
                                                     <td>{{ $clasificado->id }}</td>
                                                     <td>{{ $clasificado->estado }}</td>
-                                                    <td>{{ $clasificado->casa->conjunto->nombre }}</td>
-                                                    <td>{{ $clasificado->casa->nombre }}</td>
+                                                    <td>{{ $clasificado->casa }}</td>
                                                     <td>
                                                         <a href="https://wa.me/57{{ $clasificado->whatsapp }}?text=Buenos%20Dias"><i class="fa-brands fa-whatsapp" style="font-size: 40px; color: green;"></i></a>
                                                     </td>

@@ -9,13 +9,8 @@
                 <input class="form-control" type="hidden" id="clasificado_id" name="clasificado_id" value="{{ $clasificado->id }}"/>
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">Casas</label>
-                        <select class="form-control" name="casa_id" id="casa_id">
-                            <option value="">-- Seleccione --</option>
-                            @foreach( $casas as $casa )
-                                <option value="{{$casa->id }}" {{ $clasificado->casa->id == $casa->id ? 'selected' : '' }}>{{$casa->nombre}}</option>
-                            @endforeach
-                        </select>
+                        <label for="form" class="form-label">casa</label>
+                        <input class="form-control" type="text" id="casa" name="casa" placeholder="casa" value="{{ $clasificado->casa }}"/>
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Estado</label>
@@ -29,10 +24,6 @@
                     <div class="col-sm-12 col-md-3">
                         <label for="form" class="form-label">Foto</label>
                         <input class="form-control" type="file" id="foto" name="foto" />
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">Informacion Adicional</label>
-                        <input class="form-control" type="text" id="adicional" name="adicional" placeholder="Informacion adicional" value="{{ $clasificado->adicional }}"/>
                     </div>
                 </div>
                 <div class="row">
