@@ -43,6 +43,7 @@ class TrasteosController extends Controller
             'casa' => $residente->casas->nombre ?? 'N/A',
             'mes' => $mesNombre,
             'fecha' => $value->fecha,
+            'fecha_solicitud' => $value->created_at->format('d-m-Y'),
             'hora' => $value->hora,
             'descripcion' => $value->descripcion,
             'administrador' => $value->administrador->name ?? 'Pendiente',
@@ -74,6 +75,8 @@ class TrasteosController extends Controller
      */
     public function store(StoreTrasteosRequest $request)
     {
+        date_default_timezone_set('America/Bogota');
+        
         try {
             $trasteos = new Trasteos();
             $trasteos->usuario_id         = $request->input('usuario_id');
@@ -227,6 +230,7 @@ class TrasteosController extends Controller
 
     public function solicitarTrasteo(Request $request)
     {
+        date_default_timezone_set('America/Bogota');
         try {
             // Validar los campos necesarios
             $request->validate([

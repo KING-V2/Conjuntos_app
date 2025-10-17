@@ -70,9 +70,10 @@
                                                         <th>Id</th>
                                                         <th>Solicitante</th>
                                                         <th>Casa</th>
-                                                        <th>Fecha</th>
-                                                        <th>Hora</th>
-                                                        <th>Descripción</th>
+                                                        <th>Fecha generacion solicitud trasteo</th>
+                                                        <th>Fecha solicitud trasteo</th>
+                                                        <th>Hora solicitud trasteo</th>
+                                                        <th>Descripción solicitud</th>
                                                         <th>Administrador</th>
                                                         <th>Respuesta Administrador</th>
                                                         <th>Estado</th>
@@ -85,6 +86,7 @@
                                                             <td>{{ $trasteo['id'] }}</td>
                                                             <td>{{ $trasteo['solicitante'] }}</td>
                                                             <td>{{ $trasteo['casa'] }}</td>
+                                                            <td>{{ $trasteo['fecha_solicitud'] }}</td>
                                                             <td>{{ $trasteo['fecha'] }}</td>
                                                             <td>{{ $trasteo['hora'] }}</td>
                                                             <td>{{ $trasteo['descripcion'] }}</td>
