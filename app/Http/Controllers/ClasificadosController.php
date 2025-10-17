@@ -50,8 +50,8 @@ class ClasificadosController extends Controller
         try {
             $clasificados = new Clasificados();
             $clasificados->casa             = $request->input('casa');
-            $clasificados->estado           = $request->input('estado');
             $clasificados->descripcion      = $request->input('descripcion');
+            $clasificados->estado           = $request->input('estado');
             $clasificados->whatsapp        = $request->input('whatsapp');
             $fecha                          = date('Ymdhis');
             $clasificados->foto             = 'foto_'.$fecha.'.'.$request->file('foto')->getClientOriginalExtension();
@@ -106,8 +106,8 @@ class ClasificadosController extends Controller
         try {
             $clasificados = Clasificados::findOrFail( $request->input('clasificado_id') );
             $clasificados->casa             = $request->input('casa');
-            $clasificados->estado           = $request->input('estado');
             $clasificados->descripcion      = $request->input('descripcion');      
+            $clasificados->estado           = $request->input('estado');
             $clasificados->whatsapp        = $request->input('whatsapp');
             
             if( !empty( $request->file('foto') ) ){
@@ -158,11 +158,11 @@ class ClasificadosController extends Controller
             $clasificados[] =
             [
                 'id' => $value->id,
-                'casa' => $value->casa->nombre,
-                'estado' => $value->estado,
+                'casa' => $value->casa,
                 'descripcion' => $value->descripcion,
-                'adicional' => $value->adicional,
                 'foto' => $value->foto,
+                'estado' => $value->estado,
+                'whatsapp' => $value->whatsapp
             ];
         }
 
@@ -175,14 +175,12 @@ class ClasificadosController extends Controller
         $header = ['Content-Type' => 'application/json','charset' => 'utf-8'];
 
         $clasificados       = Clasificados::where('id',$id)->get();
-        $galeria_clasificados = ClasificadoGaleria::where('clasificado_id',$id)->get();
-
+        
         foreach ($clasificados as $value) {
             $clasificado[] = [
                 'foto' => $value->foto,
-                'casa' => $value->casa->nombre,
+                'casa' => $value->casa,
                 'descripcion' => $value->descripcion,
-                'adicional' => $value->adicional,
                 'whatsapp' => $value->whatsapp,
             ];
         }

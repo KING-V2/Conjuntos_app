@@ -23,11 +23,11 @@ class Clasificados extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'casa_id',
+        'casa',
         'descripcion',
         'foto',
         'estado',
-        'adicional'
+        'whatsapp'
     ];
 
     public function casa()
