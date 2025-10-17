@@ -190,10 +190,10 @@ class TrasteosController extends Controller
         return redirect('trasteos');
     }
 
-    public function listaSolicitudesTrasteos(Request $request)
+    public function listaSolicitudesTrasteos($user_id)
     {
         // Verificación de 'usuario_id'
-        $usuarioId = $request->input('usuario_id');
+        $usuarioId = $user_id;
         if (empty($usuarioId)) {
             return response()->json(['error' => 'El ID de usuario es requerido.'], 400);
         }
