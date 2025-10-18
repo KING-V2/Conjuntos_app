@@ -78,8 +78,8 @@
                                         <td>{{ $visitante->hora_ingreso }}</td>
                                         <td>{{ $visitante->hora_salida ?? 'Sin Hora Salida' }}</td>
                                         <td>
-                                            <a href="{{ url('visitantes_edit',[ 'id' =>  $visitante->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Editar Visitante"  class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                            <a href="{{ url('visitantes_delete',[ 'id' =>  $visitante->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Eliminar Visitante" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');"><i class="material-icons-outlined">borrar</i></a>
+                                            <a href="{{ url('visitantes_edit',[ 'id' =>  $visitante->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Editar Visitante"  class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ url('visitantes_delete',[ 'id' =>  $visitante->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Eliminar Visitante" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');"><i class="fa fa-trash"></i></a>
                                             <a href="{{ url('registroSalidaVisitante',[ 'id' =>  $visitante->id ]) }}" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Registrar Salida Visitante" class="btn btn-success" onclick="return confirm('¿Estás seguro de que deseas registrar salida?');"><i class="fa fa-sign-out"></i></a>
                                         </td>
                                     </tr>

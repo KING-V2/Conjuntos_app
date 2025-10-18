@@ -44,7 +44,7 @@
                                         <td>{{ $vehiculo->tipo_vehiculo }}</td>
                                         <td>
                                             <a href="{{ url('vehiculos_edit',[ 'id' =>  $vehiculo->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                                            <!-- <a href="{{ url('vehiculos_delete',[ 'id' =>  $vehiculo->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este parqueadero?');"><i class="material-icons-outlined">borrar</i></a> -->
+                                            <!-- <a href="{{ url('vehiculos_delete',[ 'id' =>  $vehiculo->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este parqueadero?');"><i class="fa fa-trash"></i></a> -->
                                         </td>
                                     </tr>
                                 @endforeach

@@ -98,8 +98,8 @@
                                         <td>$ {{ $parqueadero_visitante->valor ? number_format($parqueadero_visitante->valor, 0, ',', '.') : 0 }}</td>
                                         <td>  
                                         @if( !$parqueadero_visitante->hora_salida )
-                                            <a href="{{ url('parqueadero_visitante_edit',[ 'id' =>  $parqueadero_visitante->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                            <a href="{{ url('parqueadero_visitante_delete',[ 'id' =>  $parqueadero_visitante->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este manual?');"><i class="material-icons-outlined">borrar</i></a>
+                                            <a href="{{ url('parqueadero_visitante_edit',[ 'id' =>  $parqueadero_visitante->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ url('parqueadero_visitante_delete',[ 'id' =>  $parqueadero_visitante->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este manual?');"><i class="fa fa-trash"></i></a>
                                             <a href="{{ url('registroSalidaVehiculo',[ 'id' =>  $parqueadero_visitante->id ]) }}" target="_blank" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Registrar Salida Visitante" class="btn btn-success" onclick="return confirm('¿Estás seguro de que deseas registrar salida?');"><i class="material-icons-outlined">person</i></a>
                                         @else
                                             <a href="{{ url('recibo_parqueadero',[ 'id' =>  $parqueadero_visitante->id ]) }}" target="_blank" data-bs-toggle="tooltip" data-bs-offset="0,8" data-bs-placement="top" data-bs-custom-class="tooltip-primary" title="Ver Recibo" class="btn btn-info"><i class="material-icons-outlined">visibility</i></a>

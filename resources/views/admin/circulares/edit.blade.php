@@ -34,8 +34,8 @@
                 </div>
                 <hr>
                 <div class="mb-12">
-                    <button class="btn btn-warning">Actualizar</button>
-                    <a href="{{ url('circulares')}}" class="btn btn-danger">Cancelar</a>
+                    <button class="btn btn-warning mt-2">Actualizar</button>
+                    <a href="{{ url('circulares')}}" class="btn btn-danger mt-2">Cancelar</a>
                 </div>
             </form>
         </div>

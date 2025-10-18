@@ -62,8 +62,8 @@
                                         <td>{{ $apartamento->nombre }}</td>
                                         <td>{{ $apartamento->estado }}</td>
                                         <td>
-                                            <a href="{{ url('apartamentos_edit',[ 'id' =>  $apartamento->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                            <a href="{{ url('apartamentos_delete',[ 'id' =>  $apartamento->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este apartamento?');"><i class="material-icons-outlined">borrar</i></a>
+                                            <a href="{{ url('apartamentos_edit',[ 'id' =>  $apartamento->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ url('apartamentos_delete',[ 'id' =>  $apartamento->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este apartamento?');"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

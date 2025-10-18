@@ -20,8 +20,8 @@
                                             <img src="{{ asset('storage/galeria_emprendimientos').'/'.$g_emprendimiento->imagen }}" alt="" width="40%">
                                         </td>
                                         <td>
-                                            <a href="{{ url('galeria_emprendimiento_edit',[ 'id' =>  $g_emprendimiento->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                            <a href="{{ url('galeria_emprendimiento_delete',[ 'id' =>  $g_emprendimiento->id ]) }}" class="btn btn-danger"><i class="material-icons-outlined">borrar</i></a>
+                                            <a href="{{ url('galeria_emprendimiento_edit',[ 'id' =>  $g_emprendimiento->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ url('galeria_emprendimiento_delete',[ 'id' =>  $g_emprendimiento->id ]) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

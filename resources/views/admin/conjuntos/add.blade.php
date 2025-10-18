@@ -84,12 +84,8 @@
                                         </td>
                                         <td>{{ $conjunto->administrador->name ? $conjunto->administrador->name : NA }}</td>
                                         <td>
-                                                <a href="{{ url('conjuntos_edit',[ 'id' =>  $conjunto->id ]) }}" class="btn btn-info mb-2">
-                                                    <i class="material-icons-outlined">editar</i>
-                                                </a>
-                                                <a href="{{ url('conjuntos_delete',[ 'id' =>  $conjunto->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este conjunto?');">
-                                                    <i class="material-icons-outlined">borrar</i>
-                                                </a>
+                                                <a href="{{ url('conjuntos_edit',[ 'id' =>  $conjunto->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                                <a href="{{ url('conjuntos_delete',[ 'id' =>  $conjunto->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este conjunto?');"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

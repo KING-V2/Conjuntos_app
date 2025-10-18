@@ -38,8 +38,8 @@
                                         <td>{{ $reserva->administrador ? $reserva->administrador->name : '-' }}</td>
                                         <td>{{ $reserva->descripcion_respuesta ? $reserva->descripcion_respuesta : '-' }}</td>
                                         <td>
-                                            <a href="{{ url('reservas_edit',[ 'id' =>  $reserva->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                            <a href="{{ url('reservas_delete',[ 'id' =>  $reserva->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta reserva?');"><i class="material-icons-outlined">borrar</i></a>
+                                            <a href="{{ url('reservas_edit',[ 'id' =>  $reserva->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ url('reservas_delete',[ 'id' =>  $reserva->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta reserva?');"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

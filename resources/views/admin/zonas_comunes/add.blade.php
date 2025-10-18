@@ -43,8 +43,8 @@
                                         <td>{{ $zona_comun->nombre }}</td>
                                         <td>{{ $zona_comun->estado }}</td>
                                         <td>
-                                            <a href="{{ url('zonas_comunes_edit',[ 'id' =>  $zona_comun->id ]) }}" class="btn btn-info"><i class="material-icons-outlined">editar</i></a>
-                                            <a href="{{ url('zonas_comunes_delete',[ 'id' =>  $zona_comun->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta zona comun?');"><i class="material-icons-outlined">borrar</i></a>
+                                            <a href="{{ url('zonas_comunes_edit',[ 'id' =>  $zona_comun->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
+                                            <a href="{{ url('zonas_comunes_delete',[ 'id' =>  $zona_comun->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta zona comun?');"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

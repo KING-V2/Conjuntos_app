@@ -18,11 +18,11 @@
                     </div>
                 </div>
                 <div class="mb-12">
-                    <button class="btn btn-warning">Actualizar</button>
+                    <button class="btn btn-warning mt-2">Actualizar</button>
                 </div>
             </form>
             <div class="mb-12">
-                <a href="{{ url('directorios')}}" class="btn btn-danger">Cancelar</a>
+                <a href="{{ url('directorios')}}" class="btn btn-danger mt-2">Cancelar</a>
             </div>
         </div>
     </div>
