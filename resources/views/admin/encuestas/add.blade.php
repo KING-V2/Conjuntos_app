@@ -149,7 +149,9 @@
     <script>
         function mostrarEstadisticas(encuestaId) {
             // Llamada a la API para obtener los datos de estadísticas
-            fetch(`/api/estadisticaEncuestasWeb/${encuestaId}`)
+            fetch(`{{ url('api/estadisticaEncuestasWeb') }}/${encuestaId}`, {
+                    headers: { 'Accept': 'application/json' }
+                })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Error al cargar los datos de la encuesta.');
