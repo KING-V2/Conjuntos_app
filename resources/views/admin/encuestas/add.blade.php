@@ -150,10 +150,7 @@
         function mostrarEstadisticas(encuestaId) {
             // Llamada a la API para obtener los datos de estadísticas
             fetch(`{{ url('api/estadisticaEncuestasWeb') }}/${encuestaId}`, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Authorization': 'Bearer {{ csrf_token() }}'
-                    }
+                    headers: {'Accept': 'application/json'}
                 })
                 .then(response => {
                     if (!response.ok) {

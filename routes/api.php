@@ -40,19 +40,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/getEncuestaUsuario/{usuario_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'getEncuestaUsuario'])->name('getEncuestaUsuario');
     Route::get('/estadisticaEncuestas/{encuesta_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'estadisticaEncuestas'])->name('estadisticaEncuestas');
     Route::get('/consultarEncuestasActivas/{usuario_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'consultarEncuestasActivas'])->name('consultarEncuestasActivas');
-    Route::get('/estadisticaEncuestasWeb/{encuesta_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'estadisticaEncuestasWeb'])->name('estadisticaEncuestasWeb');
     
     
     //trasteos
     Route::post('/solicitarTrasteo', [App\Http\Controllers\TrasteosController::class, 'solicitarTrasteo'])->name('solicitarTrasteo');
     Route::get('/listaSolicitudesTrasteos/{user_id}', [App\Http\Controllers\TrasteosController::class, 'listaSolicitudesTrasteos'])->name('listaSolicitudesTrasteos');
     Route::get('/mis_reservas/{usuario_id}', [App\Http\Controllers\ReservaController::class, 'mis_reservas'])->name('mis_reservas');
-
+    
     Route::post('/solicitar_reserva', [App\Http\Controllers\ReservaController::class, 'solicitar_reserva'])->name('solicitar_reserva');
 });
 
 Route::get('/getZonasComunes', [App\Http\Controllers\ZonaComunController::class, 'getZonasComunes'])->name('getZonasComunes');
 
+Route::get('/estadisticaEncuestasWeb/{encuesta_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'estadisticaEncuestasWeb'])->name('estadisticaEncuestasWeb');
 
 //correspondencia
 Route::post('/sumarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'sumarElemento'])->name('sumarElemento');
