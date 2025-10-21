@@ -247,7 +247,7 @@
                 })
                 .catch(error => {
                     console.error('Error al mostrar las estadísticas:', error);
-                    alert('No se pudieron cargar las estadísticas de la encuesta.');
+                    alert('No se pudieron cargar las estadísticas de la encuesta. '+ error.message);
                 });
         }
 
