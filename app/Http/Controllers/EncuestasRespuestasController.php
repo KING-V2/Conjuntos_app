@@ -131,7 +131,7 @@ class EncuestasRespuestasController extends Controller
         $nombreMesEnEspanol = $meses[$nombreMes];
         $header = ['Content-Type' => 'application/json','charset' => 'utf-8'];
         // obtencion de encuestas del mes
-        $encuestas_mes = Encuestas::where('mes',$nombreMesEnEspanol)->get();
+        $encuestas_mes = Encuestas::where('mes',$nombreMesEnEspanol)->where('estado', 'Activo')->get();
         $residente      = Residente::where('usuario_id',$usuario_id)->first();
         $encuestas_disponibles = [];
         // se recorren las encuestas para buscar la coincidencia entre las encuestas del mes y las respuestas de encuestas del ususario
@@ -181,7 +181,7 @@ class EncuestasRespuestasController extends Controller
         // Obtener el nombre del mes en español
         $nombreMesEnEspanol = $meses[$nombreMes];
         // obtencion de encuestas del mes
-        $encuestas_mes = Encuestas::where('mes',$nombreMesEnEspanol)->get();
+        $encuestas_mes = Encuestas::where('mes',$nombreMesEnEspanol)->where('estado', 'Activo')->get();
         $residente      = Residente::where('usuario_id',$usuario_id)->first();
         $encuestas_disponibles = [];
 
