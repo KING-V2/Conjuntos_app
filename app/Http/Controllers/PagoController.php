@@ -153,12 +153,10 @@ class PagoController extends Controller
         try {
             $pago = Pago::findOrFail($id);
 
-            // 🔹 Si existe un adjunto, eliminarlo del almacenamiento
             if ($pago->adjunto && Storage::disk('storage_pagos')->exists($pago->adjunto)) {
                 Storage::disk('storage_pagos')->delete($pago->adjunto);
             }
 
-            // 🔹 Luego eliminar el registro de la base de datos
             $pago->delete();
 
             session()->flash('flash_success_message', 'Registro eliminado correctamente');

@@ -2,7 +2,7 @@
 @section('content')
 <div class="col-md-12">
     <div class="card">
-        <h5 class="card-header">Edicion Apartamento</h5>
+        <h5 class="card-header">Edicion Pago</h5>
         <div class="card-body">
             <form action="{{ url('pagos_update', []) }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -19,14 +19,10 @@
                         <label>Interior</label>
                         <select class="form-control" name="bloque_id" id="bloque_id" required>
                             <option value="">-- Seleccione --</option>
-                            @foreach($bloques as $bloque)
-                                <option value="{{ $bloque->id }}" {{ $pago->bloque_id == $bloque->id ? 'selected' : '' }}>{{ $bloque->nombre }}</option>
+                            @foreach($casas as $casa)
+                                <option value="{{ $casa->id }}" {{ $pago->casa_id == $casa->id ? 'selected' : '' }}>{{ $bloque->nombre }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label>Apartamento</label>
-                        <select class="form-control" name="apartamento_id" id="apartamento_id" required></select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label>Mes</label>
@@ -64,9 +60,6 @@
                         <textarea name="descripcion" class="form-control" readonly>{{ $pago->descripcion }}</textarea>
                     </div>
                 </div>
-
-                
-
                 <div class=" col-md-12 mb-3">
                     <label>Comentario del Administrador</label>
                     <textarea name="comentario_admin" class="form-control">{{ $pago->comentario_admin }}</textarea>

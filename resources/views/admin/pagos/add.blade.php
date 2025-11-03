@@ -17,16 +17,12 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label>Interior</label>
-                        <select class="form-control" name="bloque_id" id="bloque_id">
+                        <select class="form-control" name="casa_id" id="casa_id">
                             <option value="">-- Seleccione --</option>
-                            @foreach($bloques as $bloque)
-                                <option value="{{ $bloque->id }}">{{ $bloque->nombre }}</option>
+                            @foreach($casas as $casa)
+                                <option value="{{ $casa->id }}">{{ $casa->nombre }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label>Apartamento</label>
-                        <select class="form-control" name="apartamento_id" id="apartamento_id"></select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label>Mes</label>
@@ -127,8 +123,7 @@
                                             <table class="table table-bordered" style="overflow-x: auto;">
                                                 <thead>
                                                     <tr>
-                                                        <th>Bloque</th>
-                                                        <th>Apartamento</th>
+                                                        <th>Casa</th>
                                                         <th>Tipo de Pago</th>
                                                         <th>Observacion Administrador</th>
                                                         <th>Adjunto Notificacion</th>
@@ -141,8 +136,7 @@
                                                 <tbody>
                                                     @foreach($pagos->where('mes', $mes_actual)->where('tipo_pago', $tipo_pago) as $pago)
                                                         <tr>
-                                                            <td>{{ $pago->bloque->nombre ?? '-' }}</td>
-                                                            <td>{{ $pago->apartamento->nombre ?? '-' }} </td>
+                                                            <td>{{ $pago->casa->nombre ?? '-' }}</td>
                                                             <td>{{ $pago->tipo_pago ?? '-' }}</td>
                                                             <td>{{ $pago->comentario_admin ?? '-' }}</td>
                                                             <td>
@@ -186,31 +180,7 @@
                     @endforeach
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
-@endsection
-@section('javascripts')
-    <script>
-        $('#bloque_id').change(function() {
-            var bloque_id = $(this).val();
-
-            if (bloque_id) {
-                $.ajax({
-                    url: '/get-apartamentos/' + bloque_id,
-                    type: 'GET',
-                    success: function(data) {
-                        $('#apartamento_id').empty().append('<option value="">-- Seleccione --</option>');
-                        $.each(data, function(key, value) {
-                            $('#apartamento_id').append('<option value="' + value.id + '">' + value.nombre + '</option>');
-                        });
-                    }
-                });
-            } else {
-                $('#apartamento_id').empty().append('<option value="">-- Seleccione --</option>');
-            }
-        });
-    </script>
 @endsection
