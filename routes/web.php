@@ -38,6 +38,7 @@ use App\Http\Controllers\ParqueaderoVisitantesController;
 use App\Http\Controllers\CategoriaVehiculoController;
 use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\CasasController;
+use App\Http\Controllers\MensajesVistasController;
 
 use App\Http\Controllers\RegistroParqueaderoController;
 use App\Http\Controllers\VehiculoController;
@@ -356,6 +357,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/correspondenciallenar/{cantidad}', [CorrespondenciaController::class, 'correspondenciallenar']);
     Route::get('/casasllenar/{cantidad}', [CorrespondenciaController::class, 'casasllenar']);
 
+    Route::get('/mensajes-vistas', [MensajesVistasController::class, 'index'])->name('mensajes_vistas.index');
+    Route::get('/mensajes-vistas/create', [MensajesVistasController::class, 'create'])->name('mensajes_vistas.create');
+    Route::post('/mensajes-vistas/store', [MensajesVistasController::class, 'store'])->name('mensajes_vistas.store');
+    Route::get('/mensajes-vistas/edit/{id}', [MensajesVistasController::class, 'edit'])->name('mensajes_vistas.edit');
+    Route::post('/mensajes-vistas/update/{id}', [MensajesVistasController::class, 'update'])->name('mensajes_vistas.update');
+    Route::get('/mensajes-vistas/delete/{id}', [MensajesVistasController::class, 'destroy'])->name('mensajes_vistas.delete');
 
 });
 

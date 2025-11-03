@@ -408,6 +408,14 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @can('mensajes vistas')
+                                <li class="menu-item">
+                                    <a href="{{ url('mensajes-vistas') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa-solid fa fa-book"></i>
+                                        <div data-i18n="Mensajes Vistas">Mensajes Vistas</div>
+                                    </a>
+                                </li>
+                                @endcan
                                 @can('log sistema')
                                 <li class="menu-item">
                                     <a href="{{ url('log_sistema') }}" class="menu-link">

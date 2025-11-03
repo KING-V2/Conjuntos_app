@@ -54,6 +54,8 @@ Route::get('/getZonasComunes', [App\Http\Controllers\ZonaComunController::class,
 
 Route::get('/estadisticaEncuestasWeb/{encuesta_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'estadisticaEncuestasWeb'])->name('estadisticaEncuestasWeb');
 
+Route::get('/getMensajeVista/{vista}', [App\Http\Controllers\MensajesVistasController::class, 'getMensajeVista'])->name('getMensajeVista');
+
 //correspondencia
 Route::post('/sumarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'sumarElemento'])->name('sumarElemento');
 Route::post('/restarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'restarElemento'])->name('restarElemento');
