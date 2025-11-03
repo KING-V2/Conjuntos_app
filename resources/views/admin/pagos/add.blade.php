@@ -16,7 +16,7 @@
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>Interior</label>
+                        <label>Casa</label>
                         <select class="form-control" name="casa_id" id="casa_id">
                             <option value="">-- Seleccione --</option>
                             @foreach($casas as $casa)

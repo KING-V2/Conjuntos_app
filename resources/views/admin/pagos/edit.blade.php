@@ -16,7 +16,7 @@
                             @endforeach
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label>Interior</label>
+                        <label>Casa</label>
                         <select class="form-control" name="bloque_id" id="bloque_id" required>
                             <option value="">-- Seleccione --</option>
                             @foreach($casas as $casa)
