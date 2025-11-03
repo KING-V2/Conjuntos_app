@@ -146,6 +146,24 @@
                             </ul>
                         </li>
                         <li class="menu-item">
+                            @can('modulo pagos')
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons fa fa-money-bill"></i>
+                                <div data-i18n="Pagos">Pagos</div>
+                            </a>
+                            @endcan
+                            <ul class="menu-sub">
+                                @can('pagos')
+                                <li class="menu-item">
+                                    <a href="{{ url('pagos')}}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-money-bill"></i>
+                                        <div data-i18n="casas">Pagos</div>
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
+                        <li class="menu-item">
                             @can('modulo actividades')
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons fa fa-check"></i>

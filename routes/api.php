@@ -56,6 +56,8 @@ Route::get('/estadisticaEncuestasWeb/{encuesta_id}', [App\Http\Controllers\Encue
 
 Route::get('/getMensajeVista/{vista}', [App\Http\Controllers\MensajesVistasController::class, 'getMensajeVista'])->name('getMensajeVista');
 
+Route::post('/uploadAdjuntoPago', [App\Http\Controllers\PagoController::class, 'uploadAdjuntoPago'])->name('uploadAdjuntoPago');
+
 //correspondencia
 Route::post('/sumarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'sumarElemento'])->name('sumarElemento');
 Route::post('/restarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'restarElemento'])->name('restarElemento');

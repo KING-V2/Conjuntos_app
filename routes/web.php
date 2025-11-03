@@ -39,6 +39,7 @@ use App\Http\Controllers\CategoriaVehiculoController;
 use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\CasasController;
 use App\Http\Controllers\MensajesVistasController;
+use App\Http\Controllers\PagoController;
 
 use App\Http\Controllers\RegistroParqueaderoController;
 use App\Http\Controllers\VehiculoController;
@@ -363,6 +364,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mensajes-vistas/edit/{id}', [MensajesVistasController::class, 'edit'])->name('mensajes_vistas.edit');
     Route::post('/mensajes-vistas/update/{id}', [MensajesVistasController::class, 'update'])->name('mensajes_vistas.update');
     Route::get('/mensajes-vistas/delete/{id}', [MensajesVistasController::class, 'destroy'])->name('mensajes_vistas.delete');
+
+        //pagos
+    Route::get('/pagos', [PagoController::class, 'index']);
+    Route::post('/cargar_pagos', [PagoController::class, 'store']);
+    Route::get('/pagos_edit/{id}', [PagoController::class, 'edit']);
+    Route::post('/pagos_update', [PagoController::class, 'update']);
+    Route::get('/pagos_delete/{id}', [PagoController::class, 'destroy']);
 
 });
 
