@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pago;
 use App\Models\PagosDescripciones;
 use App\Models\Administracion\Residente;
-use App\Models\Administracion\Apartamento;
-use App\Models\Administracion\Bloque;
+use App\Models\Administracion\Casas;
 use App\Http\Requests\StorePagoRequest;
 use App\Http\Requests\UpdatePagoRequest;
 use Illuminate\Http\Request;
@@ -35,14 +34,13 @@ class PagoController extends Controller
     public function store(StorePagoRequest $request)
     {
         try {
-            // 1️⃣ Obtener datos del formulario
             $tipo_pago        = $request->input('tipo_pago');
             $comentario_admin = $request->input('comentario_admin');
             $adjunto_notificacion = $request->file('adjunto_notificacion');
 
             if ( $tipo_pago === 'Administracion' ) 
             {
-                $bloques = Bloque::all();
+                $casas = Casas::all();
                 $apartamentos = Apartamento::all();
 
                 
@@ -74,10 +72,9 @@ class PagoController extends Controller
             if ( $tipo_pago === 'Extra Ordinario'  ) {
 
                 
-                $bloques = Bloque::all();
+                $casas = Casas::all();
                 $meses = $request->input('mes');
 
-                // 4️⃣ Si hay archivo adjunto, guardarlo una vez (y usarlo para todos)
                 $file_name = null;
                 if (!empty($adjunto_notificacion)) {
                     $fecha = date('YmdHis') . rand(0, 9);
@@ -85,8 +82,7 @@ class PagoController extends Controller
                     Storage::disk('storage_pagos')->put($file_name, file_get_contents($adjunto_notificacion));
                 }
 
-                // 5️⃣ Crear los pagos por cada bloque, apartamento y mes
-                foreach ($bloques as $bloque) {
+                foreach ($casas as $casa) {
                     Pago::create([
                         'tipo_pago'        => $tipo_pago,
                         'casa_id'          => $casa->id,
@@ -116,7 +112,7 @@ class PagoController extends Controller
                 $pago->save();
             }
 
-            session()->flash('flash_success_message', 'Pagos generados correctamente para todos los bloques y apartamentos.');
+            session()->flash('flash_success_message', 'Pagos generados correctamente para todas las casas.');
         } catch (\Exception $exception) {
             session()->flash('flash_error_message', 'Error: ' . $exception->getMessage());
         }
@@ -174,9 +170,9 @@ class PagoController extends Controller
         }
     }
 
-    public function getPagos($bloque,$tipo)
+    public function getPagos($casa,$tipo)
     {
-        $pagos = Pago::where('casa_id', $bloque)
+        $pagos = Pago::where('casa_id', $casa)
                         ->where('tipo_pago', $tipo)
                         ->get();
 
