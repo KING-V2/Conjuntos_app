@@ -180,6 +180,14 @@
                                 </li>
                                 @endcan
                             </ul>
+                            @can('mensajes vistas')
+                                <li class="menu-item">
+                                    <a href="{{ url('mensajes-vistas') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa-solid fa fa-book"></i>
+                                        <div data-i18n="Mensajes Vistas">Mensajes Vistas</div>
+                                    </a>
+                                </li>
+                                @endcan
                         </li>
                         <li class="menu-item">
                             @can('modulo empleados')
@@ -423,14 +431,6 @@
                                     <a href="{{ url('permissions') }}" class="menu-link">
                                         <i class="menu-icon tf-icons fa-solid fa fa-check-square"></i>
                                         <div data-i18n="Permisos">Permisos</div>
-                                    </a>
-                                </li>
-                                @endcan
-                                @can('mensajes vistas')
-                                <li class="menu-item">
-                                    <a href="{{ url('mensajes-vistas') }}" class="menu-link">
-                                        <i class="menu-icon tf-icons fa-solid fa fa-book"></i>
-                                        <div data-i18n="Mensajes Vistas">Mensajes Vistas</div>
                                     </a>
                                 </li>
                                 @endcan
