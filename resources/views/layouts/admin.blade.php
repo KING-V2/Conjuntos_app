@@ -179,8 +179,7 @@
                                     </a>
                                 </li>
                                 @endcan
-                            </ul>
-                            @can('mensajes vistas')
+                                @can('mensajes vistas')
                                 <li class="menu-item">
                                     <a href="{{ url('mensajes-vistas') }}" class="menu-link">
                                         <i class="menu-icon tf-icons fa-solid fa fa-book"></i>
@@ -188,6 +187,7 @@
                                     </a>
                                 </li>
                                 @endcan
+                            </ul>
                         </li>
                         <li class="menu-item">
                             @can('modulo empleados')
