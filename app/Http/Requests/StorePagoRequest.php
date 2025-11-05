@@ -23,7 +23,6 @@ class StorePagoRequest extends FormRequest
     {
         return [
             'tipo_pago' => 'required|string|max:255',
-            'adjunto_notificacion' => 'required',
             'comentario_admin' => 'required|string',
         ];
     }

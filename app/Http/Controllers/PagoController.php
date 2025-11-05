@@ -41,8 +41,6 @@ class PagoController extends Controller
             if ( $tipo_pago === 'Administracion' ) 
             {
                 $casas = Casas::all();
-                $apartamentos = Apartamento::all();
-
                 
                 $meses = explode(',', env('MESES', 'Enero,Febrero,Marzo,Abril,Mayo,Junio,Julio,Agosto,Septiembre,Octubre,Noviembre,Diciembre'));
 
@@ -97,7 +95,7 @@ class PagoController extends Controller
         if ( $tipo_pago === 'Multa' || $tipo_pago === 'Llamado De Atencion') {
                 $pago = new Pago();
                 $pago->tipo_pago            = $request->input('tipo_pago');
-                $pago->casa_id            = $request->input('casa_id');
+                $pago->casa_id              = $request->input('casa_id');
                 $pago->mes                  = $request->input('mes');
                 $pago->comentario_admin     = $request->input('comentario_admin');
                 $adjunto_notificacion       = $request->file('adjunto_notificacion');

@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label>Adjunto Notificación *</label>
-                        <input type="file" name="adjunto_notificacion" id="adjunto_notificacion" class="form-control" required>
+                        <input type="file" name="adjunto_notificacion" id="adjunto_notificacion" class="form-control">
                     </div>
                     <div class="mb-3">
                         <label>Descripción *</label>
