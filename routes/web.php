@@ -372,5 +372,24 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/pagos_update', [PagoController::class, 'update']);
     Route::get('/pagos_delete/{id}', [PagoController::class, 'destroy']);
 
+    Route::get('/zonas', [ZonaComunController::class, 'index'])->name('zonas.index');
+    Route::get('/zonas/create', [ZonaComunController::class, 'create'])->name('zonas.create');
+    Route::post('/zonas/store', [ZonaComunController::class, 'store'])->name('zonas.store');
+    Route::get('/zonas/{id}/edit', [ZonaComunController::class, 'edit'])->name('zonas.edit');
+    Route::post('/zonas/{id}/update', [ZonaComunController::class, 'update'])->name('zonas.update');
+    Route::post('/zonas/{id}/delete', [ZonaComunController::class, 'destroy'])->name('zonas.delete');
+
+    Route::get('/zonas/{zona_id}/horarios', [ZonaComunHorarioController::class, 'index'])->name('zonas.horarios.index');
+    Route::post('/zonas/{zona_id}/horarios/store', [ZonaComunHorarioController::class, 'store'])->name('zonas.horarios.store');
+    Route::post('/zonas/horarios/{id}/delete', [ZonaComunHorarioController::class, 'destroy'])->name('zonas.horarios.delete');
+
+    // Admin listado
+    Route::get('/reservas', [ReservaController::class, 'index'])->name('reservas.index');
+    Route::get('/reservas/create', [ReservaController::class, 'create'])->name('reservas.create');
+    Route::post('/reservas/store', [ReservaController::class, 'store'])->name('reservas.store');
+    Route::post('/reservas/{id}/aprobar', [ReservaController::class, 'aprobar'])->name('reservas.aprobar');
+    Route::post('/reservas/{id}/rechazar', [ReservaController::class, 'rechazar'])->name('reservas.rechazar');
+    Route::get('/reservas/{id}/comprobante', [ReservaController::class, 'mostrarComprobante'])->name('reservas.comprobante');
+
 });
 

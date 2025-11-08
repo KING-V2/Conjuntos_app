@@ -1,41 +1,35 @@
 @extends('layouts.admin')
+
 @section('content')
-<div class="col-md-12">
-    <div class="card">
-        <h5 class="card-header">Edicion Zona Comun</h5>
-        <div class="card-body">
-            <form method="post" action="{{ url('zonas_comunes_update',[]) }}">
-                {{ csrf_field() }}
-                <input class="form-control" type="hidden" id="zona_comun_id" name="zona_comun_id" placeholder="zona_comun_id" value="{{ $zona_comun->id }}"/>
-                <div class="row">
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">nombre</label>
-                        <input class="form-control" type="text" id="nombre" name="nombre" placeholder="nombre" value="{{$zona_comun->nombre}}"/>
-                    </div>
-                    <div class="col-sm-12 col-md-3">
-                        <label for="form" class="form-label">bloque</label>
-                        <select class="form-control" name=" estado" id="estado">
-                            <option value="">-- Seleccione --</option>
-                            <option value="Activo" {{$zona_comun->estado == 'Activo' ? 'selected' : '' }}>Activo</option>
-                            <option value="No Activo" {{$zona_comun->estado == 'No Activo' ? 'selected' : '' }}>No Activo</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <div class="row">
-                    <div class="mb-12">
-                        <button class="btn btn-success">Actualizar</button>
-                    </div>
-                </div>
-            </form>
-            <hr>
-            <div class="mb-12">
-                <a href="{{ url('zonas_comunes')}}" class="btn btn-danger">Cancelar</a>
-            </div>
+<div class="container col-md-6">
+    <h3>{{ isset($zona) ? 'Editar Zona Común' : 'Nueva Zona Común' }}</h3>
+
+    <form action="{{ isset($zona) ? route('zonas.update', $zona->id) : route('zonas.store') }}" 
+          method="POST">
+        @csrf
+        @if(isset($zona)) @method('PUT') @endif
+
+        <div class="mb-3">
+            <label>Nombre</label>
+            <input type="text" name="nombre" class="form-control"
+                   value="{{ $zona->nombre ?? '' }}" required>
         </div>
-    </div>
+
+        <div class="mb-3">
+            <label>Descripción</label>
+            <textarea name="descripcion" class="form-control" rows="3">{{ $zona->descripcion ?? '' }}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Estado</label>
+            <select name="estado" class="form-control">
+                <option value="Activo" {{ isset($zona) && $zona->estado=='Activo' ? 'selected':'' }}>Activo</option>
+                <option value="Inactivo" {{ isset($zona) && $zona->estado=='Inactivo' ? 'selected':'' }}>Inactivo</option>
+            </select>
+        </div>
+
+        <button class="btn btn-success">Guardar</button>
+        <a href="{{ route('zonas.index') }}" class="btn btn-secondary">Volver</a>
+    </form>
 </div>
-@endsection
-@section('javascripts')
-    <script src="{{ asset('assets/js/audios/audios.js') }}"></script>
 @endsection

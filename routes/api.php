@@ -46,6 +46,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/solicitarTrasteo', [App\Http\Controllers\TrasteosController::class, 'solicitarTrasteo'])->name('solicitarTrasteo');
     Route::get('/listaSolicitudesTrasteos/{user_id}', [App\Http\Controllers\TrasteosController::class, 'listaSolicitudesTrasteos'])->name('listaSolicitudesTrasteos');
     Route::get('/mis_reservas/{usuario_id}', [App\Http\Controllers\ReservaController::class, 'mis_reservas'])->name('mis_reservas');
+    Route::post('/cargarComprobante', [App\Http\Controllers\ReservaController::class, 'cargarComprobante'])->name('cargarComprobante');
     
     Route::post('/solicitar_reserva', [App\Http\Controllers\ReservaController::class, 'solicitar_reserva'])->name('solicitar_reserva');
 });

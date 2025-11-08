@@ -22,13 +22,13 @@ class StoreReservaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "fecha" => 'required',
-            "hora_inicio" => 'required',
-            "hora_fin" => 'required',
-            "estado" => 'required',
-            "usuario_id" => 'required',
-            "zona_comun_id" => 'required',
-            "descripcion" => 'required'
+            'usuario_id' => 'required|exists:users,id',
+            'zona_comun_id' => 'required|exists:zona_comun,id',
+            'fecha' => 'required|date_format:Y-m-d',
+            'hora_inicio' => 'required|date_format:H:i',
+            'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
+            'descripcion' => 'nullable|string',
+            'comprobante_pago' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240'
         ];
     }
 }

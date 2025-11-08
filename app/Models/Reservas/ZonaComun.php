@@ -23,6 +23,23 @@ class ZonaComun extends Model
      */
     protected $fillable = [
         'nombre',
-        'estado'
+        'estado',
+        'descripcion',
+        'conjunto_id',
+        'activo'
     ];
+    public function conjunto()
+    {
+        return $this->belongsTo(Conjunto::class);
+    }
+
+    public function horarios()
+    {
+        return $this->hasMany(ZonaComunHorario::class, 'zona_comun_id');
+    }
+
+    public function reservas()
+    {
+        return $this->hasMany(Reserva::class, 'zona_comun_id');
+    }
 }

@@ -32,6 +32,7 @@
                                 <tr>
                                     <th> Id </th>
                                     <th> Nombre </th>
+                                    <th> descripcion </th>
                                     <th> estado </th>
                                     <th> Opciones </th>
                                 </tr>
@@ -41,6 +42,7 @@
                                     <tr>
                                         <td>{{ $zona_comun->id }}</td>
                                         <td>{{ $zona_comun->nombre }}</td>
+                                        <td>{{ $zona_comun->descripcion }}</td>
                                         <td>{{ $zona_comun->estado }}</td>
                                         <td>
                                             <a href="{{ url('zonas_comunes_edit',[ 'id' =>  $zona_comun->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
@@ -57,18 +59,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('javascripts')
-
-    <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-
-    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
-
-    <script src="{{ asset('assets/js/audios/configs.js') }}"></script>
-    <script src="{{ asset('assets/js/tables-datatables-basic.js') }}"></script>
-
-    <script src="{{ asset('assets/js/archivos/archivos.js') }}"></script>
 @endsection

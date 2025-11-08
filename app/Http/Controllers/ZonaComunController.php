@@ -5,117 +5,67 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreZonaComunRequest;
 use App\Http\Requests\UpdateZonaComunRequest;
 use App\Models\Reservas\ZonaComun;
+use App\Models\Reservas\ZonaComunHorario;
+use Illuminate\Http\Request;
 
 
 class ZonaComunController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $zonas_comunes = ZonaComun::all();
-        return view('admin.zonas_comunes.add',
-            [
-                'zonas_comunes' => $zonas_comunes
-            ]
-        );
+        $zonas = ZonaComun::orderBy('nombre')->paginate(20);
+        return view('admin.zonas_comunes.index', compact('zonas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+    public function create()
     {
-        
+        return view('admin.zonas_comunes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreZonaComunRequest $request)
+    public function store(Request $request)
     {
-        try {
-            $zona_comun = new ZonaComun();
-            $zona_comun->nombre        = $request->input('nombre');
-            $zona_comun->estado        = $request->input('estado');
-            $zona_comun->save();
-            session()->flash('flash_success_message', 'Registrada' );
-            
-        }catch ( \Exception $exception){
-            session()->flash('flash_error_message', $exception->getMessage() );
-        }
-        return redirect('zonas_comunes');
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'estado' => 'nullable|string'
+        ]);
+
+        ZonaComun::create($request->only(['nombre','descripcion','estado','conjunto_id','activo']));
+
+        return redirect()->route('zonas.index')->with('success','Zona común creada.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ZonaComun $zonaComun)
+    public function edit($id)
     {
-        //
+        $zona = ZonaComun::findOrFail($id);
+        return view('admin.zonas_comunes.create', compact('zona')); // reutilizamos la misma vista para create/edit
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ZonaComun $zonaComun, $id )
+    public function update(Request $request, $id)
     {
-        try{
-            $zona_comun = ZonaComun::findOrFail( $id );
-            return view('admin.zonas_comunes.edit',
-                [
-                    'zona_comun' => $zona_comun
-                ]
-            );
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'estado' => 'nullable|string'
+        ]);
 
-        } catch (\Throwable $th) {
-            session()->flash('flash_error_message', $th->getMessage() );
-        }
-        return redirect('zonas_comunes');
+        $zona = ZonaComun::findOrFail($id);
+        $zona->update($request->only(['nombre','descripcion','estado','activo']));
+
+        return redirect()->route('zonas.index')->with('success','Zona común actualizada.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateZonaComunRequest $request, ZonaComun $zonaComun)
+    public function destroy($id)
     {
-        try {
-
-            $zona_comun             = ZonaComun::findOrFail( $request->input('zona_comun_id') );
-            $zona_comun->nombre     = $request->input('nombre');
-            $zona_comun->estado     = $request->input('estado');
-            $zona_comun->save();
-
-            session()->flash('flash_success_message', 'actualizado correctamente');
-            
-        }catch ( \Exception $exception){
-            session()->flash('flash_error_message', $exception->getMessage() );
-        }
-
-        return redirect('zonas_comunes');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ZonaComun $zonaComun, $id)
-    {
-        try {
-            $zonas_comunes = ZonaComun::find( $id );
-            $zonas_comunes->delete();
-
-            session()->flash('flash_success_message', 'eliminado');
-        } catch (\Throwable $th) {
-            session()->flash('flash_error_message', $th->getMessage());
-        }
-        return redirect('zonas_comunes');
+        $zona = ZonaComun::findOrFail($id);
+        $zona->delete();
+        return redirect()->route('zonas.index')->with('success','Zona común eliminada.');
     }
 
     public function getZonasComunes()
     {
         $header = ['Content-Type' => 'application/json','charset' => 'utf-8'];
-        $circulares = ZonaComun::where('estado', 'Activo')->get();
-        return response()->json($circulares, 200, $header, JSON_UNESCAPED_UNICODE);
+        $zonas_comunes = ZonaComun::where('estado', 'Activo')->get();
+        return response()->json($zonas_comunes, 200, $header, JSON_UNESCAPED_UNICODE);
     }
 }

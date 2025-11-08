@@ -4,66 +4,53 @@
     <div class="card">
         <h1 class="card-header">Reservas</h1>
         <div class="card-body">
-            <hr>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-datatable table-responsive pt-0">
-                        <table class="table table-bordered" style="overflow-x: auto;">
-                            <thead>
-                                <tr>
-                                    <th> Id </th>
-                                    <th> residente </th>
-                                    <th> zona comun </th>
-                                    <th> fecha </th>
-                                    <th> Hora inicio </th>
-                                    <th> Hora fin </th>
-                                    <th> descripcion </th>
-                                    <th> estado </th>
-                                    <th> administrador </th>
-                                    <th> respuesta </th>
-                                    <th> Opciones </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach( $reservas as $reserva )
-                                    <tr>
-                                        <td>{{ $reserva->id }}</td>
-                                        <td>{{ $reserva->usuario->name }}</td>
-                                        <td>{{ $reserva->zona_comun->nombre }}</td>
-                                        <td>{{ $reserva->fecha }}</td>
-                                        <td>{{ $reserva->hora_inicio }}</td>
-                                        <td>{{ $reserva->hora_fin }}</td>
-                                        <td>{{ $reserva->descripcion ? $reserva->descripcion : '-' }}</td>
-                                        <td>{{ $reserva->estado }}</td>
-                                        <td>{{ $reserva->administrador ? $reserva->administrador->name : '-' }}</td>
-                                        <td>{{ $reserva->descripcion_respuesta ? $reserva->descripcion_respuesta : '-' }}</td>
-                                        <td>
-                                            <a href="{{ url('reservas_edit',[ 'id' =>  $reserva->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                                            <a href="{{ url('reservas_delete',[ 'id' =>  $reserva->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta reserva?');"><i class="fa fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-            </div>
+            <h3>Reservas</h3>
+            <table class="table table-bordered" style="overflow-x: auto;">
+                <thead>
+                    <tr>
+                        <th>Zona</th><th>Usuario</th><th>Fecha</th><th>Hora</th><th>Estado</th><th>Comprobante</th><th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($reservas as $r)
+                    <tr>
+                        <td>{{ $r->zona->nombre }}</td>
+                        <td>{{ $r->usuario->name }}</td>
+                        <td>{{ $r->fecha }}</td>
+                        <td>{{ $r->hora_inicio }} - {{ $r->hora_fin }}</td>
+                        <td>
+                            @if($r->estado == 'Pendiente') <span class="badge bg-warning">Pendiente</span>
+                            @elseif($r->estado == 'Aprobado') <span class="badge bg-success">Aprobado</span>
+                            @else <span class="badge bg-danger">Rechazado</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if($r->comprobante_pago)
+                                <a target="_blank" href="{{ route('reservas.comprobante', $r) }}">Ver</a>
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td>
+                            @if($r->estado == 'Pendiente')
+                            <form action="{{ route('reservas.aprobar', $r) }}" method="POST" style="display:inline">
+                                @csrf
+                                <input type="hidden" name="estado" value="Aprobado">
+                                <button class="btn btn-sm btn-success">Aprobar</button>
+                            </form>
+                            <form action="{{ route('reservas.aprobar', $r) }}" method="POST" style="display:inline">
+                                @csrf
+                                <input type="hidden" name="estado" value="Rechazado">
+                                <button class="btn btn-sm btn-danger">Rechazar</button>
+                            </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            {{ $reservas->links() }}
         </div>
     </div>
 </div>
-@endsection
-@section('javascripts')
-
-    <script src="{{ asset('assets/vendor/libs/moment/moment.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/flatpickr/flatpickr.js') }}"></script>
-
-    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js') }}"></script>
-
-    <script src="{{ asset('assets/js/audios/configs.js') }}"></script>
-    <script src="{{ asset('assets/js/tables-datatables-basic.js') }}"></script>
-
-    <script src="{{ asset('assets/js/archivos/archivos.js') }}"></script>
 @endsection
