@@ -20,6 +20,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\TrasteosController;
 use App\Http\Controllers\ParqueaderoController;
 use App\Http\Controllers\ZonaComunController;
+use App\Http\Controllers\ZonaComunHorarioController;
 use App\Http\Controllers\EncuestasController;
 use App\Http\Controllers\EncuestasRespuestasController;
 use App\Http\Controllers\CorrespondenciaController;
