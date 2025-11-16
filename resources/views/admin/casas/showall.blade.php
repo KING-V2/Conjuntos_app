@@ -3,10 +3,15 @@
 <div class="col-md-12">
     <div class="card">
         <h1 class="card-header">Citofonia</h1>
-        <div class="card-body">            
+        <div class="card-body">      
+            <hr>      
+            <div class="col-sm-12 col-md-4">
+                <button id="exportExcelBtn" class="btn btn-success btn-md">Exportar</button>
+            </div>
+            <hr>
             <div class="card">
                 <div class="card-datatable table-responsive pt-0">
-                    <table class="table table-bordered" style="overflow-x: auto;">
+                    <table id="dt-search-citofonia" class="table table-bordered" style="overflow-x: auto;">
                         <thead>
                             <tr>
                                 <th> Nombre </th>
@@ -29,7 +34,6 @@
                                     <td>{{ $casa->telefono_cinco }}</td>
                                     <td>
                                         <a href="{{ url('casas_edit',[ 'id' =>  $casa->id ]) }}" class="btn btn-info"><i class="fa fa-pencil"></i></a>
-                                        <!-- <a href="{{ url('casas_delete',[ 'id' =>  $casa->id ]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar esta casa?');"><i class="fa fa-trash"></i></a> -->
                                     </td>
                                 </tr>
                             @endforeach
@@ -40,4 +44,14 @@
         </div>
     </div>
 </div>
+@endsection
+@section('javascripts')
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+        document.getElementById('exportExcelBtn').addEventListener('click', function() {
+            const table = document.getElementById('dt-search-citofonia');
+            const wb = XLSX.utils.table_to_book(table, { sheet: "Datos" });
+            XLSX.writeFile(wb, 'tabla_export_' + new Date().toISOString().slice(0,19).replace(/[:T]/g,'_') + '.xlsx');
+        });
+    </script>
 @endsection
