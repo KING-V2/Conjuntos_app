@@ -129,7 +129,7 @@
                                 <li class="menu-item">
                                     <a href="{{ url('registro_personas')}}" class="menu-link">
                                         <i class="menu-icon fa-solid fa-list"></i>
-                                        <div data-i18n=" registro_personas"> registro_personas</div>
+                                        <div data-i18n=" registro_personas"> Registro Personas</div>
                                     </a>
                                 </li>
                                 @endcan
