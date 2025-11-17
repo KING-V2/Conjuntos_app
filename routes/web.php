@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RegistroPersonasController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CircularesController;
@@ -391,6 +392,17 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/reservas/{id}/aprobar', [ReservaController::class, 'aprobar'])->name('reservas.aprobar');
     Route::post('/reservas/{id}/rechazar', [ReservaController::class, 'rechazar'])->name('reservas.rechazar');
     Route::get('/reservas/{id}/comprobante', [ReservaController::class, 'mostrarComprobante'])->name('reservas.comprobante');
+
+    Route::get('registro_personas', [RegistroPersonasController::class, 'index']);
+    Route::get('registro_personas_create', [RegistroPersonasController::class, 'create']);
+    Route::post('registro_personas_store', [RegistroPersonasController::class, 'store']);
+    Route::get('registro_personas_edit/{id}', [RegistroPersonasController::class, 'edit'])->name('registro-personas.edit');
+    Route::post('registro_personas_update', [RegistroPersonasController::class, 'update']);
+    Route::get('registro_personas_delete/{id}', [RegistroPersonasController::class, 'destroy'])->name('registro-personas.destroy');
+
+    Route::get('/registro-personas', [RegistroPersonasController::class, 'index'])->name('registro-personas.index');
+    Route::get('/registro-personas/buscar', [RegistroPersonasController::class, 'buscar'])->name('registro-personas.buscar');
+    Route::get('/buscar_persona/{documento}', [RegistroPersonasController::class, 'buscarPersona']);
 
 });
 
