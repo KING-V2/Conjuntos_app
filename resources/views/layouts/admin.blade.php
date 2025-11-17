@@ -125,6 +125,14 @@
                                     </a>
                                 </li>
                                 @endcan
+                                @can('registro personas')
+                                <li class="menu-item">
+                                    <a href="{{ url('registro_personas')}}" class="menu-link">
+                                        <i class="menu-icon fa-solid fa-list"></i>
+                                        <div data-i18n=" registro_personas"> registro_personas</div>
+                                    </a>
+                                </li>
+                                @endcan
                             </ul>
                         </li>
                         <li class="menu-item">

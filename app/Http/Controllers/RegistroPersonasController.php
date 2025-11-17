@@ -100,7 +100,7 @@ class RegistroPersonasController extends Controller
         $data['mes'] = ucfirst($mes);
 
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('', 'public');
+            $data['foto'] = $request->file('foto')->store('registro_personas', 'public');
         }
 
         RegistroPersonas::create($data);
