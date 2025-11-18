@@ -166,15 +166,11 @@ class PagoController extends Controller
         }
     }
 
-    public function getPagos($casa,$tipo)
+    public function getPagosCasas($casa,$tipo)
     {
         $pagos = Pago::where('casa_id', $casa)
                         ->where('tipo_pago', $tipo)
                         ->get();
-
-        // Obtener las circulares del año en curso
-
-        // Verificar si hay resultados
         if ($pagos->isEmpty()) {
             return response()->json([
                 'message' => 'No hay pagos disponibles de este tipo.'
@@ -185,7 +181,7 @@ class PagoController extends Controller
         return response()->json($pagos, 200, ['Content-Type' => 'application/json; charset=utf-8']);
     }
 
-    public function uploadAdjuntoPago(Request $request)
+    public function uploadAdjuntoPagoCasa(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'archivo' => 'required|file|max:5120', // 5MB máximo

@@ -51,13 +51,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/solicitar_reserva', [App\Http\Controllers\ReservaController::class, 'solicitar_reserva'])->name('solicitar_reserva');
 });
 
+Route::get('/getPagosCasas/{casa}/{tipo_pago}', [App\Http\Controllers\PagoController::class, 'getPagosCasas'])->name('getPagosCasas');
+Route::post('/uploadAdjuntoPago', [App\Http\Controllers\PagoController::class, 'uploadAdjuntoPago'])->name('uploadAdjuntoPago');
+
 Route::get('/getZonasComunes', [App\Http\Controllers\ZonaComunController::class, 'getZonasComunes'])->name('getZonasComunes');
 
 Route::get('/estadisticaEncuestasWeb/{encuesta_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'estadisticaEncuestasWeb'])->name('estadisticaEncuestasWeb');
 
 Route::get('/getMensajeVista/{vista}', [App\Http\Controllers\MensajesVistasController::class, 'getMensajeVista'])->name('getMensajeVista');
-
-Route::post('/uploadAdjuntoPago', [App\Http\Controllers\PagoController::class, 'uploadAdjuntoPago'])->name('uploadAdjuntoPago');
 
 //correspondencia
 Route::post('/sumarElemento', [App\Http\Controllers\CorrespondenciaController::class, 'sumarElemento'])->name('sumarElemento');
