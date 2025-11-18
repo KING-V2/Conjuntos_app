@@ -103,6 +103,18 @@ return [
             'url' => env('APP_URL'),
             'visibility' => 'public',
         ],
+        'storage_registro_personas' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public').'/registro_personas',
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+        ],
+        'storage_importaciones' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public').'/importaciones',
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

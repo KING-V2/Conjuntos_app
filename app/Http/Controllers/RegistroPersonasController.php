@@ -95,14 +95,55 @@ class RegistroPersonasController extends Controller
     public function store(StoreRegistroPersonasRequest $request)
     {
         $data = $request->all();
+
         Carbon::setLocale('es');
         $mes = Carbon::now()->translatedFormat('F');
         $data['mes'] = ucfirst($mes);
 
+        // =====================================================
+        // 1. FOTO DESDE ARCHIVO NORMAL
+        // =====================================================
         if ($request->hasFile('foto')) {
-            $data['foto'] = $request->file('foto')->store('registro_personas', 'public');
+
+            $foto = $request->file('foto');
+
+            // Crear nombre único
+            $fecha = date('YmdHis') . rand(0, 9);
+            $file_name = 'foto_' . $fecha . '.' . $foto->getClientOriginalExtension();
+
+            // Guardar usando disk()
+            Storage::disk('storage_registro_personas')->put($file_name, file_get_contents($foto));
+
+            // Guardar nombre en la BD
+            $data['foto'] = $file_name;
         }
 
+        // =====================================================
+        // 2. FOTO DESDE CÁMARA (BASE64)
+        // =====================================================
+        if ($request->filled('foto_base64')) {
+
+            $image_64 = $request->foto_base64; // data:image/png;base64,xxxxx
+
+            // Separar metadata
+            list($meta, $content) = explode(',', $image_64);
+
+            // Obtiene la extensión (png, jpg, etc)
+            preg_match('/data:image\/(\w+);base64/', $meta, $matches);
+            $extension = $matches[1] ?? 'png';
+
+            // Crear nombre único
+            $fecha = date('YmdHis') . rand(0, 9);
+            $file_name = 'foto_' . $fecha . '.' . $extension;
+
+            // Guardar archivo en disco
+            Storage::disk('storage_registro_personas')->put($file_name, base64_decode($content));
+
+            // Guardar nombre en la BD
+            $data['foto'] = $file_name;
+        }
+
+        // Crear registro
         RegistroPersonas::create($data);
 
         return redirect('registro_personas')->with('success', 'Registro creado exitosamente.');

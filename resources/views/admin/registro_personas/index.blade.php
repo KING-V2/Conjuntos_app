@@ -18,7 +18,14 @@
                     </div>
                     <div class="col-md-3">
                         <label>Foto</label>
-                        <input type="file" name="foto" id="foto" class="form-control">
+                        <div class="input-group">
+                            <input type="file" name="foto" id="foto" class="form-control">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCamara">
+                                📷 Tomar foto
+                            </button>
+                        </div>
+                        <input type="hidden" name="foto_base64" id="foto_base64">
+                        <img id="previewCaptura" class="img-thumbnail mt-2" style="display:none; max-height:150px;">
                     </div>
                     <div class="col-md-3 mt-2">
                         <label>Casa</label>
@@ -75,11 +82,44 @@
                 </div>
             @endforeach
         </div>
-
     </div>
 </div>
+    <!-- Modal Cámara -->
+    <div class="modal fade" id="modalCamara" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Tomar foto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body text-center">
+
+                <!-- Selector de cámara -->
+                <div class="mb-3">
+                <button class="btn btn-secondary" id="btnFrontal">Cámara frontal</button>
+                <button class="btn btn-secondary" id="btnTrasera">Cámara trasera</button>
+                </div>
+
+                <!-- Cámara -->
+                <div id="camera" style="width:100%; height:300px;"></div>
+
+                <!-- Vista previa -->
+                <div id="resultado" class="mt-3"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnTomarFoto" class="btn btn-success">Capturar</button>
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
 @section('javascripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
     <!-- Datatables CSS/JS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
@@ -177,6 +217,63 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+</script>
+<script>
+    let facingMode = "user"; // por defecto: frontal
+
+    function iniciarCamara() {
+        Webcam.reset("#camera");
+
+        Webcam.set({
+            width: 480,
+            height: 360,
+            image_format: 'jpeg',
+            jpeg_quality: 90,
+            constraints: {
+                facingMode: facingMode
+            }
+        });
+
+        Webcam.attach('#camera');
+    }
+
+    document.getElementById("btnFrontal").onclick = function(){
+        facingMode = "user";
+        iniciarCamara();
+    };
+
+    document.getElementById("btnTrasera").onclick = function(){
+        facingMode = { exact: "environment" };
+        iniciarCamara();
+    };
+
+    document.getElementById("btnTomarFoto").onclick = function(){
+        Webcam.snap(function(data_uri){
+
+            // Mostrar previa
+            document.getElementById('resultado').innerHTML =
+                '<img src="'+data_uri+'" class="img-thumbnail" style="max-height:200px;">';
+
+            // Guardar en input oculto
+            document.getElementById('foto_base64').value = data_uri;
+
+            // Mostrar preview en formulario
+            document.getElementById('previewCaptura').src = data_uri;
+            document.getElementById('previewCaptura').style.display = "block";
+
+            // Cerrar modal
+            var modal = bootstrap.Modal.getInstance(document.getElementById('modalCamara'));
+            modal.hide();
+        });
+    };
+
+    // Inicializar cámara al abrir modal
+    document.getElementById('modalCamara').addEventListener('shown.bs.modal', iniciarCamara);
+
+    // Apagar cámara al cerrar
+    document.getElementById('modalCamara').addEventListener('hidden.bs.modal', function(){
+        Webcam.reset();
+    });
 </script>
 
 @endsection
