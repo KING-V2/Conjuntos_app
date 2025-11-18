@@ -200,10 +200,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/residentes_delete/{id}', [ResidenteController::class, 'destroy'])->name('residentes.delete'); 
     Route::get('/searchResidenteJson', [ResidenteController::class, 'searchResidenteJson'])->name('searchResidenteJson');
     
-    //registro de residente desde vista de bloques
+    //registro de residente
     Route::post('/registrarResidente', [ResidenteController::class, 'registrarResidente']);
 
-
+    Route::post('/importar-residentes', [ResidenteController::class, 'importarResidentes'])->name('residentes.importar');
     //reservas
     Route::get('/reservas', [ReservaController::class, 'index']);
     Route::post('/cargar_reservas', [ReservaController::class, 'store']);

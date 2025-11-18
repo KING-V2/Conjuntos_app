@@ -50,6 +50,20 @@
                 </div>
             </form>
             <hr>
+            @can('importar residentes')
+            <div class="row">
+                <form action="{{ route('residentes.importar') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="archivo" class="form-label">Seleccionar archivo Excel (.xlsx o .csv)</label>
+                        <input type="file" name="archivo" id="archivo" class="form-control" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Importar</button>
+                </form>
+            </div>
+            <hr>
+            @endcan
             <div class="card-datatable text-nowrap">
                 <table id="dt-search-residente" class="table table-bordered">
                     <thead>

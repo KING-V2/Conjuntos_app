@@ -15,6 +15,10 @@ use Yajra\DataTables\DataTables;
 use App\Http\Requests\StoreResidenteRequest;
 use App\Http\Requests\UpdateResidenteRequest;
 
+use Spatie\SimpleExcel\SimpleExcelReader;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+
 class ResidenteController extends Controller
 {
     /**
@@ -253,51 +257,179 @@ class ResidenteController extends Controller
     }
 
     public function informacion_residente($id)
-{
-    try {
-        $conjunto = Conjunto::first();
+    {
+        try {
+            $conjunto = Conjunto::first();
 
-        // Obtener residente (único)
-        $residente = Residente::with(['usuario', 'casas'])
-            ->where('usuario_id', $id)
-            ->firstOrFail();
+            // Obtener residente (único)
+            $residente = Residente::with(['usuario', 'casas'])
+                ->where('usuario_id', $id)
+                ->firstOrFail();
 
-        // Obtener ID de casa
-        $casa_id = $residente->casas->id ?? $residente->casas->first()->id ?? null;
+            // Obtener ID de casa
+            $casa_id = $residente->casas->id ?? $residente->casas->first()->id ?? null;
 
-        // Obtener parqueaderos de esa casa
-        $parqueaderos = RegistroParqueadero::with(['vehiculo', 'parqueadero'])
-            ->where('casa_id', $casa_id)
-            ->get();
+            // Obtener parqueaderos de esa casa
+            $parqueaderos = RegistroParqueadero::with(['vehiculo', 'parqueadero'])
+                ->where('casa_id', $casa_id)
+                ->get();
 
-        // Estructura del residente
-        $info_residente = [
-            'residente' => $residente->usuario->name ?? '',
-            'email' => $residente->usuario->email ?? '',
-            'tipo_residente' => $residente->tipo_residente ?? '',
-            'conjunto' => $conjunto->nombre ?? 'No definido',
-            'casa' => $residente->casas->nombre ?? 'No disponible',
-        ];
-
-        // Estructura de parqueaderos
-        $info_parqueaderos = $parqueaderos->map(function ($parqueadero) {
-            return [
-                'parqueadero' => $parqueadero->parqueadero->nombre ?? '',
-                'vehiculo' => $parqueadero->vehiculo->placa ?? '',
+            // Estructura del residente
+            $info_residente = [
+                'residente' => $residente->usuario->name ?? '',
+                'email' => $residente->usuario->email ?? '',
+                'tipo_residente' => $residente->tipo_residente ?? '',
+                'conjunto' => $conjunto->nombre ?? 'No definido',
+                'casa' => $residente->casas->nombre ?? 'No disponible',
             ];
-        });
 
-        return response()->json([
-            'residente' => $info_residente,
-            'parqueaderos' => $info_parqueaderos,
-        ], 200);
-    } catch (\Throwable $th) {
-        return response()->json([
-            'error' => true,
-            'mensaje' => $th->getMessage(),
-        ], 500);
+            // Estructura de parqueaderos
+            $info_parqueaderos = $parqueaderos->map(function ($parqueadero) {
+                return [
+                    'parqueadero' => $parqueadero->parqueadero->nombre ?? '',
+                    'vehiculo' => $parqueadero->vehiculo->placa ?? '',
+                ];
+            });
+
+            return response()->json([
+                'residente' => $info_residente,
+                'parqueaderos' => $info_parqueaderos,
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'error' => true,
+                'mensaje' => $th->getMessage(),
+            ], 500);
+        }
     }
-}
+
+    public function importarResidentes(Request $request)
+    {
+        $request->validate([
+            'archivo' => 'required|file|mimes:xlsx,csv,txt',
+        ]);
+
+        $path = $request->file('archivo')->store('importaciones');
+
+        $rows = SimpleExcelReader::create(storage_path('app/' . $path))->getRows();
+
+        $importados = 0;
+        $errores = [];
+        $conjunto = Conjunto::latest()->first();
+
+        foreach ($rows as $index => $row) 
+        {
+            try {
+                // ============================
+                // 1. BUSCAR O CREAR USUARIO
+                // ============================
+                $existingUser = User::where('email', $row['CORREO'])->first();
+
+                if ($existingUser) {
+                    // Usuario existente encontrado
+                    $user = $existingUser;
+                } else {
+                    // Crear usuario nuevo
+                    $telefono = '3' . str_pad(random_int(0, 999_999_999), 9, '0', STR_PAD_LEFT);
+
+                    $user = User::create([
+                        'name'        => $row['NOMBRE_RESIDENTE'],
+                        'email'       => $row['CORREO'],
+                        'password'    => Hash::make($telefono),
+                        'login_web'   => '0',
+                        'login_mobile'=> '1',
+                    ]);
+
+                    $user->assignRole('residente');
+                }
+
+                if (!$user) {
+                    throw new \Exception("No se pudo crear o asignar el usuario en la fila " . ($index + 1));
+                }
+
+                // ============================
+                // 2. BUSCAR CASA
+                // ============================
+                $casa = Casas::where('nombre', 'LIKE', "Casa %{$row['CASA']}%")->first();
+
+                if (!$casa) {
+                    throw new \Exception("No se encontró la casa para la fila " . ($index + 1));
+                }
+
+                // ============================
+                // 3. CREAR / ACTUALIZAR RESIDENTE
+                // ============================
+                $residente = Residente::updateOrCreate(
+                    [
+                        'usuario_id'  => $user->id,
+                        'casa_id'     => $casa->id
+                    ],
+                    [
+                        'conjunto_id'    => $conjunto->id,
+                        'tipo_residente' => $row['TIPO_RESIDENTE'] ?? null,
+                        'estado'         => 'Activo',
+                        'correo'         => $row['CORREO'] ?? null,
+                        'password'       => Hash::make($row['PASSWORD'] ?? '123456'),
+                    ]
+                );
+
+                // ============================
+                // 4. ACTUALIZAR TELÉFONOS CASA
+                // ============================
+                $casa->update([
+                    'telefono_uno'    => $row['TELEFONO_UNO'] ?? null,
+                    'telefono_dos'    => $row['TELEFONO_DOS'] ?? null,
+                    'telefono_tres'   => $row['TELEFONO_TRES'] ?? null,
+                    'telefono_cuatro' => $row['TELEFONO_CUATRO'] ?? null,
+                    'telefono_cinco'  => $row['TELEFONO_CINCO'] ?? null
+                ]);
+
+                // ============================
+                // 5. CREAR VEHÍCULO SI EXISTE
+                // ============================
+                $vehiculo = null;
+
+                if (!empty($row['TIPO_VEHICULO']) && !empty($row['PLACA'])) {
+                    $vehiculo = Vehiculo::create([
+                        'tipo_vehiculo' => $row['TIPO_VEHICULO'],
+                        'placa'         => $row['PLACA'],
+                    ]);
+                }
+
+                // ============================
+                // 6. BUSCAR PARQUEADERO
+                // ============================
+                $parqueadero = null;
+
+                if (!empty($row['PARQUEADERO'])) {
+                    $parqueadero = Parqueadero::where('nombre', 'LIKE', "%{$row['PARQUEADERO']}%")->first();
+                }
+
+                // ============================
+                // 7. REGISTRAR VEHÍCULO EN PARQ.
+                // ============================
+                if ($vehiculo && $parqueadero) {
+                    RegistroParqueadero::create([
+                        'vehiculo_id'    => $vehiculo->id,
+                        'parqueadero_id' => $parqueadero->id,
+                        'casa_id'        => $casa->id,
+                    ]);
+                }
+
+                $importados++;
+
+            } catch (\Throwable $e) {
+                $errores[] = "Fila " . ($index + 1) . ": " . $e->getMessage();
+            }
+        }
+
+        Storage::delete($path);
+
+        return back()->with([
+            'success' => "Importación completada: {$importados} registros importados correctamente.",
+        ]);
+    }
+
 
 
 
