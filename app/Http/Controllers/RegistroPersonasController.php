@@ -223,7 +223,7 @@ class RegistroPersonasController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Registro guardado correctamente.',
+            'message' => 'exito.',
             'data' => $registro
         ], 200);
     }
@@ -242,9 +242,9 @@ class RegistroPersonasController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Registro guardado correctamente.',
+            'message' => 'exito.',
             'data' => $registro_arr
         ], 200);
     }
-    
+
 }
