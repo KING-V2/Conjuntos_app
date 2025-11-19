@@ -54,6 +54,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::get('/getPagosCasas/{casa}/{tipo_pago}', [App\Http\Controllers\PagoController::class, 'getPagosCasas'])->name('getPagosCasas');
 Route::post('/uploadAdjuntoPago', [App\Http\Controllers\PagoController::class, 'uploadAdjuntoPago'])->name('uploadAdjuntoPago');
 
+Route::get('/registroPersonasConsulta/{casaid}/{mes}', [App\Http\Controllers\RegistroPersonasController::class, 'registroPersonasConsulta'])->name('registroPersonasConsulta');
+
 Route::get('/getZonasComunes', [App\Http\Controllers\ZonaComunController::class, 'getZonasComunes'])->name('getZonasComunes');
 
 Route::get('/estadisticaEncuestasWeb/{encuesta_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'estadisticaEncuestasWeb'])->name('estadisticaEncuestasWeb');

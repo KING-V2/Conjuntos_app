@@ -227,4 +227,24 @@ class RegistroPersonasController extends Controller
             'data' => $registro
         ], 200);
     }
+    
+    public function registroPersonasConsulta($casaId, $mes)
+    {
+        $registro_arr = [];
+        $registros = RegistroPersonas::where('casa_id', $casaId)->where('mes', $mes)->get();
+        foreach ($registros as $registro) 
+        {
+            $registro_arr [] = [
+                'nombre' => $registro->nombre,
+                'fecha' => $registro->created_at->format('Y-m-d H:i:s')
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Registro guardado correctamente.',
+            'data' => $registro_arr
+        ], 200);
+    }
+    
 }
