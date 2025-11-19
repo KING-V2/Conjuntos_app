@@ -181,7 +181,7 @@ class PagoController extends Controller
         return response()->json($pagos, 200, ['Content-Type' => 'application/json; charset=utf-8']);
     }
 
-    public function uploadAdjuntoPagoCasa(Request $request)
+    public function uploadAdjuntoPago(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'archivo' => 'required|file|max:5120', // 5MB máximo
