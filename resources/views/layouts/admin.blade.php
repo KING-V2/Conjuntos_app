@@ -391,6 +391,80 @@
                                 @endcan
                             </ul>
                         </li>
+                        <li class="menu-item">
+                            @can('modulo parqueaderos visitantes')
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons fa-solid fa-car-side"></i>
+                                <div data-i18n="Parqueaderos Visitantes">Parqueaderos Visitantes</div>
+                            </a>
+                            @endcan
+                            <ul class="menu-sub">
+                                @can('clientes')
+                                <li class="menu-item">
+                                    <a href="{{ route('clients.index') }}" class="menu-link">
+                                        <i class="fa-solid fa-user-group mr-3"></i>
+                                        <div data-i18n="Clientes">Clientes</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('vehiculos')
+                                <li class="menu-item">
+                                    <a href="{{ route('vehicles.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-car-side"></i>
+                                        <div data-i18n="Vehiculos">Vehiculos</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('espacios')
+                                <li class="menu-item">
+                                    <a href="{{ route('spaces.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-map"></i>
+                                        <div data-i18n="Espacios">Espacios</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('reserva vehiculos')
+                                <li class="menu-item">
+                                    <a href="{{ route('reservations.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-book"></i>
+                                        <div data-i18n="Reservas">Reservas</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('facturacion parqueaderos')
+                                <li class="menu-item">
+                                    <a href="{{ route('invoices.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-file-invoice-dollar"></i>
+                                        <div data-i18n="Facturación">Facturación</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('reportes parqueaderos')
+                                <li class="menu-item">
+                                    <a href="{{ route('reports.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-chart-line"></i>
+                                        <div data-i18n="Reportes">Reportes</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('apartamento')
+                                <li class="menu-item">
+                                    <a href="{{ route('apartments.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-building"></i>
+                                        <div data-i18n="Apartamentos">Apartamentos</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('settings parqueaderos')
+                                <li class="menu-item">
+                                    <a href="{{ route('settings.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa fa-cogs"></i>
+                                        <div data-i18n="Configuración">Configuración</div>
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                        </li>
 
                         <li class="menu-item">
                             @can('modulo reservas')

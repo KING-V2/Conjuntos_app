@@ -42,9 +42,16 @@ use App\Http\Controllers\ActividadesController;
 use App\Http\Controllers\CasasController;
 use App\Http\Controllers\MensajesVistasController;
 use App\Http\Controllers\PagoController;
-
 use App\Http\Controllers\RegistroParqueaderoController;
 use App\Http\Controllers\VehiculoController;
+use App\Http\Controllers\Parking\VehicleController;
+use App\Http\Controllers\Parking\ClientController;
+use App\Http\Controllers\Parking\SpaceController;
+use App\Http\Controllers\Parking\ReservationController;
+use App\Http\Controllers\Parking\InvoiceController;
+use App\Http\Controllers\Parking\ReportController;
+use App\Http\Controllers\Parking\ApartmentController;
+use App\Http\Controllers\Parking\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -404,5 +411,47 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/registro-personas/buscar', [RegistroPersonasController::class, 'buscar'])->name('registro-personas.buscar');
     Route::get('/buscar_persona/{documento}', [RegistroPersonasController::class, 'buscarPersona']);
 
+    //  seccion de parqueadero
+
+    Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
+
+    // Vehículos
+    Route::get('/vehicles', [VehicleController::class, 'index'])->name('vehicles.index'); // Formulario nuevo vehículo
+    Route::post('/vehicles', [VehicleController::class, 'store'])->name('vehicles.store'); // Guardar vehículo
+    Route::get('/vehicles/list', [VehicleController::class, 'list'])->name('vehicles.list'); // Lista vehículos
+    Route::get('/vehicles/{id}/edit', [VehicleController::class, 'edit'])->name('vehicles.edit'); // Editar vehículo
+    Route::put('/vehicles/{id}', [VehicleController::class, 'update'])->name('vehicles.update'); // Actualizar vehículo
+    Route::delete('/vehicles/{id}', [VehicleController::class, 'destroy'])->name('vehicles.destroy'); // Eliminar vehículo
+    Route::get('/vehicles/search', [VehicleController::class, 'search'])->name('vehicles.search'); // Autocompletar búsqueda
+
+    // Clientes
+    Route::get('/clients', [ClientController::class, 'index'])->name('clients.index');
+    Route::post('/clients', [ClientController::class, 'store'])->name('clients.store');
+    Route::get('/clients/search', [ClientController::class, 'search'])->name('clients.search');
+    Route::get('/see-clients', [ClientController::class, 'list'])->name('clients.list');
+    Route::delete('/clients/{client}', [ClientController::class, 'destroy']) ->name('clients.destroy');
+    Route::put('/clients/{client}', [ClientController::class, 'update'])->name('clients.update');
+
+    // Espacios
+    Route::get('/spaces', [SpaceController::class, 'index'])->name('spaces.index');
+    Route::post('/spaces', [SpaceController::class, 'store'])->name('spaces.store');
+
+    // Reservas
+    Route::get('/reservations', [ReservationController::class, 'index'])->name('reservations.index');
+    Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+
+    // Factura
+    Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
+
+    //Reporte
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
+    //Apartamentos
+    Route::get('/apartments', [ApartmentController::class, 'index'])->name('apartments.index');
+    Route::post('/apartments/store', [ApartmentController::class, 'store'])->name('apartments.store');
+
+    //Settings
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 });
 

@@ -91,16 +91,14 @@ class AuthController extends Controller
                 ]);
             }
         }
-        // $residente = Residente::where('usuario_id',$user->id)->first();
-
-        // $residente = [
-        //     'conjunto' => isset( $residente->conjunto ) ? $residente->conjunto->nombre : 'N/A',
-        //     'bloque' => isset( $residente->bloque ) ? $residente->bloque->nombre : 'N/A',
-        //     'apartamento' => isset( $residente->apartamento ) ? $residente->apartamento->nombre : 'N/A',
-        //     'cod_apartamento' => isset( $residente->apartamento ) ? $residente->apartamento->codigo : 'N/A',
-        //     'residente' => isset( $residente->usuario ) ? $residente->usuario->name : 'N/A',
-        //     'tipo_residente' => isset( $residente->tipo_residente ) ? $residente->tipo_residente : 'N/A',
-        // ];
+       
+        $residente = Residente::where('usuario_id', $user->id)->first();
+        $info_residente = [];
+        if (isset($residente)) {
+            $info_residente = [
+                'casa_id' => $residente->casa->id,
+            ];
+        }
                 
         $log_user = new LogUsuarios();
         $log_user->usuario = $user->name;
@@ -114,8 +112,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
-            // 'perfil' => $residente,
-            // 'info_conjunto' => $info_conjunto
+            'info_residente' => $info_residente
         ]);
     }
 }
