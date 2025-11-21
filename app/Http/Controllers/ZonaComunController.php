@@ -17,9 +17,23 @@ class ZonaComunController extends Controller
         return view('admin.zonas_comunes.index', compact('zonas'));
     }
 
+    // public function create()
+    // {
+    //     return view('admin.zonas_comunes.create');
+    // }
+
     public function create()
     {
-        return view('admin.zonas_comunes.create');
+        $horarios = [];
+        return view('admin.zonas_comunes.gestion', compact('horarios'));
+    }
+
+    public function edit($id)
+    {
+        $zona = ZonaComun::findOrFail($id);
+        $horarios = $zona->horarios()->orderBy('dia_semana')->orderBy('hora_inicio')->get();
+
+        return view('admin.zonas_comunes.gestion', compact('zona','horarios'));
     }
 
     public function store(Request $request)
@@ -35,11 +49,11 @@ class ZonaComunController extends Controller
         return redirect()->route('zonas.index')->with('success','Zona común creada.');
     }
 
-    public function edit($id)
-    {
-        $zona = ZonaComun::findOrFail($id);
-        return view('admin.zonas_comunes.create', compact('zona')); // reutilizamos la misma vista para create/edit
-    }
+    // public function edit($id)
+    // {
+    //     $zona = ZonaComun::findOrFail($id);
+    //     return view('admin.zonas_comunes.create', compact('zona')); // reutilizamos la misma vista para create/edit
+    // }
 
     public function update(Request $request, $id)
     {
