@@ -65,7 +65,7 @@
                 <div class="tab-pane fade {{ $loop->index == 0 ? 'show active' : '' }}"
                      id="tab-{{ strtolower($mes_actual) }}">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped align-middle tabla-mes" data-mes="{{ $mes_actual }}">
+                        <table class="table table-bordered table-striped align-middle tabla-mes" data-mes="{{ $mes_actual }}" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
