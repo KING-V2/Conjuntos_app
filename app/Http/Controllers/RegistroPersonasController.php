@@ -52,16 +52,7 @@ class RegistroPersonasController extends Controller
                 }
                 return '<span class="text-muted">Sin foto</span>';
             })
-            ->addColumn('acciones', function ($row) {
-                $edit = '<a href="'.route('registro-personas.edit', $row->id).'" class="btn btn-sm btn-primary me-1">Editar</a>';
-                $del = '<form method="POST" action="'.route('registro-personas.destroy', $row->id).'" style="display:inline">'
-                     . csrf_field()
-                     . method_field('DELETE')
-                     . '<button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Eliminar registro?\')">Eliminar</button>'
-                     . '</form>';
-                return $edit . $del;
-            })
-            ->rawColumns(['foto', 'acciones']) // permitimos HTML en estas columnas
+            ->rawColumns(['foto']) // permitimos HTML en estas columnas
             ->toJson();
     }
 

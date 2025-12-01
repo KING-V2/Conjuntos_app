@@ -73,7 +73,6 @@
                                     <th>Mes</th>
                                     <th>Foto</th>
                                     <th>Casa</th>
-                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -205,8 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 { data: 'documento' },
                 { data: 'mes' },
                 { data: 'foto', orderable: false, searchable: false },
-                { data: 'casas' },
-                { data: 'acciones', orderable: false, searchable: false }
+                { data: 'casas' }
             ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json"
