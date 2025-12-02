@@ -44,16 +44,30 @@ class RegistroPersonasController extends Controller
             ->addColumn('casas', function ($row) {
                 return $row->casas ? $row->casas->nombre : 'N/A';
             })
+            ->addColumn('entrada', function ($row) {
+                return $row->created_at ? $row->created_at->format('Y-m-d H:i:s') : 'N/A';
+            })
+            ->addColumn('salida', function ($row) {
+                return $row->salida ? $row->salida : 'Sin Salida';
+            })
             ->addColumn('foto', function ($row) {
-                // Opción 2: mostrar un botón/enlace que abra la imagen en nueva pestaña (si existe)
                 if ($row->foto) {
                     $url = asset('storage/registro_personas/' . $row->foto);
                     return '<a href="'.$url.'" target="_blank" class="btn btn-sm btn-outline-primary">Ver Foto</a>';
                 }
                 return '<span class="text-muted">Sin foto</span>';
             })
-            ->rawColumns(['foto']) // permitimos HTML en estas columnas
+            ->addColumn('acciones', function ($row) {
+                $exit = '';
+                if ( !$row->salida ) {
+                    $exit = '<a href="'.route('registro-personas.exit', $row->id).'" class="btn btn-sm btn-primary me-1">Salida</a>';
+                }
+                return $exit;
+            })
+            ->rawColumns(['foto', 'acciones']) 
             ->toJson();
+
+            // DataTables warning: table id=DataTables_Table_11 - Ajax error. For more information about this error, please see http://datatables.net/tn/7
     }
 
     /**
@@ -180,6 +194,14 @@ class RegistroPersonasController extends Controller
         $registro = RegistroPersonas::findOrFail($id);
         $registro->delete();
         return redirect('registro_personas')->with('success', 'Registro eliminado correctamente.');
+    }
+    
+    public function exit($id)
+    {
+        $registro = RegistroPersonas::findOrFail($id);
+        $registro->salida = Carbon::now();
+        $registro->save();
+        return redirect('registro_personas')->with('success', 'Salida Registrada.');
     }
 
     public function registroPersonasApi(Request $request)
