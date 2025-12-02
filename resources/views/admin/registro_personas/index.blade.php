@@ -73,6 +73,9 @@
                                     <th>Mes</th>
                                     <th>Foto</th>
                                     <th>Casa</th>
+                                    <th>Hora Entrada</th>
+                                    <th>Hora Salida</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
@@ -204,7 +207,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 { data: 'documento' },
                 { data: 'mes' },
                 { data: 'foto', orderable: false, searchable: false },
-                { data: 'casas' }
+                { data: 'casas' },
+                { data: 'entrada' },
+                { data: 'salida' },
+                { data: 'acciones', orderable: false, searchable: false }
             ],
             language: {
                 url: "//cdn.datatables.net/plug-ins/1.13.5/i18n/es-ES.json"

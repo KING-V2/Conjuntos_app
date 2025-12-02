@@ -18,6 +18,7 @@ class RegistroPersonas extends Model
         'documento',
         'mes',
         'foto',
+        'salida',
         'casa_id'
     ];
 

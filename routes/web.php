@@ -402,6 +402,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('registro_personas', [RegistroPersonasController::class, 'index']);
     Route::get('registro_personas_create', [RegistroPersonasController::class, 'create']);
+    Route::get('registro_personas_exit/{id}', [RegistroPersonasController::class, 'exit'])->name('registro-personas.exit');
     Route::post('registro_personas_store', [RegistroPersonasController::class, 'store']);
     Route::get('registro_personas_edit/{id}', [RegistroPersonasController::class, 'edit'])->name('registro-personas.edit');
     Route::post('registro_personas_update', [RegistroPersonasController::class, 'update']);
@@ -453,5 +454,6 @@ Route::middleware(['auth'])->group(function () {
 
     //Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    // Route::post('/settings_conjuntos_update', [SettingsController::class, 'settingsConjuntosUpdate']);
 });
 
