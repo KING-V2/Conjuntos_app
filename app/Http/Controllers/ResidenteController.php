@@ -305,6 +305,9 @@ class ResidenteController extends Controller
 
     public function importarResidentes(Request $request)
     {
+        ini_set('max_execution_time', 300);
+        ini_set('memory_limit', '512M');
+        
         $request->validate([
             'archivo' => 'required|file|mimes:xlsx,csv,txt',
         ]);
