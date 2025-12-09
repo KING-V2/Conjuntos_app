@@ -16,25 +16,25 @@
                         <label>Nombre</label>
                         <input type="text" name="nombre" id="nombre" class="form-control" required>
                     </div>
+                    <div class="col-md-3 mt-2">
+                        <label>Casa</label>
+                        <select name="casa_id" id="casa_id" class="form-control" required>
+                            <option value="">Seleccione</option>
+                            @foreach($casas as $casa)
+                            <option value="{{ $casa->id }}">{{ $casa->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="col-md-3">
                         <label>Foto</label>
                         <div class="input-group">
-                            <input type="file" name="foto" id="foto" class="form-control">
+                            <input type="file" name="foto" id="foto" class="form-control" style="display:none;">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCamara">
                                 📷 Tomar foto
                             </button>
                         </div>
                         <input type="hidden" name="foto_base64" id="foto_base64">
                         <img id="previewCaptura" class="img-thumbnail mt-2" style="display:none; max-height:150px;">
-                    </div>
-                    <div class="col-md-3 mt-2">
-                        <label>Casa</label>
-                        <select name="casa_id" id="casa_id" class="form-control" required>
-                            <option value="">Seleccione</option>
-                            @foreach($casas as $casa)
-                                <option value="{{ $casa->id }}">{{ $casa->nombre }}</option>
-                            @endforeach
-                        </select>
                     </div>
                 </div>
 
