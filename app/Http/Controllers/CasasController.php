@@ -8,8 +8,6 @@ use App\Models\Administracion\Casas;
 use App\Models\Administracion\Conjunto;
 use App\Models\Administracion\Residente;
 use App\Models\User;
-use App\Exports\CasasExport;
-use Maatwebsite\Excel\Facades\Excel;
 
 class CasasController extends Controller
 {
@@ -159,6 +157,57 @@ class CasasController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new CasasExport, 'casas_' . now()->format('Ymd_His') . '.xlsx');
+        $casas = Casas::select(
+            'nombre',
+            'telefono_uno',
+            'telefono_dos',
+            'telefono_tres',
+            'telefono_cuatro',
+            'telefono_cinco'
+        )->get();
+
+        $fileName = 'casas_' . now()->format('Ymd_His') . '.xls';
+
+        // Encabezados para descargar archivo Excel
+        $headers = [
+            "Content-Type" => "application/vnd.ms-excel; charset=UTF-8",
+            "Content-Disposition" => "attachment; filename=\"$fileName\"",
+            "Pragma" => "no-cache",
+            "Expires" => "0",
+        ];
+
+        // Inicio del XML
+        $content  = '<?xml version="1.0"?>';
+        $content .= '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+                            xmlns:x="urn:schemas-microsoft-com:office:excel"
+                            xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">';
+        $content .= '<Worksheet ss:Name="Casas"><Table>';
+
+        // Encabezados
+        $content .= '<Row>
+                        <Cell><Data ss:Type="String">Nombre</Data></Cell>
+                        <Cell><Data ss:Type="String">Telefono uno</Data></Cell>
+                        <Cell><Data ss:Type="String">Telefono dos</Data></Cell>
+                        <Cell><Data ss:Type="String">Telefono tres</Data></Cell>
+                        <Cell><Data ss:Type="String">Telefono cuatro</Data></Cell>
+                        <Cell><Data ss:Type="String">Telefono cinco</Data></Cell>
+                    </Row>';
+
+        // Datos
+        foreach ($casas as $casa) {
+            $content .= '<Row>';
+            $content .= '<Cell><Data ss:Type="String">' . htmlspecialchars($casa->nombre) . '</Data></Cell>';
+            $content .= '<Cell><Data ss:Type="String">' . htmlspecialchars($casa->telefono_uno) . '</Data></Cell>';
+            $content .= '<Cell><Data ss:Type="String">' . htmlspecialchars($casa->telefono_dos) . '</Data></Cell>';
+            $content .= '<Cell><Data ss:Type="String">' . htmlspecialchars($casa->telefono_tres) . '</Data></Cell>';
+            $content .= '<Cell><Data ss:Type="String">' . htmlspecialchars($casa->telefono_cuatro) . '</Data></Cell>';
+            $content .= '<Cell><Data ss:Type="String">' . htmlspecialchars($casa->telefono_cinco) . '</Data></Cell>';
+            $content .= '</Row>';
+        }
+
+        // Cierre del XML
+        $content .= '</Table></Worksheet></Workbook>';
+
+        return response($content, 200, $headers);
     }
 }
