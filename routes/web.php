@@ -455,5 +455,7 @@ Route::middleware(['auth'])->group(function () {
     //Settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
     // Route::post('/settings_conjuntos_update', [SettingsController::class, 'settingsConjuntosUpdate']);
+
+    Route::get('/casas/export', [CasasController::class, 'exportExcel'])->name('casas.export');
 });
 

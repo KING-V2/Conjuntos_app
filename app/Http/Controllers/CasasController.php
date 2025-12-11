@@ -8,6 +8,8 @@ use App\Models\Administracion\Casas;
 use App\Models\Administracion\Conjunto;
 use App\Models\Administracion\Residente;
 use App\Models\User;
+use App\Exports\CasasExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CasasController extends Controller
 {
@@ -41,7 +43,7 @@ class CasasController extends Controller
     public function showall()
     {
         try {
-            $casas = Casas::all();
+            $casas = Casas::paginate(20);
             return view('admin.casas.showall', compact('casas'));
         } catch ( \Exception $exception){
             session()->flash('flash_error_message', $exception->getMessage() );
@@ -153,5 +155,10 @@ class CasasController extends Controller
     public function getCasasApi() {
         $casas = Casas::all();
         return response()->json($casas);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new CasasExport, 'casas_' . now()->format('Ymd_His') . '.xlsx');
     }
 }

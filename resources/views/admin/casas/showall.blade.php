@@ -6,7 +6,7 @@
         <div class="card-body">      
             <hr>      
             <div class="col-sm-12 col-md-4">
-                <button id="exportExcelBtn" class="btn btn-success btn-md">Exportar</button>
+                <a href="{{ route('casas.export') }}" class="btn btn-success btn-md">Exportar</a>
             </div>
             <hr>
             <div class="card">
@@ -39,6 +39,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                    <div class="mt-3">
+                        {{ $casas->links() }}
+                    </div>
                 </div>
             </div>
         </div>
