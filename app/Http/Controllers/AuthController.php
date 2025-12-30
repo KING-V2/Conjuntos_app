@@ -96,7 +96,7 @@ class AuthController extends Controller
         $info_residente = [];
         if (isset($residente)) {
             $info_residente = [
-                'casa_id' => $residente->casa->id,
+                'casa_id' => $residente->casas->id,
             ];
         }
                 
