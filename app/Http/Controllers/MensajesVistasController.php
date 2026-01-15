@@ -55,7 +55,7 @@ class MensajesVistasController extends Controller
             $mensaje = MensajesVistas::where('vista',$vista)->get();
             return response()->json($mensaje, 200, ['Content-Type' => 'application/json; charset=utf-8']);
         } catch (\Throwable $th) {
-            if ($pagos->isEmpty()) {
+            if ($vista->isEmpty()) {
             return response()->json([
                 'message' => $th->getMessage()
             ], 500, ['Content-Type' => 'application/json; charset=utf-8']);
