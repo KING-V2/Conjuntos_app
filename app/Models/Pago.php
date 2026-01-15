@@ -30,7 +30,7 @@ class Pago extends Model
 
     public function casas()
     {
-        return $this->belongsTo(Casa::class, 'casa_id');
+        return $this->belongsTo(Casas::class, 'casa_id');
     }
 
     public function apartamento()
