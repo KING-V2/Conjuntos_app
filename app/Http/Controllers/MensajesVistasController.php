@@ -22,7 +22,12 @@ class MensajesVistasController extends Controller
     public function store(StoreMensajesVistasRequest $request)
     {
 
-        MensajesVistas::create($request->all());
+        MensajesVistas::create(
+            [
+            'mensaje' => $request->mensaje,
+            'vista' => $request->vista,
+            ]
+        );
 
         return redirect()->route('mensajes_vistas.index')->with('success', 'Mensaje creado correctamente.');
     }

@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class MensajesVistas extends Model
 {
     use HasFactory;
+
+    protected $table = 'mensajes_vistas';
+
+    protected $fillable = [
+        'vista',
+        'mensaje'
+    ];
 }

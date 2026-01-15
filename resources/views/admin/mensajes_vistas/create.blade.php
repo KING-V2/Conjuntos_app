@@ -6,7 +6,6 @@
         <div class="card-body">
             <form action="{{ route('mensajes_vistas.store') }}" method="POST">
                 @csrf
-
                 <div class="mb-3">
                     <label>Vista</label>
                     <select class="form-control" name="vista" id="vista">

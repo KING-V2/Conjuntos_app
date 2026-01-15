@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('mensajes_vistas', function (Blueprint $table) {
             $table->id();
+            $table->string('vista');
+            $table->text('mensaje')->nullable();
             $table->timestamps();
         });
     }
