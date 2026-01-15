@@ -114,11 +114,7 @@
                                     @php
                                         $mes_id = strtolower($mes_actual);
                                     @endphp
-                                    <div
-                                        class="tab-pane fade {{ $loop->first ? 'show active' : '' }}"
-                                        id="{{ $tipo_id }}-{{ $mes_id }}"
-                                        role="tabpanel"
-                                    >
+                                    <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="{{ $tipo_id }}-{{ $mes_id }}" role="tabpanel">
                                         <div class="card-datatable table-responsive pt-0">
                                             <table class="table table-bordered" style="overflow-x: auto;">
                                                 <thead>
@@ -136,7 +132,7 @@
                                                 <tbody>
                                                     @foreach($pagos->where('mes', $mes_actual)->where('tipo_pago', $tipo_pago) as $pago)
                                                         <tr>
-                                                            <td>{{ $pago->casa->nombre ?? '-' }}</td>
+                                                            <td>{{ $pago->casas->nombre ?? '-' }}</td>
                                                             <td>{{ $pago->tipo_pago ?? '-' }}</td>
                                                             <td>{{ $pago->comentario_admin ?? '-' }}</td>
                                                             <td>
