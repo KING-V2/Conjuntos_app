@@ -44,6 +44,7 @@ use App\Http\Controllers\MensajesVistasController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\RegistroParqueaderoController;
 use App\Http\Controllers\VehiculoController;
+use App\Http\Controllers\ZonaHorarioController;
 use App\Http\Controllers\Parking\VehicleController;
 use App\Http\Controllers\Parking\ClientController;
 use App\Http\Controllers\Parking\SpaceController;
@@ -52,7 +53,9 @@ use App\Http\Controllers\Parking\InvoiceController;
 use App\Http\Controllers\Parking\ReportController;
 use App\Http\Controllers\Parking\ApartmentController;
 use App\Http\Controllers\Parking\SettingsController;
-
+use App\Http\Controllers\EspacioController;
+use App\Http\Controllers\TarifasController;
+use App\Http\Controllers\ClienteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,6 +86,8 @@ Auth::routes();
 Route::get('/estadisticaEncuestas/{encuesta_id}', [EncuestasRespuestasController::class, 'estadisticaEncuestas']);
 Route::get('/getUsuariosPorRol', [UserController::class, 'getUsuariosPorRol']);
 Route::get('/residenteQrInfo/{user_id}/{tipo_residente}/{cod_apartamento}', [ResidenteController::class, 'residenteQrInfo']);
+
+Route::get('/zonas/comunes/', [ZonaComunController::class, 'allZonas']);
 
 Route::middleware(['auth'])->group(function () {
     
@@ -251,9 +256,15 @@ Route::middleware(['auth'])->group(function () {
     //zonas_comunes
     Route::get('/zonas_comunes', [ZonaComunController::class, 'index']);
     Route::post('/cargar_zonas_comunes', [ZonaComunController::class, 'store']);
-    Route::get('/zonas_comunes_edit/{id}', [ZonaComunController::class, 'edit']);
+    Route::get('/zonas_comunes_edit/{id}', [ZonaComunController::class, 'edit'])->name('zonas.edit');
     Route::post('/zonas_comunes_update', [ZonaComunController::class, 'update']);
     Route::get('/zonas_comunes_delete/{id}', [ZonaComunController::class, 'destroy']);
+
+    // Route::post('/zonas/update/{id}', [ZonaComunController::class, 'update']);
+
+    Route::post('/zonas/horarios/store', [ZonaHorarioController::class, 'store'])->name('zonas.horarios.store');
+    Route::delete('/zonas/horarios/delete/{id}', [ZonaHorarioController::class, 'destroy'])->name('zonas.horarios.delete');
+
 
     //encuestas
     Route::get('/encuestas', [EncuestasController::class, 'index']);
@@ -388,9 +399,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/zonas/{id}/update', [ZonaComunController::class, 'update'])->name('zonas.update');
     Route::post('/zonas/{id}/delete', [ZonaComunController::class, 'destroy'])->name('zonas.delete');
 
-    Route::get('/zonas/{zona_id}/horarios', [ZonaComunHorarioController::class, 'index'])->name('zonas.horarios.index');
-    Route::post('/zonas/{zona_id}/horarios/store', [ZonaComunHorarioController::class, 'store'])->name('zonas.horarios.store');
-    Route::post('/zonas/horarios/{id}/delete', [ZonaComunHorarioController::class, 'destroy'])->name('zonas.horarios.delete');
+    // Route::get('/zonas/{zona_id}/horarios', [ZonaComunHorarioController::class, 'index'])->name('zonas.horarios.index');
+    // Route::post('/zonas/{zona_id}/horarios/store', [ZonaComunHorarioController::class, 'store'])->name('zonas.horarios.store');
+    // Route::post('/zonas/horarios/{id}/delete', [ZonaComunHorarioController::class, 'destroy'])->name('zonas.horarios.delete');
 
     // Admin listado
     Route::get('/reservas', [ReservaController::class, 'index'])->name('reservas.index');
@@ -457,5 +468,37 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('/settings_conjuntos_update', [SettingsController::class, 'settingsConjuntosUpdate']);
 
     Route::get('/casas/export', [CasasController::class, 'exportExcel'])->name('casas.export');
+
+    //Rutas para espacios
+    Route::get('/espacios', [EspacioController::class, 'index'])->name('espacios.index'); 
+    Route::post('/cargar_espacios', [EspacioController::class, 'store'])->name('espacios.store'); 
+    Route::get('/espacios_edit/{id}', [EspacioController::class, 'edit'])->name('espacios.edit'); 
+    Route::put('/espacios/{id}', [EspacioController::class, 'update'])->name('espacios.update'); 
+    Route::get('/espacios_delete/{id}', [EspacioController::class, 'destroy'])->name('espacios.destroy');
+
+    //Rutas para tarifas
+    Route::get('/tarifas', [TarifasController::class, 'index'])->name('tarifas.index'); 
+    Route::post('/cargar_tarifas', [TarifasController::class, 'store'])->name('tarifas.store'); 
+    Route::get('/tarifas_edit/{id}', [TarifasController::class, 'edit'])->name('tarifas.edit'); 
+    Route::put('/tarifas/{id}', [TarifasController::class, 'update'])->name('tarifas.update'); 
+    Route::get('/tarifas_delete/{id}', [TarifasController::class, 'destroy'])->name('tarifas.destroy');
+
+
+    //Rutas para clientes
+    Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.index'); 
+    Route::get('/clientes/{id}', [ClienteController::class, 'show'])->name('clientes.show');
+    Route::post('/cargar_clientes', [ClienteController::class, 'store'])->name('clientes.store'); 
+    Route::get('/clientes_edit/{id}', [ClienteController::class, 'edit'])->name('clientes.edit'); 
+    Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update'); 
+    Route::get('/clientes_delete/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+
+    //Rutas para vehiculos
+    Route::get('/vehiculos', [VehiculoController::class, 'index'])->name('vehiculos.index'); 
+    Route::post('/cargar_vehiculos', [VehiculoController::class, 'store'])->name('vehiculos.store'); 
+    Route::get('/vehiculos_edit/{id}', [VehiculoController::class, 'edit'])->name('vehiculos.edit'); 
+    Route::put('/vehiculos/{id}', [VehiculoController::class, 'update'])->name('vehiculos.update'); 
+    Route::get('/vehiculos_delete/{id}', [VehiculoController::class, 'destroy'])->name('vehiculos.destroy');
+
+
 });
 

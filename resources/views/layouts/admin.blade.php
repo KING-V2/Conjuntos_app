@@ -466,32 +466,46 @@
                             </ul>
                         </li>
 
+
                         <li class="menu-item">
-                            @can('modulo reservas')
+                            @can('modulo espacios')
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons fa fa-bookmark"></i>
-                                <div data-i18n="Reservas">Reservas</div>
+                                <div data-i18n="Espacios">Espacios</div>
                             </a>
                             @endcan
                             <ul class="menu-sub">
-                                @can('reserva')
+                                @can('espacios')
                                 <li class="menu-item">
-                                    <a href="{{ url('reservas')}}" class="menu-link">
-                                        <i class="menu-icon tf-icons fa-solid fa fa-bookmark"></i>
-                                        <div data-i18n="Reservas">Reservas</div>
+                                    <a href="{{ route('espacios.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa-solid fa fa-parking"></i>
+                                        <div data-i18n="Espacios">Parqueaderos</div>
                                     </a>
                                 </li>
                                 @endcan
-                                @can('zona comun')
+                            </ul>
+                            <ul class="menu-sub">
+                                @can('tarifas')
                                 <li class="menu-item">
-                                    <a href="{{ url('zonas_comunes')}}" class="menu-link">
-                                        <i class="menu-icon tf-icons fa fa-map"></i>
-                                        <div data-i18n="Zonas Comunes">Zonas Comunes</div>
+                                    <a href="{{ route('tarifas.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa-solid fa fa-money-bill-wave"></i>
+                                        <div data-i18n="Tarifas">Tarifas</div>
+                                    </a>
+                                </li>
+                                @endcan
+                            </ul>
+                            <ul class="menu-sub">
+                                @can('clientes')
+                                <li class="menu-item">
+                                    <a href="{{ route('clientes.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa-solid fa fa-users"></i>
+                                        <div data-i18n="Clientes">Clientes</div>
                                     </a>
                                 </li>
                                 @endcan
                             </ul>
                         </li>
+
                         <li class="menu-item">
                             @can('modulo configuracion')
                             <a href="javascript:void(0);" class="menu-link menu-toggle">

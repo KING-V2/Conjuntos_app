@@ -57,6 +57,7 @@ Route::post('/uploadAdjuntoPago', [App\Http\Controllers\PagoController::class, '
 Route::get('/registroPersonasConsulta/{casaid}/{mes}', [App\Http\Controllers\RegistroPersonasController::class, 'registroPersonasConsulta'])->name('registroPersonasConsulta');
 
 Route::get('/getZonasComunes', [App\Http\Controllers\ZonaComunController::class, 'getZonasComunes'])->name('getZonasComunes');
+Route::get('/zonas_horarios/{id_zona}', [App\Http\Controllers\ZonaHorarioController::class, 'horariosPorZona'])->name('horariosPorZona');
 
 Route::get('/estadisticaEncuestasWeb/{encuesta_id}', [App\Http\Controllers\EncuestasRespuestasController::class, 'estadisticaEncuestasWeb'])->name('estadisticaEncuestasWeb');
 

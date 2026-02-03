@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
-            $table->string('placa')->unique();
-            $table->string('tipo_vehiculo');
+            $table->foreignId('cliente_id')->contrained('clientes')->onDelete('cascade');
+            $table->string('placa' , 20 )->unique();
+            $table->string('marca')->nullable();
+            $table->enum('tipo' , ['carro' , 'moto' , 'camion']);
             $table->timestamps();
         });
     }

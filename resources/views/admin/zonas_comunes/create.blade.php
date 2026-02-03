@@ -4,7 +4,7 @@
     <div class="card">
         <h1 class="card-header">Zonas Comunes</h1>
         <div class="card-body">
-            <h3>{{ isset($zona) ? 'Editar Zona' : 'Nueva Zona' }}</h3>
+            <h3>{{ isset($zona) ? 'Editar Zna' : 'Nueva Zona' }}</h3>
 
             @if($errors->any())
             <div class="alert alert-danger">

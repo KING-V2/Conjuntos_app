@@ -7,16 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehiculo extends Model
 {
-     use HasFactory;
+    use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $table = 'vehiculos';
+
     protected $fillable = [
+        'cliente_id',
         'placa',
-        'tipo_vehiculo'
+        'marca',
+        'tipo'
     ];
 
+    public function cliente(){
+        return $this->belongsTo(Cliente::class);
+    }
 }

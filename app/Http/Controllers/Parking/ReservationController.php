@@ -23,6 +23,17 @@ class ReservationController extends Controller
     // Guardar nueva reserva
     public function store(Request $request)
     {
+        $vehiculo   = Vehicle::where('placa', $request->input('vehicle_plate'))->first();
+        $spaces     = Space::where('numero', $request->input('space_number'))->first(); 
+        $spaces     = Space::where('numero', $request->input('space_number'))->first(); 
+        $clients   = Client::where('placa', $request->input('vehicle_plate'))->first();
+
+        "vehicle_plate" => "BUP25F"
+        "space_number" => "3"
+        "reservation_date" => "2025-11-21"
+        "client_name" => "mario"
+
+
         $request->validate([
             'client_id'   => 'required|exists:clients,id',
             'vehicle_id'  => 'required|exists:vehicles,id',

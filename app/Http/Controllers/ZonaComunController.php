@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreZonaComunRequest;
 use App\Http\Requests\UpdateZonaComunRequest;
 use App\Models\Reservas\ZonaComun;
-use App\Models\Reservas\ZonaComunHorario;
 use Illuminate\Http\Request;
 
 
@@ -13,8 +12,18 @@ class ZonaComunController extends Controller
 {
     public function index()
     {
-        $zonas = ZonaComun::orderBy('nombre')->paginate(20);
-        return view('admin.zonas_comunes.index', compact('zonas'));
+        $zonas = ZonaComun::all();
+        $tipos = [
+                'Lunes' => 'Lunes',
+                'Martes' => 'Martes',
+                'Miércoles' => 'Miércoles',
+                'Jueves' => 'Jueves',
+                'Viernes' => 'Viernes',
+                'Sábado' => 'Sábado',
+                'Domingo' => 'Domingo',
+                'Festivo' => 'Festivo'
+            ];
+        return view('admin.zonas_comunes.index', compact('zonas', 'tipos'));
     }
 
     // public function create()
@@ -31,7 +40,7 @@ class ZonaComunController extends Controller
     public function edit($id)
     {
         $zona = ZonaComun::findOrFail($id);
-        $horarios = $zona->horarios()->orderBy('dia_semana')->orderBy('hora_inicio')->get();
+        $horarios = $zona->horarios()->orderBy('tipo_dia')->orderBy('hora_inicio')->get();
 
         return view('admin.zonas_comunes.gestion', compact('zona','horarios'));
     }
@@ -44,27 +53,29 @@ class ZonaComunController extends Controller
             'estado' => 'nullable|string'
         ]);
 
-        ZonaComun::create($request->only(['nombre','descripcion','estado','conjunto_id','activo']));
+        ZonaComun::create($request->only(['nombre','descripcion','estado','activo']));
 
         return redirect()->route('zonas.index')->with('success','Zona común creada.');
     }
 
-    // public function edit($id)
-    // {
-    //     $zona = ZonaComun::findOrFail($id);
-    //     return view('admin.zonas_comunes.create', compact('zona')); // reutilizamos la misma vista para create/edit
-    // }
+    public function allZonas()
+    {
+        return response()->json(['zonas' => ZonaComun::all()]);
+    }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $request->validate([
+            'zona_id' => 'nullable|integer',
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
+            'limite' => 'nullable|integer',
+            'tipo' => 'nullable|string',
             'estado' => 'nullable|string'
         ]);
 
-        $zona = ZonaComun::findOrFail($id);
-        $zona->update($request->only(['nombre','descripcion','estado','activo']));
+        $zona = ZonaComun::findOrFail($request->zona_id);
+        $zona->update($request->only(['nombre','descripcion','estado','limite','tipo']));
 
         return redirect()->route('zonas.index')->with('success','Zona común actualizada.');
     }

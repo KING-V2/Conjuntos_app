@@ -1,20 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Registro Parqueadero</title>
-        <!-- Tailwind CDN -->
-        <script src="https://cdn.tailwindcss.com"></script>
-        <!-- FontAwesome 6 CDN -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    </head>
-    <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-        <div class="bg-white w-96 p-8">
-            <!-- Encabezado -->
-            <div class="flex justify-center mb-6">
-                <i class="fa-solid fa-square-parking text-blue-600 text-5xl"></i>
-            </div>
+@extends('layouts.admin')
+@section('content')
+<div class="col-md-12">
+    <div class="card">
+        <h5 class="card-header">Registro Parqueadero</h5>
+        <div class="card-body">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-4">Registro Parqueadero</h2>
             <p class="text-center text-gray-500 mb-6">Bienvenido, crea tu cuenta</p>
 
@@ -75,20 +64,6 @@
 
             </div>
         </div>
-        <script>
-            const togglePassword = document.getElementById('togglePassword');
-            const password = document.getElementById('password');
-
-            togglePassword.addEventListener('click', () => {
-                // Cambiar entre password y text
-                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-                password.setAttribute('type', type);
-
-                // Cambiar icono
-                togglePassword.classList.toggle('fa-eye');
-                togglePassword.classList.toggle('fa-eye-slash');
-            });
-        </script>
-
-    </body>
-</html>
+    </div>
+</div>
+@endsection

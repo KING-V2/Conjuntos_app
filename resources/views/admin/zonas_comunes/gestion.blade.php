@@ -1,147 +1,38 @@
 @extends('layouts.admin')
+
 @section('content')
+<div class="container py-4">
+    <h2>Editar Zon</h2>
 
-<div class="col-md-12">
-    <div class="card">
-        <h1 class="card-header">Zonas Comunes horarios</h1>
+    <form action="/zonas_comunes_update" method="POST">
+        @csrf
+        <input type="hidden" name="zona_id" value="{{ $zona->id }}" class="form-control mb-2" required style="display:none;">
 
-        <div class="card-body">
+        <label>Nombre</label>
+        <input type="text" name="nombre" value="{{ $zona->nombre }}" class="form-control mb-2" required>
+        
+        <label>Límite</label>
+        <input type="number" name="limite" value="{{ $zona->limite }}" class="form-control mb-2" required>
 
-            {{-- MENSAJES --}}
-            @if(session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
+        <label>Tipo</label>
+        <select name="tipo" class="form-control" required>
+            <option value="">Seleccione</option>
+            <option value="general" {{ $zona->tipo == 'general' ? 'selected' : '' }}>General</option>
+            <option value="piscina" {{ $zona->tipo == 'piscina' ? 'selected' : '' }}>Piscina</option>
+            <option value="gimnasio" {{ $zona->tipo == 'gimnasio' ? 'selected' : '' }}>Gimnasio</option>
+        </select>
 
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach($errors->all() as $e)
-                            <li>{{ $e }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+        <label for="estado">Estado</label>
+        <select name="estado" id="estado" class="form-control" required>
+            <option value="Activo" {{ $zona->estado == 'Activo' ? 'selected' : '' }}>Activo</option>
+            <option value="No Activo" {{ $zona->estado == 'No Activo' ? 'selected' : '' }}>No Activo</option>
+        </select>
+    
+        <label>Descripción</label>
+        <textarea name="descripcion" class="form-control mb-2">{{ $zona->descripcion }}</textarea>
 
-
-            {{-- ============================= --}}
-            {{--      FORMULARIO ZONA COMÚN   --}}
-            {{-- ============================= --}}
-            <h3>{{ isset($zona) ? 'Editar Zona Común' : 'Nueva Zona Común' }}</h3>
-
-            <form method="POST" action="{{ isset($zona) ? route('zonas.update', $zona->id) : route('zonas.store') }}">
-                @csrf
-
-                <div class="mb-3">
-                    <label>Nombre</label>
-                    <input name="nombre" class="form-control"
-                           value="{{ old('nombre', $zona->nombre ?? '') }}" required>
-                </div>
-
-                <div class="mb-3">
-                    <label>Descripción</label>
-                    <textarea name="descripcion" class="form-control">{{ old('descripcion', $zona->descripcion ?? '') }}</textarea>
-                </div>
-
-                <div class="mb-3">
-                    <label>Estado</label>
-                    <select name="estado" class="form-control">
-                        <option value="Activo" {{ old('estado', $zona->estado ?? '') == 'Activo' ? 'selected' : '' }}>Activo</option>
-                        <option value="Inactivo" {{ old('estado', $zona->estado ?? '') == 'Inactivo' ? 'selected' : '' }}>Inactivo</option>
-                    </select>
-                </div>
-
-                <button class="btn btn-success">
-                    {{ isset($zona) ? 'Actualizar Zona' : 'Crear Zona' }}
-                </button>
-
-                <a href="{{ route('zonas.index') }}" class="btn btn-secondary">Volver</a>
-            </form>
-
-
-
-            {{-- SOLO MOSTRAR HORARIOS SI YA EXISTE LA ZONA --}}
-            @if(isset($zona))
-
-            <hr>
-
-            {{-- ============================= --}}
-            {{--      AGREGAR HORARIOS         --}}
-            {{-- ============================= --}}
-            <h3>Horarios – {{ $zona->nombre }}</h3>
-
-            <form method="POST" action="{{ route('zonas.horarios.store', $zona->id) }}" class="row g-2 mb-3">
-                @csrf
-
-                <div class="col-md-3">
-                    <label>Día</label>
-                    <select name="dia_semana" class="form-control" required>
-                        <option value="">Seleccione</option>
-                        <option value="1">Lunes</option>
-                        <option value="2">Martes</option>
-                        <option value="3">Miércoles</option>
-                        <option value="4">Jueves</option>
-                        <option value="5">Viernes</option>
-                        <option value="6">Sábado</option>
-                        <option value="0">Domingo</option>
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <label>Hora inicio</label>
-                    <input type="time" name="hora_inicio" class="form-control" required>
-                </div>
-
-                <div class="col-md-3">
-                    <label>Hora fin</label>
-                    <input type="time" name="hora_fin" class="form-control" required>
-                </div>
-
-                <div class="col-md-3 d-flex align-items-end">
-                    <button class="btn btn-success w-100">Agregar horario</button>
-                </div>
-            </form>
-
-
-            {{-- ============================= --}}
-            {{--      LISTADO DE HORARIOS      --}}
-            {{-- ============================= --}}
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Día</th>
-                        <th>Desde</th>
-                        <th>Hasta</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php
-                        $dias = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-                    @endphp
-
-                    @foreach($horarios as $h)
-                        <tr>
-                            <td>{{ $dias[$h->dia_semana] ?? $h->dia_semana }}</td>
-                            <td>{{ $h->hora_inicio }}</td>
-                            <td>{{ $h->hora_fin }}</td>
-                            <td>
-                                <form method="POST" action="{{ route('zonas.horarios.delete', $h->id) }}">
-                                    @csrf
-                                    <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Eliminar horario?')">
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-            @endif {{-- fin if zona --}}
-
-        </div>
-    </div>
+        <button class="btn btn-success">Actualizar</button>
+        <a href="/zonas" class="btn btn-secondary">Volver</a>
+    </form>
 </div>
-
 @endsection

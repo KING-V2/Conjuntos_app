@@ -4,6 +4,7 @@ namespace App\Models\Reservas;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ZonaHorario;
 
 class ZonaComun extends Model
 {
@@ -26,6 +27,8 @@ class ZonaComun extends Model
         'estado',
         'descripcion',
         'conjunto_id',
+        'limite',
+        'tipo',
         'activo'
     ];
     public function conjunto()
@@ -35,7 +38,7 @@ class ZonaComun extends Model
 
     public function horarios()
     {
-        return $this->hasMany(ZonaComunHorario::class, 'zona_comun_id');
+        return $this->hasMany(ZonaHorario::class, 'zona_id');
     }
 
     public function reservas()

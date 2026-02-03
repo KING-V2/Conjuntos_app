@@ -4,7 +4,7 @@
     <div class="card">
         <h1 class="card-header">Zonas Comunes</h1>
         <div class="card-body">
-            <h3>{{ isset($zona) ? 'Editar Zona' : 'Nueva Zona' }}</h3>
+            <h3>{{ isset($zona) ? 'Editar Zoa' : 'Nueva Zona' }}</h3>
             <form action="{{ isset($zona) ? route('zonas.update') : route('zonas.store') }}" method="POST">
                 @csrf
 

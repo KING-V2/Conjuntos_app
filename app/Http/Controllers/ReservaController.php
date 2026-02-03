@@ -6,179 +6,381 @@ use App\Http\Requests\StoreReservaRequest;
 use App\Http\Requests\UpdateReservaRequest;
 use App\Models\Reservas\Reserva;
 use App\Models\Reservas\ZonaComun;
+use App\Models\Administracion\Conjunto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
  
 class ReservaController extends Controller
 {
-    
-    // Admin: lista todas las reservas
     public function index()
     {
-        $reservas = Reserva::with(['zona_comun','usuario','administrador'])->orderByDesc('fecha')->paginate(20);
-        return view('admin.reservas.index', compact('reservas'));
-    }
+        $zonas = ZonaComun::where('estado', 'Activo')->get();
+        $zonas_h = ZonaComun::with('horarios')->get();
 
-    // Usuario: formulario para crear reserva
-    public function create()
-    {
-        $zonas = ZonaComun::where('activo', true)->orderBy('nombre')->get();
-        return view('admin.reservas.create', compact('zonas'));
-    }
+        $reglasPorZona = [];
 
-    // Store desde formulario (o API si se adapta)
-    public function store(Request $request)
-    {
-        $request->validate([
-            'zona_comun_id' => 'required|exists:zona_comun,id',
-            'fecha' => 'required|date_format:Y-m-d',
-            'hora_inicio' => 'required|date_format:H:i',
-            'hora_fin' => 'required|date_format:H:i|after:hora_inicio',
-            'descripcion' => 'nullable|string',
-            'comprobante' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:10240'
-        ]);
+        foreach ($zonas_h as $zona) {
+            $reglasPorZona[$zona->id] = [
+                'semana' => [],
+                'finde'  => [],
+            ];
 
-        // validar horario definido
-        $diaSemana = date('w', strtotime($request->fecha)); // 0..6
-        $horarioValido = ZonaComunHorario::where('zona_comun_id', $request->zona_comun_id)
-            ->where('dia_semana', $diaSemana)
-            ->where('hora_inicio', '<=', $request->hora_inicio)
-            ->where('hora_fin', '>=', $request->hora_fin)
-            ->exists();
-
-        if (!$horarioValido) {
-            return back()->withErrors(['error' => 'Horario no disponible para la fecha/hora seleccionada.'])->withInput();
-        }
-
-        // chequear conflicto con reservas ya aprobadas
-        $conflicto = Reserva::where('zona_comun_id', $request->zona_comun_id)
-            ->where('fecha', $request->fecha)
-            ->where(function($q) use ($request) {
-                $q->whereBetween('hora_inicio', [$request->hora_inicio, $request->hora_fin])
-                  ->orWhereBetween('hora_fin', [$request->hora_inicio, $request->hora_fin])
-                  ->orWhere(function($qq) use ($request) {
-                      $qq->where('hora_inicio', '<=', $request->hora_inicio)
-                         ->where('hora_fin', '>=', $request->hora_fin);
-                  });
-            })
-            ->where('estado', 'Aprobado')
-            ->exists();
-
-        if ($conflicto) {
-            return back()->withErrors(['error' => 'Existe una reserva aprobada que cruza este horario.'])->withInput();
-        }
-
-        DB::beginTransaction();
-        try {
-            $path = null;
-            if ($request->hasFile('comprobante')) {
-                $path = $request->file('comprobante')->store('comprobantes', 'public');
+            foreach ($zona->horarios as $horario) {
+                $reglasPorZona[$zona->id][$horario->tipo_dia][] = [
+                    'from' => substr($horario->hora_inicio, 0, 5),
+                    'to'   => substr($horario->hora_fin, 0, 5),
+                ];
             }
-
-            $reserva = Reserva::create([
-                'usuario_id' => Auth::id(),
-                'zona_comun_id' => $request->zona_comun_id,
-                'fecha' => $request->fecha,
-                'hora_inicio' => $request->hora_inicio,
-                'hora_fin' => $request->hora_fin,
-                'descripcion' => $request->descripcion,
-                'comprobante_pago' => $path,
-                'estado' => 'Pendiente'
-            ]);
-
-            DB::commit();
-            return redirect()->route('reservas.index')->with('success','Reserva creada y pendiente de aprobación.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->withErrors(['error' => 'Error al crear reserva: '.$e->getMessage()])->withInput();
-        }
-    }
-
-    // Aprobar (admin)
-    public function aprobar(Request $request, $id)
-    {
-        $request->validate(['descripcion_respuesta' => 'nullable|string']);
-
-        $reserva = Reserva::findOrFail($id);
-
-        // volver a verificar conflictos antes de aprobar
-        $conflicto = Reserva::where('zona_comun_id', $reserva->zona_comun_id)
-            ->where('fecha', $reserva->fecha)
-            ->where(function($q) use ($reserva) {
-                $q->whereBetween('hora_inicio', [$reserva->hora_inicio, $reserva->hora_fin])
-                  ->orWhereBetween('hora_fin', [$reserva->hora_inicio, $reserva->hora_fin])
-                  ->orWhere(function($qq) use ($reserva) {
-                      $qq->where('hora_inicio', '<=', $reserva->hora_inicio)
-                         ->where('hora_fin', '>=', $reserva->hora_fin);
-                  });
-            })
-            ->where('estado', 'Aprobado')
-            ->exists();
-
-        if ($conflicto) {
-            return back()->withErrors(['error' => 'No se puede aprobar: conflicto con otra reserva aprobada.']);
         }
 
-        $reserva->estado = 'Aprobado';
-        $reserva->descripcion_respuesta = 'Aprobada';
-        $reserva->administrador_id = Auth::id();
-        $reserva->save();
-
-        return back()->with('success','Reserva aprobada.');
-    }
-
-    // Rechazar (admin)
-    public function rechazar(Request $request, $id)
-    {
-        $request->validate(['descripcion_respuesta' => 'required|string']);
-
-        $reserva = Reserva::findOrFail($id);
-        $reserva->estado = 'Rechazado';
-        $reserva->descripcion_respuesta = $request->descripcion_respuesta;
-        $reserva->administrador_id = Auth::id();
-        $reserva->save();
-
-        return back()->with('success','Reserva rechazada.');
-    }
-
-    // Mostrar comprobante (archivo)
-    public function mostrarComprobante($id)
-    {
-        $reserva = Reserva::findOrFail($id);
-        if (!$reserva->comprobante_pago) {
-            abort(404);
-        }
-        return response()->file(storage_path('app/public/'.$reserva->comprobante_pago));
+        return view('admin.reservas.index', compact('zonas', 'reglasPorZona'));
     }
     
-    public function solicitar_reserva(Request $request)
+    public function reservas()
     {
-        $request->estado = 'Pendiente';
-        
-        $validated = $request->validate([
-            'fecha' => 'required|date',
-            'hora_inicio' => 'required',
-            'hora_fin' => 'required',
-            'estado' => 'required|string',
-            'usuario_id' => 'required|integer',
-            'zona_comun_id' => 'required|integer',
-            'descripcion' => 'required|string|max:500',
+        $meses = explode(',', env('MESES'));
+        return view('reservas.index_admin', compact('meses'));
+    }
+    
+    public function store(Request $request)
+    {
+        date_default_timezone_set('America/Bogota');
+        Carbon::setLocale('es');
+
+        $conjunto = Conjunto::find(session('conjunto_id'));
+
+        $request->validate([
+            'nombre_completo' => 'required|string|max:255',
+            'identificacion'  => 'required|string|max:100',
+            'interior'        => 'required|string|max:100',
+            'apartamento'     => 'required|string|max:100',
+            'email'           => 'required|email|max:255',
+            'celular'         => 'required|string|max:100',
+            'tipo_residente'  => 'required|string|max:100',
+            'zona_id'         => 'required|exists:zonas,id',
+            'fecha'           => 'required|date_format:Y-m-d',
+            'hora'            => 'required|exists:zonas_horarios,id',
+            'personas'        => 'nullable|integer|min:1'
         ]);
 
-        try {
-            $reserva = Reserva::create($validated);
+        $zona = ZonaComun::findOrFail($request->zona_id);
+        $horario = ZonaHorario::where('id', $request->hora)->first();
+
+        if (!$horario) {
             return response()->json([
-                'success' => true,
-                'message' => 'Reserva creada exitosamente',
-                'data' => $reserva
-            ], 201);
+                'message' => 'Horario inválido para la zona seleccionada.'
+            ], 422);
+        }
+
+        try {
+            $horaInicio24 = Carbon::parse($horario->hora_inicio)->format('H:i');
+            $horaFin24    = Carbon::parse($horario->hora_fin)->format('H:i');
         } catch (\Exception $e) {
             return response()->json([
-                'success' => false,
-                'message' => 'Error al guardar la reserva: ' . $e->getMessage(),
-            ], 500);
+                'message' => 'Horario mal configurado en la base de datos.'
+            ], 422);
         }
+
+        /* =========================
+        CONSTRUIR FECHAS (FIX)
+        ========================= */
+        $inicio = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            $request->fecha . ' ' . $horaInicio24
+        );
+
+        $fin = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            $request->fecha . ' ' . $horaFin24
+        );
+
+        $ocupadas = Reserva::query()
+        ->join('zonas_comunes as z', 'z.id', '=', 'reservas.zona_id')
+        ->join('zonas_horarios as zh', 'zh.zona_id', '=', 'z.id')
+        ->where('z.id', $zona->id)
+        ->where('zh.id', $horario->id)
+        ->where('reservas.inicio', $request->fecha.' '.$horario->hora_inicio)
+        ->where('reservas.fin', $request->fecha.' '.$horario->hora_fin)
+        ->selectRaw('COALESCE(SUM(reservas.id), 0) as total_personas')
+        ->count();
+
+        if ($ocupadas >= $zona->limite) {
+            return response()->json([
+                'message' => 'No hay cupos disponibles para esta hora.'
+            ], 422);
+        }
+
+        $reserva = Reserva::create([
+            'nombre_completo' => $request->nombre_completo,
+            'identificacion'  => $request->identificacion,
+            'interior'        => $request->interior,
+            'apartamento'     => $request->apartamento,
+            'email'           => $request->email,
+            'celular'         => $request->celular,
+            'conjunto_id'     => $conjunto->id,
+            'tipo_residente'  => $request->tipo_residente,
+            'zona_id'         => $zona->id,
+            'horario_id'      => $horario->id,
+            'inicio'          => $inicio,
+            'fin'             => $fin,
+            'fecha'           => $request->fecha,
+            'estado'          => 'aprobada',
+            'mes'             => $inicio->translatedFormat('F'),
+            'asistencia'      => 'Pendiente',
+        ]);
+
+        $correo_reserva = [
+            'nombre' => $request->nombre_completo,
+            'email'  => $request->email,
+            'interior'  => $request->interior,
+            'apartamento'  => $request->apartamento,
+            'conjunto'    => $conjunto->nombre,
+            'fecha_solicitud'    => $reserva->created_at->format('Y-m-d H:i:s'),
+            'zona'        => $zona->nombre,
+            'fecha'     => $request->fecha,
+            'hora'     => $horario->hora_inicio,
+        ];
+
+        Mail::to( $request->email )->send(new ConfirmacionReserva($correo_reserva));
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $reserva->id,
+                'zona' => $zona->nombre,
+                'fecha' => $request->fecha,
+                'hora' => $horario->hora_inicio,
+                'personas' => $ocupadas +1 ?? 0,
+                'created_at' => $reserva->created_at->format('Y-m-d H:i:s'),
+            ],
+            'message' => 'Reserva registrada correctamente'
+        ]);
+    }
+    
+    public function store_mobile(Request $request)
+    {
+        date_default_timezone_set('America/Bogota');
+        Carbon::setLocale('es');
+
+        $conjunto = Conjunto::find(session('conjunto_id'));
+
+        $request->validate([
+            'nombre_completo' => 'required|string|max:255',
+            'identificacion'  => 'required|string|max:100',
+            'interior'        => 'required|string|max:100',
+            'apartamento'     => 'required|string|max:100',
+            'email'           => 'required|email|max:255',
+            'celular'         => 'required|string|max:100',
+            'tipo_residente'  => 'required|string|max:100',
+            'zona_id'         => 'required|exists:zonas,id',
+            'fecha'           => 'required|date_format:Y-m-d',
+            'hora'            => 'required|exists:zonas_horarios,id',
+            'personas'        => 'nullable|integer|min:1'
+        ]);
+
+        $zona = ZonaComun::findOrFail($request->zona_id);
+        $horario = ZonaHorario::where('id', $request->hora)->first();
+
+        if (!$horario) {
+            return response()->json([
+                'message' => 'Horario inválido para la zona seleccionada.'
+            ], 422);
+        }
+
+        try {
+            $horaInicio24 = Carbon::parse($horario->hora_inicio)->format('H:i');
+            $horaFin24    = Carbon::parse($horario->hora_fin)->format('H:i');
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Horario mal configurado en la base de datos.'
+            ], 422);
+        }
+
+        /* =========================
+        CONSTRUIR FECHAS (FIX)
+        ========================= */
+        $inicio = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            $request->fecha . ' ' . $horaInicio24
+        );
+
+        $fin = Carbon::createFromFormat(
+            'Y-m-d H:i',
+            $request->fecha . ' ' . $horaFin24
+        );
+
+        $ocupadas = Reserva::query()
+        ->join('zonas_comunes as z', 'z.id', '=', 'reservas.zona_id')
+        ->join('zonas_horarios as zh', 'zh.zona_id', '=', 'z.id')
+        ->where('z.id', $zona->id)
+        ->where('zh.id', $horario->id)
+        ->where('reservas.inicio', $request->fecha.' '.$horario->hora_inicio)
+        ->where('reservas.fin', $request->fecha.' '.$horario->hora_fin)
+        ->selectRaw('COALESCE(SUM(reservas.id), 0) as total_personas')
+        ->count();
+
+        if ($ocupadas >= $zona->limite) {
+            return response()->json([
+                'message' => 'No hay cupos disponibles para esta hora.'
+            ], 422);
+        }
+
+        $reserva = Reserva::create([
+            'nombre_completo' => $request->nombre_completo,
+            'identificacion'  => $request->identificacion,
+            'interior'        => $request->interior,
+            'apartamento'     => $request->apartamento,
+            'email'           => $request->email,
+            'celular'         => $request->celular,
+            'conjunto_id'     => $conjunto->id,
+            'tipo_residente'  => $request->tipo_residente,
+            'zona_id'         => $zona->id,
+            'horario_id'      => $horario->id,
+            'inicio'          => $inicio,
+            'fin'             => $fin,
+            'fecha'           => $request->fecha,
+            'estado'          => 'aprobada',
+            'mes'             => $inicio->translatedFormat('F'),
+            'asistencia'      => 'Pendiente',
+        ]);
+
+        $correo_reserva = [
+            'nombre' => $request->nombre_completo,
+            'email'  => $request->email,
+            'interior'  => $request->interior,
+            'apartamento'  => $request->apartamento,
+            'conjunto'    => $conjunto->nombre,
+            'fecha_solicitud'    => $reserva->created_at->format('Y-m-d H:i:s'),
+            'zona'        => $zona->nombre,
+            'fecha'     => $request->fecha,
+            'hora'     => $horario->hora_inicio,
+        ];
+
+        Mail::to( $request->email )->send(new ConfirmacionReserva($correo_reserva));
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $reserva->id,
+                'zona' => $zona->nombre,
+                'fecha' => $request->fecha,
+                'hora' => $horario->hora_inicio,
+                'personas' => $ocupadas +1 ?? 0,
+                'created_at' => $reserva->created_at->format('Y-m-d H:i:s'),
+            ],
+            'message' => 'Reserva registrada correctamente'
+        ]);
+    }
+
+
+    public function asistencia($id, Request $request)
+    {
+        $reserva = Reserva::findOrFail($id);
+        $reserva->asistencia = $request->asistencia; // "ASISTIÓ" o "NO ASISTIÓ"
+        $reserva->save();
+
+        return response()->json(['message' => 'Asistencia actualizada correctamente']);
+    }
+
+    // ALTER TABLE `reservas` ADD `asistencia` VARCHAR(100) NULL AFTER `estado`;
+    // ALTER TABLE `reservas` ADD `mes` VARCHAR(100) NULL AFTER `estado`;
+
+    public function list(Request $request)
+    {
+        $mes = $request->mes;
+
+        // 1. Consultar reservas filtrando por mes + cargar relaciones
+        $reservas = Reserva::with(['conjunto', 'zona'])
+            ->where('mes', '=', $mes)
+            ->get()
+            ->map(function($r){
+                return [
+                    'id'              => $r->id,
+                    'nombre_completo' => $r->nombre_completo,
+                    'identificacion'  => $r->identificacion,
+                    'email'           => $r->email,
+                    'celular'         => $r->celular,
+                    'interior'        => $r->interior,
+                    'apartamento'     => $r->apartamento,
+                    'conjunto'        => $r->conjunto?->nombre,
+                    'zona'            => $r->zona?->nombre,
+                    'tipo_residente'  => $r->tipo_residente,
+                    'inicio'          => $r->inicio,
+                    'fin'             => $r->fin,
+                    'estado'          => $r->estado,
+                    'asistencia'      => $r->asistencia ?? 'Pendiente',
+                ];
+            });
+
+        // 2. Retornar DataTable compatible con tu vista
+        return DataTables::of($reservas)->make(true);
+    }
+
+    private function mesNumero($mes)
+    {
+        return [
+            'ENERO'=>1,'FEBRERO'=>2,'MARZO'=>3,'ABRIL'=>4,'MAYO'=>5,'JUNIO'=>6,
+            'JULIO'=>7,'AGOSTO'=>8,'SEPTIEMBRE'=>9,'OCTUBRE'=>10,'NOVIEMBRE'=>11,'DICIEMBRE'=>12
+        ][strtoupper($mes)];
+    }
+
+    public function exportCsv($mes)
+    {
+        $reservas = Reserva::with(['conjunto', 'zona'])
+            ->where('mes', $mes)
+            ->get();
+
+        $fileName = "reservas_{$mes}.csv";
+
+        return response()->streamDownload(function () use ($reservas) {
+
+            $handle = fopen('php://output', 'w');
+
+            // 👇 Encabezados del CSV
+            fputcsv($handle, [
+                'ID',
+                'Nombre',
+                'Identificación',
+                'Email',
+                'Celular',
+                'Conjunto',
+                'Interior',
+                'Apartamento',
+                'Zona',
+                'Tipo residente',
+                'Inicio',
+                'Fin',
+                'Estado',
+                'Asistencia'
+            ], ';'); // separador ; (mejor para Excel ES)
+
+            // 👇 Filas
+            foreach ($reservas as $r) {
+                fputcsv($handle, [
+                    $r->id ?? '-',
+                    $r->nombre_completo ?? '-',
+                    $r->identificacion ?? '-',
+                    $r->email ?? '-',
+                    $r->celular ?? '-',
+                    $r->conjunto?->nombre ?? '-',
+                    $r->interior ?? '-',
+                    $r->apartamento ?? '-',
+                    $r->zona?->nombre ?? '-',
+                    $r->tipo_residente ?? '-',
+                    $r->inicio ?? '-',
+                    $r->fin ?? '-',
+                    $r->estado ?? '-',
+                    $r->asistencia ?? 'Pendiente',
+                ], ';');
+            }
+
+            fclose($handle);
+
+        }, $fileName, [
+            "Content-Type" => "text/csv; charset=UTF-8",
+            "Content-Disposition" => "attachment; filename={$fileName}",
+        ]);
     }
    
     public function mis_reservas($id)
