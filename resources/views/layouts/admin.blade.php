@@ -483,8 +483,6 @@
                                     </a>
                                 </li>
                                 @endcan
-                            </ul>
-                            <ul class="menu-sub">
                                 @can('tarifas')
                                 <li class="menu-item">
                                     <a href="{{ route('tarifas.index') }}" class="menu-link">
@@ -493,13 +491,19 @@
                                     </a>
                                 </li>
                                 @endcan
-                            </ul>
-                            <ul class="menu-sub">
                                 @can('clientes')
                                 <li class="menu-item">
                                     <a href="{{ route('clientes.index') }}" class="menu-link">
                                         <i class="menu-icon tf-icons fa-solid fa fa-users"></i>
                                         <div data-i18n="Clientes">Clientes</div>
+                                    </a>
+                                </li>
+                                @endcan
+                                @can('tickets')
+                                <li class="menu-item">
+                                    <a href="{{ route('tickets.index') }}" class="menu-link">
+                                        <i class="menu-icon tf-icons fa-solid fa fa-ticket"></i>
+                                        <div data-i18n="Tickets">Tickets</div>
                                     </a>
                                 </li>
                                 @endcan

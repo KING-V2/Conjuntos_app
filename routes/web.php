@@ -56,6 +56,7 @@ use App\Http\Controllers\Parking\SettingsController;
 use App\Http\Controllers\EspacioController;
 use App\Http\Controllers\TarifasController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\TicketController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -498,6 +499,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/vehiculos_edit/{id}', [VehiculoController::class, 'edit'])->name('vehiculos.edit'); 
     Route::put('/vehiculos/{id}', [VehiculoController::class, 'update'])->name('vehiculos.update'); 
     Route::get('/vehiculos_delete/{id}', [VehiculoController::class, 'destroy'])->name('vehiculos.destroy');
+
+    //Rutas para tickets
+    Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index'); 
+    Route::post('/cargar_tickets', [TicketController::class, 'store'])->name('tickets.store'); 
+    Route::get('/tickets_edit/{id}', [TicketController::class, 'edit'])->name('tickets.edit'); 
+    Route::put('/tickets/{id}', [TicketController::class, 'update'])->name('tickets.update'); 
+    Route::get('/tickets_delete/{id}', [TicketController::class, 'destroy'])->name('tickets.destroy');
 
 
 });

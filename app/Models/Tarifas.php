@@ -17,4 +17,8 @@ class Tarifas extends Model
         'costo',
         'minutos_gavela',
     ];
+
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
+    }
 }
