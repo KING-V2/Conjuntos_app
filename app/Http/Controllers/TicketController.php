@@ -81,6 +81,10 @@ class TicketController extends Controller
     $ticket->estado_ticket = 'activo';
     $ticket->obs = $request->obs;
 
+    $espacio = Espacio::find($request->espacio_id);
+    $espacio->estado = 'ocupado';
+    $espacio->save();
+
     $ticket->save();
         session()->flash('flash_success_message', 'registro correcto');
         }catch ( \Exception $exception){

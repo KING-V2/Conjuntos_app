@@ -1,7 +1,7 @@
 php artisan tinker
 
-$permiso = Spatie\Permission\Models\Permission::create(['name' => 'tickets']);
+$permiso = Spatie\Permission\Models\Permission::create(['name' => 'tarifas']);
 
 $user = App\Models\User::find(1);
 
-$user->givePermissionTo(['tickets']);
+$user->givePermissionTo(['tarifas']);
