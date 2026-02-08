@@ -16,7 +16,6 @@ class Ticket extends Model
         'cliente_id',
         'vehiculo_id',
         'tarifa_id',
-        'user_id',
         'codigo_ticket',
         'fecha_ingreso',
         'hora_ingreso',

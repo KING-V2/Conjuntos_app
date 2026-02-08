@@ -17,12 +17,11 @@ return new class extends Migration
             $table->foreignId('cliente_id')->contrained('clientes');
             $table->foreignId('vehiculo_id')->contrained('vehiculos');
             $table->foreignId('tarifa_id')->contrained('tarifas');
-            $table->foreignId('user_id')->contrained('users');
             $table->string('codigo_ticket', 20)->unique();
             $table->date('fecha_ingreso');
-            $table->date('hora_ingreso');
+            $table->time('hora_ingreso');
             $table->date('fecha_salida')->nullable();
-            $table->date('hora_salida')->nullable();
+            $table->time('hora_salida')->nullable();
             $table->string('tiempo_total')->nullable();
             $table->decimal('monto_total')->nullable();
             $table->enum('estado_ticket', ['activo', 'completado', 'cancelado']);

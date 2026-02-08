@@ -38,7 +38,7 @@ class EspacioController extends Controller
         try{
         $request->validate([
             'numero' => 'required',
-            'estado' => 'required',
+            'estado' => 'required|unique:espacios',
         ]);
 
         $espacio = new Espacio();

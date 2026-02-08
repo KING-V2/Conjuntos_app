@@ -24,6 +24,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
         <link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
@@ -653,9 +654,18 @@
         <script src="{{ asset('assets/vendor/libs/i18n/i18n.js')}}"></script>
         <script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
         <script src="{{ asset('assets/vendor/js/menu.js')}}"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         
         @yield('vendors_js')
         <script src="{{ asset('assets/js/main.js')}}"></script>
+
+        <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+        </script>
 
         @yield('javascripts')
     </body>
