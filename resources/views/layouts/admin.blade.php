@@ -467,7 +467,7 @@
                             </ul>
                         </li>
 
-
+ 
                         <li class="menu-item">
                             @can('modulo espacios')
                             <a href="javascript:void(0);" class="menu-link menu-toggle">

@@ -12,28 +12,38 @@
                         <div class="card-body">
                             <div class="row">
                                 @foreach ($espacios as $espacio)
+                                @php
+                                $ticket_activo = $tickets_activos->firstWhere('espacio_id', $espacio->id)
+                                @endphp
                                 <div class="col-md-2 mb-3" style="text-align: center">
                                     <h5>Espacio: {{$espacio->numero}}</h5>
+                                    @if($ticket_activo)
+                                        <button class="btn btn-danger btn-ocupado" data-ticket-id="{{$ticket_activo->id}}"
+                                        style="width: 100%; height: 200px">
+                                        <small>{{$ticket_activo->vehiculo?->placa ?? 'Sin placa'}}</small>
+                                        <small>{{$ticket_activo->fecha_ingreso}}</small>
+                                        <small>{{$ticket_activo->hora_ingreso}}</small>
+                                        </button>
+                                    @else
+                                        @if ($espacio->estado == 'disponible')
+                                        <button class="btn btn-success btn-ticket" data-espacio-id="{{$espacio->id}}" data-numero-espacio="{{$espacio->numero}}"
+                                        style="width: 100%; height: 200px">
+                                        Disponible
+                                        </button>
+                                        @endif
 
-                                    @if ($espacio->estado == 'disponible')
-                                    <button class="btn btn-success btn-ticket" data-espacio-id="{{$espacio->id}}" data-numero-espacio="{{$espacio->numero}}"
-                                    style="width: 100px; height: 40px">
-                                    Disponible
-                                    </button>
-                                    @endif
-
-                                    @if ($espacio->estado == 'reservado')
-                                    <button class="btn btn-warning btn-reservado" data-espacio-id="{{$espacio->id}}"
-                                    style="width: 100px; height: 40px">
-                                    Reservado
-                                    </button>
-                                    @endif
-
-                                    @if ($espacio->estado == 'ocupado')
-                                    <button class="btn btn-danger btn-ocupado" data-espacio-id="{{$espacio->id}}"
-                                    style="width: 100px; height: 40px">
-                                    Ocupado
-                                    </button>
+                                        @if ($espacio->estado == 'reservado')
+                                        <button class="btn btn-warning btn-reservado" data-espacio-id="{{$espacio->id}}"
+                                        style="width: 100%; height: 200px">
+                                        Reservado
+                                        </button>
+                                        @endif
+                                        @if ($espacio->estado == 'ocupado')
+                                        <button class="btn btn-danger" data-espacio-id="{{$espacio->id}}"
+                                        style="width: 100%; height: 200px">
+                                        OcupadoV2
+                                        </button>
+                                        @endif
                                     @endif
                                 </div>
                                 @endforeach
@@ -126,6 +136,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <div class="modal-body">
+               <hr>
+               <div class="row">
+                    <div class="col-md-12">
+                       <a href="#" id="btn_imprimir_ticket" class="btn  btn-warning"><i class="fas fa-print"></i>Imprimir</a> 
+                    </div>
+               </div> 
+            </div>
         </div>
     </div>
 </div>
@@ -192,6 +210,9 @@
     });
 
     $('.btn-ocupado').on('click',function(){
+        var ticket_id = $(this).data('ticket-id');
+        var urlImprimir = "{{url('/tickets/')}}"+"/" + ticket_id+"/imprimir";
+        $('#btn_imprimir_ticket').attr('href', urlImprimir);
         $('#modal_ocupado').modal('show');
     });
 </script>

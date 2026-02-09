@@ -6,9 +6,11 @@ use App\Models\Ticket;
 use App\Models\Espacio;
 use App\Models\Vehiculo;
 use App\Models\Tarifas;
+use App\Models\Administracion\Conjunto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TicketController extends Controller
 {
@@ -22,12 +24,14 @@ class TicketController extends Controller
             $espacios = Espacio::all();
             $tarifas = Tarifas::all();
             $vehiculos = Vehiculo::with('cliente')->get();
+            $tickets_activos = Ticket::where('estado_ticket', 'activo')->get();
             return view('admin.tickets.add' ,
                 [
                     'ticketes' => $ticketes,
                     'espacios' => $espacios,
                     'vehiculos' => $vehiculos,
                     'tarifas' => $tarifas,
+                    'tickets_activos' => $tickets_activos,
                 ]
             );
         }
@@ -37,6 +41,26 @@ class TicketController extends Controller
     {
         $vehiculo = Vehiculo::with('cliente')->find($id);
         return view('admin.tickets.buscar_vehiculo', compact ('vehiculo'));
+    }
+
+    public function imprimir_ticket($id)
+    {
+        $ticket = Ticket::find($id);
+        $conjunto = Conjunto::first();
+        $fecha_hora = Carbon::now()->format('H:i:s');
+        $pdf =  PDF::loadView('admin.tickets.ticket_pdf', compact('ticket' , 'conjunto', 'fecha_hora'));
+
+        // Configuración para impresora térmica (80mm de ancho, alto automático)
+        $pdf->setOptions([
+            'dpi' => 120,
+            'defaultPaperSize' => [0, 0, 226.77, 0], // 80mm = 226.77 puntos
+            'isHtml5ParserEnabled' => true,
+            'isRemoteEnabled' => true,
+            'defaultFont' => 'Arial Narrow'
+        ]);
+
+        $pdf->setPaper([0, 0, 226.77, 999999]); // 80mm de ancho, alto infinito
+        return $pdf->stream("tikcet.pdf");
     }
 
     /**
@@ -58,6 +82,18 @@ class TicketController extends Controller
         'vehiculo_id' => 'required',
         'tarifa_id' => 'required',
     ]);
+
+
+    $ticket_activo = Ticket::where('vehiculo_id' , $request->vehiculo_id)
+    ->where('estado_ticket' , 'disponible')->first();
+
+    if($ticket_activo){
+        return redirect()->back()
+        ->with('menssaje' , 'Error: El vehiculo tiene un ticket existente')
+        ->with('icono' , 'Error: El vehiculo tiene un ticket existetne');
+
+    }
+
 
     $vehiculo = Vehiculo::find($request->vehiculo_id);
 

@@ -503,10 +503,8 @@ Route::middleware(['auth'])->group(function () {
     //Rutas para tickets
     Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index'); 
     Route::post('/cargar_tickets', [TicketController::class, 'store'])->name('tickets.store'); 
-    Route::get('/tickets_edit/{id}', [TicketController::class, 'edit'])->name('tickets.edit'); 
     Route::get('/tickets_vehiculo/{id}', [TicketController::class, 'buscar_vehiculo'])->name('tickets.buscar_vehiculo'); 
-    Route::put('/tickets/{id}', [TicketController::class, 'update'])->name('tickets.update'); 
-    Route::get('/tickets_delete/{id}', [TicketController::class, 'destroy'])->name('tickets.destroy');
+    Route::get('/tickets/{id}/imprimir', [TicketController::class, 'imprimir_ticket'])->name('tickets.imprimir_ticket'); 
 
 
 });
