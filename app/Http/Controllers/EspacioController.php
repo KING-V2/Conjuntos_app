@@ -13,7 +13,7 @@ class EspacioController extends Controller
     public function index()
     {
         $espacios = Espacio::all();
-        $estados = ['disponible','ocupado','reservado'];
+        $estados = ['disponible','ocupado',];
         return view ('admin.espacios.add' ,
         [
             'espacios' => $espacios,
@@ -68,7 +68,7 @@ class EspacioController extends Controller
     {
         try {
             $espacios = Espacio::findOrfail($id);
-            $estados = ['disponible','ocupado','reservado'];
+            $estados = ['disponible','ocupado',];
             return view('admin.espacios.edit',
                 [
                 'espacios' => $espacios,
@@ -114,4 +114,39 @@ class EspacioController extends Controller
 
         return redirect('espacios');
     }
+
+    public function apiEspaciosDisponibles()
+    {
+    try {
+        $espacios = Espacio::where('estado', 'disponible')->get();
+        
+        return response()->json([
+            'success' => true,
+            'data' => $espacios
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error: ' . $e->getMessage()
+        ], 500);
+    }
+    }
+
+
+
+    public function apiTodosEspacios()
+{
+    try {
+        $espacios = Espacio::all();
+        return response()->json([
+            'success' => true,
+            'data' => $espacios
+        ], 200);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Error: ' . $e->getMessage()
+        ], 500);
+    }
+}
 }

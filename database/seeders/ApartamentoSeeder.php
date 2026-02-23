@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Apartamento;
+use App\Models\Administracion\Apartamento;
 
 class ApartamentoSeeder extends Seeder
 {
@@ -13,6 +13,13 @@ class ApartamentoSeeder extends Seeder
      */
     public function run(): void
     {
-        Apartamento::factory(50)->create();
+        for ($i = 1; $i <= 50; $i++) {
+            Apartamento::create([
+                'codigo' => 'RES-' . str_pad($i, 5, '0', STR_PAD_LEFT),
+                'nombre' => 'Apartamento ' . $i,
+                'estado' => collect(['Asignada', 'Arriendo', 'Venta', 'Libre'])->random(),
+                'bloque_id' => rand(1, 10),
+            ]);
+        }
     }
 }

@@ -126,4 +126,26 @@ class VehiculoController extends Controller
         }
          return redirect('clientes/' . $clienteId);
     }
+
+
+        public function apiBuscar($termino)
+        {
+            try {
+                $vehiculos = Vehiculo::with('cliente')
+                    ->where('placa', 'LIKE', "%{$termino}%")
+                    ->orWhere('marca', 'LIKE', "%{$termino}%")
+                    ->orWhere('modelo', 'LIKE', "%{$termino}%")
+                    ->get();
+                
+                return response()->json([
+                    'success' => true,
+                    'data' => $vehiculos
+                ], 200);
+            } catch (\Exception $e) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Error: ' . $e->getMessage()
+                ], 500);
+            }
+        }
 }

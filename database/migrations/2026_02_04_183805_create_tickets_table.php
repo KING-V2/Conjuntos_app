@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('espacio_id')->contrained('espacios');
-            $table->foreignId('cliente_id')->contrained('clientes');
-            $table->foreignId('vehiculo_id')->contrained('vehiculos');
-            $table->foreignId('tarifa_id')->contrained('tarifas');
+            $table->foreignId('espacio_id')->constrained('espacios');
+            $table->foreignId('cliente_id')->constrained('clientes');
+            $table->foreignId('vehiculo_id')->constrained('vehiculos');
+            $table->foreignId('tarifa_id')->constrained('tarifas');
+            $table->foreignId('apartamento_id')->nullable()->constrained('apartamentos'); 
+            $table->foreignId('casas_id')->nullable()->constrained('casas'); 
             $table->string('codigo_ticket', 20)->unique();
             $table->date('fecha_ingreso');
             $table->time('hora_ingreso');

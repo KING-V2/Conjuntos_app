@@ -10,7 +10,7 @@ class EspacioSeeder extends Seeder
     public function run()
     {
         // Primeros 40 espacios disponibles
-        for ($i = 1; $i <= 40; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             Espacio::create([
                 'numero' => $i,
                 'estado' => 'disponible',
@@ -18,18 +18,10 @@ class EspacioSeeder extends Seeder
         }
 
         
-        for ($i = 41; $i <= 45; $i++) {
+        for ($i = 11; $i <= 25; $i++) {
             Espacio::create([
                 'numero' => $i,
                 'estado' => 'ocupado',
-            ]);
-        }
-
-        
-        for ($i = 46; $i <= 50; $i++) {
-            Espacio::create([
-                'numero' => $i,
-                'estado' => 'reservado',
             ]);
         }
     }

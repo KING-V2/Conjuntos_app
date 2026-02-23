@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('espacios', function (Blueprint $table) {
             $table->id();
             $table->string('numero', 20)->unique();
-            $table->enum('estado', ['disponible', 'ocupado', 'reservado'])->default('disponible');
+            $table->enum('estado', ['disponible', 'ocupado'])->default('disponible');
             $table->timestamps();
         });
     }

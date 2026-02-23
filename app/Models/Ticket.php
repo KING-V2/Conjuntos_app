@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Administracion\Apartamento;
+use App\Models\Administracion\Casas;
 
 class Ticket extends Model
 {
@@ -16,6 +18,8 @@ class Ticket extends Model
         'cliente_id',
         'vehiculo_id',
         'tarifa_id',
+        'apartamento_id',
+        'casas_id',
         'codigo_ticket',
         'fecha_ingreso',
         'hora_ingreso',
@@ -36,8 +40,14 @@ class Ticket extends Model
     public function vehiculo(){
         return $this->belongsTo(Vehiculo::class);
     }
-    public function tarifas(){
-        return $this->belongsTo(Tarifas::class);
+    public function tarifa(){
+        return $this->belongsTo(Tarifas::class,'tarifa_id');
+    }
+    public function apartamento(){
+        return $this->belongsTo(Apartamento::class);
+    }
+    public function casa(){
+        return $this->belongsTo(Casas::class,'casas_id');
     }
     public function user(){
         return $this->belongsTo(User::class);

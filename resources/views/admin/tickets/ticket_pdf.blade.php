@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket</title>
+    <title>Impresión de Ticket</title>
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
@@ -72,10 +72,22 @@
         <div class="line"></div>
 
         <div style="text-align: left;">
-            <strong>Datos del Cliente:</strong><br>
-            Señor(a): {{ $ticket->cliente->nombres }}<br>
-            Documento: {{ $ticket->cliente->numero_documento }}<br>
-            Placa del vehiculo: {{ $ticket->vehiculo?->placa ?? 'Sin placa' }}<br>
+        <strong>Datos del Cliente:</strong><br>
+
+        @if($ticket->apartamento)
+            <b>Apartamento:</b> {{ $ticket->apartamento->nombre }} ({{ $ticket->apartamento->codigo }})<br>
+        @endif
+
+        @if($ticket->casa)
+            <b>Casa:</b> {{ $ticket->casa->nombre }} ({{ $ticket->casa->codigo }})<br>
+        @endif
+
+        @if(!$ticket->apartamento && !$ticket->casa)
+            <b>Inmueble:</b> No especificado<br>
+        @endif
+
+        <strong>Señor(a):</strong> {{ $ticket->cliente->nombres }}<br>
+        <strong>Placa:</strong> {{ $ticket->vehiculo?->placa ?? 'Sin placa' }}<br>
         </div>
 
         <div class="line"></div>

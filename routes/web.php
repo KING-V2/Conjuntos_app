@@ -57,6 +57,10 @@ use App\Http\Controllers\EspacioController;
 use App\Http\Controllers\TarifasController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\TicketController;
+
+
+use App\Exports\TicketsExport;
+use Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -505,7 +509,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cargar_tickets', [TicketController::class, 'store'])->name('tickets.store'); 
     Route::get('/tickets_vehiculo/{id}', [TicketController::class, 'buscar_vehiculo'])->name('tickets.buscar_vehiculo'); 
     Route::get('/tickets/{id}/imprimir', [TicketController::class, 'imprimir_ticket'])->name('tickets.imprimir_ticket'); 
+    Route::get('/tickets/{id}/finalizar_ticket', [TicketController::class, 'finalizar_ticket'])->name('tickets.finalizar_ticket'); 
+    Route::get('/tickets/{id}/imprimir_factura', [TicketController::class, 'imprimir_factura'])->name('tickets.imprimir_factura'); 
+    Route::delete('/tickets/{id}', [TicketController::class, 'destroy'])->name('tickets.destroy'); 
 
+
+    //Ruta para exportacioón de excel de tickets
+    Route::get('/exportar-tickets', [TicketController::class, 'exportarTickets']);
 
 });
 
