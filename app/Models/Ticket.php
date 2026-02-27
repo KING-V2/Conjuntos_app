@@ -52,4 +52,7 @@ class Ticket extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function facturacion(){
+        return $this->HasOne(Facturacion::class);
+    }
 }

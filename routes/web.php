@@ -57,6 +57,7 @@ use App\Http\Controllers\EspacioController;
 use App\Http\Controllers\TarifasController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\FacturacionController;
 
 
 use App\Exports\TicketsExport;
@@ -516,6 +517,10 @@ Route::middleware(['auth'])->group(function () {
 
     //Ruta para exportacioón de excel de tickets
     Route::get('/exportar-tickets', [TicketController::class, 'exportarTickets']);
+
+
+    //Rutas para facturación
+    Route::get('/factura/{id}', [FacturacionController::class, 'imprimir_factura'])->name('facturacion.imprimir_factura'); 
 
 });
 

@@ -28,4 +28,7 @@ class Cliente extends Model
     public function tickets(){
         return $this->hasMany(Ticket::class);
     }
+    public function facturacion(){
+        return $this->HasOne(Facturacion::class);
+    }
 }

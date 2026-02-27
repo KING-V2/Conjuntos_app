@@ -54,8 +54,9 @@
                                     data-fecha-ingreso="{{ $ticket_activo->fecha_ingreso }}"
                                     data-hora-ingreso="{{ $ticket_activo->hora_ingreso }}"
                                     style="width: 100%; height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-                                        <span>{{$ticket_activo->vehiculo?->placa ?? 'Sin placa'}}</span>
-                                        <span>{{$ticket_activo->fecha_ingreso}}</span>
+                                        <span><p>Placa:</p>{{$ticket_activo->vehiculo?->placa ?? 'Sin placa'}}</span>
+                                        <br>
+                                        <span><p>Fecha Ingreso:</p>{{$ticket_activo->fecha_ingreso}}</span>
                                         <span>{{$ticket_activo->hora_ingreso}}</span>
                                     </button>
                                     @else
@@ -147,7 +148,6 @@
                 </form>
             </div>
             <div id="info_vehiculo">
-
             </div>
         </div>
     </div>
@@ -192,7 +192,7 @@
                <hr>
                <div class="row">
                     <div class="col-md-12">
-                       <a href="#" id="btn_imprimir_ticket" data-dismiss="modal" data-toggle="modal" class="btn btn-warning"><i class="fas fa-print"></i>Imprimir</a> 
+                       <a href="#" id="btn_imprimir_ticket" class="btn btn-warning"><i class="fas fa-print"></i>Imprimir</a> 
                     </div>
                </div>
                <br>
@@ -234,6 +234,12 @@
             <div class="modal-body">
                 <iframe id="pdf_iframe_ticket" src="" width="100%" height="500px"></iframe>
             </div>
+            <div class="modal-footer">
+                <input type="hidden" id="ticket_id_pdf" value="{{ session('ticket_id') }}">
+                <button type="button" id="btn_confirmar_salida" class="btn btn-success">
+                    <i class="fas fa-check"></i> Confirmar Salida
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -244,19 +250,21 @@
 @section('javascripts')
 
 @if (session('ticket_id'))
-    <script>
-        $(document).ready(function(){
-            var ticket_id = "{{ session('ticket_id') }}";
-            var urlImprimir = "{{ url('tickets') }}" + "/" + ticket_id + "/imprimir";
-            $('#pdf_iframe_ticket').attr('src', urlImprimir);
+<script>
+    $(document).ready(function(){
+        var urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('solo_salida')) {
+            var factura_id = "{{ session('factura_id') }}";
+            var urlFactura = "{{ url('factura') }}" + "/" + factura_id; // <- solo esto
+            $('#pdf_iframe_ticket').attr('src', urlFactura);
             $('#modal_pdf_ticket').modal('show');
-        });
-    </script>
+        }
+    });
+</script>
 @endif
 <script>
 
     let ticket_a_imprimir = null;
-
     $(document).ready(function(){
         $('.select2').select2({
             allowClear: true,
@@ -298,6 +306,19 @@
             $('#espacio_id').val(espacio_id);
             $('#espacio').html(numero_espacio);
             $('#modal_ticket').modal('show');
+        });
+
+        $(document).on('click', '#btn_imprimir_ticket', function(event) {
+            event.preventDefault();
+            var urlImprimir = $(this).attr('href');
+            
+            // Guardar el ticket_id en el input del modal PDF
+            var ticket_id = $('#ticket_id').val();
+            $('#ticket_id_pdf').val(ticket_id); // <- agrega esto
+            
+            $('#modal_ocupado').modal('hide');
+            $('#pdf_iframe_ticket').attr('src', urlImprimir);
+            $('#modal_pdf_ticket').modal('show');
         });
 
         $('.btn-ocupado').on('click',function(){
@@ -369,8 +390,25 @@
         });
         });
 
+        $(document).on('click', '#btn_confirmar_salida', function() {
+        var ticket_id = $('#ticket_id_pdf').val(); // <- cambia esto
+        
+        Swal.fire({
+            title: '¿Confirmar salida del vehículo?',
+            text: 'El espacio quedará disponible',
+            icon: 'question',
+            showDenyButton: true,
+            confirmButtonText: 'Confirmar',
+            confirmButtonColor: '#28a745',
+            denyButtonText: 'Cancelar',
+            denyButtonColor: '#6c757d',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ url('tickets') }}" + "/" + ticket_id + "/finalizar_ticket?solo_salida=1";
+            }
+        });
+        });
+        
     });
-
 </script>
-
 @endsection

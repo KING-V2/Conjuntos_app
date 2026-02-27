@@ -9,6 +9,7 @@ use App\Models\Tarifas;
 use App\Models\Administracion\Casas;
 use App\Models\Administracion\Apartamento;
 use App\Models\Administracion\Conjunto;
+use App\Models\Facturacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -71,7 +72,7 @@ class TicketController extends Controller
     }
 
 
-    public function finalizar_ticket($id)
+    public function finalizar_ticket($id, Request $request)
     {
         $ticket = Ticket::find($id);
 
@@ -193,29 +194,51 @@ class TicketController extends Controller
             $ticket->estado_ticket = 'completado';
             $ticket->save();
 
+            
+            $cliente = $ticket->cliente;
+            $factura = new Facturacion();
+            $factura->ticket_id = $ticket->id;
+            $factura->cliente_id = $cliente->id;
+            $ultima_factura = DB::table('facturacions')->max('id');
+            $numero_factura = $ultima_factura ? $ultima_factura + 1 : 1;
+            $factura->numero_factura = $numero_factura;
+            $factura->nombres = $cliente->nombres;
+            $factura->numero_documento = $cliente->numero_documento;
+            $factura->placa = $ticket->vehiculo->placa;
+            $factura->obs = "Servicio de parqueo de ".$tiempo_total;
+            $factura->monto_total = $monto_total;
+            $factura->save();
+
+            if ($request->has('solo_salida')) {
             return redirect('tickets')
-                ->with('mensaje', 'Ticket facturado correctamente')
-                ->with('icono', 'success')
-                ->with('ticket_id', $ticket->id);
- 
-    }
+            ->with('mensaje', 'Ticket finalizado correctamente')
+            ->with('icono', 'success');
+            } else {
+                return redirect('tickets')
+                    ->with('mensaje', 'Ticket facturado correctamente')
+                    ->with('icono', 'success')
+                    ->with('ticket_id', $ticket->id)
+                    ->with('factura_id', $factura->id);
+            }
+    
+        }
 
 
-    public function exportarTickets(Request $request)
-    {
-        
-        $mes  = $request->input('mes');
-        $anio = $request->input('anio');
+        public function exportarTickets(Request $request)
+        {
+            
+            $mes  = $request->input('mes');
+            $anio = $request->input('anio');
 
-        return \Maatwebsite\Excel\Facades\Excel::download(
-            new \App\Exports\TicketsExport($mes, $anio),
-            'reporte-tickets.xlsx'
-        );
-    }
+            return \Maatwebsite\Excel\Facades\Excel::download(
+                new \App\Exports\TicketsExport($mes, $anio),
+                'reporte-tickets.xlsx'
+            );
+        }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+        /**
+         * Show the form for creating a new resource.
+         */
     public function create()
     {
         //
