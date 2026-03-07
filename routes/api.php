@@ -49,6 +49,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cargarComprobante', [App\Http\Controllers\ReservaController::class, 'cargarComprobante'])->name('cargarComprobante');
     
     Route::post('/solicitar_reserva', [App\Http\Controllers\ReservaController::class, 'solicitar_reserva'])->name('solicitar_reserva');
+
+
+    //Ruta para notificacion
+    Route::middleware('auth:sanctum')->post('/guardar-token', [\App\Http\Controllers\NotificacionController::class, 'guardarToken']);
 });
 
 Route::get('/getPagosCasas/{casa}/{tipo_pago}', [App\Http\Controllers\PagoController::class, 'getPagosCasas'])->name('getPagosCasas');
@@ -127,3 +131,8 @@ Route::post('/saveActividades', [App\Http\Controllers\ActividadesController::cla
 
 Route::get('/getEspaciosDisponibles', [App\Http\Controllers\EspacioController::class, 'apiEspaciosDisponibles'])->name('getEspaciosDisponibles');
 Route::get('/getEspacios', [App\Http\Controllers\EspacioController::class, 'apiTodosEspacios']);
+
+
+//Ruta para consulta de espacio sin login
+Route::get('/espacios-disponibles', function () {return App\Models\Espacio::where('estado', 'disponible')->select('id', 'numero', 'estado')->get();});
+
